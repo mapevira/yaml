@@ -1,5 +1,5 @@
 
-package com.mapfre.tron.bl;
+package com.mapfre.tron.bl.impl;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +12,7 @@ import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.mapfre.tron.bl.IBlExtract;
 import com.mapfre.tron.model.SwaggerData;
 
 import lombok.extern.slf4j.Slf4j;

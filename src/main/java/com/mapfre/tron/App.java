@@ -2,8 +2,10 @@ package com.mapfre.tron;
 
 import java.util.List;
 
-import com.mapfre.tron.bl.BlExtractImpl;
 import com.mapfre.tron.bl.IBlExtract;
+import com.mapfre.tron.bl.IBlWriter;
+import com.mapfre.tron.bl.impl.BlExtractImpl;
+import com.mapfre.tron.bl.impl.BlWriterImpl;
 import com.mapfre.tron.model.SwaggerData;
 
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +29,9 @@ public class App {
         for (SwaggerData myData : datas) {
             log.debug("data: " + myData);
         }
+
+        IBlWriter iBlWriter = new BlWriterImpl();
+        iBlWriter.givingWritingDataToFile("cmn.html", datas, "Common API");
 
         log.info("App.main: end execution");
     }
