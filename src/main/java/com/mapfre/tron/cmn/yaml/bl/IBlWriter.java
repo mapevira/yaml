@@ -1,9 +1,9 @@
 
-package com.mapfre.tron.bl;
+package com.mapfre.tron.cmn.yaml.bl;
 
 import java.util.List;
 
-import com.mapfre.tron.model.SwaggerData;
+import com.mapfre.tron.cmn.yaml.model.SwaggerData;
 
 /**
  * Write a text file.

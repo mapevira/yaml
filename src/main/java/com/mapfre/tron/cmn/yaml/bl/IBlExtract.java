@@ -1,9 +1,10 @@
 
-package com.mapfre.tron.bl;
+package com.mapfre.tron.cmn.yaml.bl;
 
+import java.io.File;
 import java.util.List;
 
-import com.mapfre.tron.model.SwaggerData;
+import com.mapfre.tron.cmn.yaml.model.SwaggerData;
 
 /**
  * Extract the swagger information.
@@ -15,10 +16,11 @@ import com.mapfre.tron.model.SwaggerData;
 public interface IBlExtract {
 
     /**
-     * Get the swagger data.
+     * Get the swagger data from the yaml.
      *
-     * @return -> The swagger data list
+     * @param file -> The yaml file 
+     * @return     -> The swagger data list
      */
-    List<SwaggerData> getData();
+    List<SwaggerData> extract(File file);
 
 }

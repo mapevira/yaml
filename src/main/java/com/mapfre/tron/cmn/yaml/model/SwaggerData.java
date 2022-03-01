@@ -1,5 +1,7 @@
 
-package com.mapfre.tron.model;
+package com.mapfre.tron.cmn.yaml.model;
+
+import java.util.Map;
 
 import lombok.Builder;
 import lombok.Data;
@@ -29,5 +31,8 @@ public class SwaggerData {
 
     /** The summary property*/
     private String summary;
+
+    /** The tags in memory.*/
+    private Map<String, String> memTagMap;
 
 }

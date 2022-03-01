@@ -1,5 +1,5 @@
 
-package com.mapfre.tron.bl.impl;
+package com.mapfre.tron.cmn.yaml.bl.impl;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-import com.mapfre.tron.bl.IBlWriter;
-import com.mapfre.tron.model.SwaggerData;
+import com.mapfre.tron.cmn.yaml.bl.IBlWriter;
+import com.mapfre.tron.cmn.yaml.model.SwaggerData;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,16 +27,16 @@ public class BlWriterImpl implements IBlWriter {
      *
      * @param filename -> The name of the file
      * @param data     -> The data to write
-     * @param apiTitle -> The title of the api
+     * @param apiTitle -> The title of the API
      */
     @Override
     public void givingWritingDataToFile(final String filename, final List<SwaggerData> data, final String apiTitle) {
 
         if (data != null && !data.isEmpty()) {
             File file = new File("out/" + filename);
-            
+
             try (PrintWriter printWriter = new PrintWriter(new FileWriter(file)) ){
-                
+
                 printWriter.println("<html lang=\"en\">");
                 printHead(printWriter);
                 printWriter.println("");
@@ -104,14 +104,7 @@ public class BlWriterImpl implements IBlWriter {
                         break;
                     }
 
-                    printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"opblock-summary-path\">");
-                    printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t\t<span>");
-                    printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\t" + myData.getBasePath().concat(myData.getPath()));
-                    printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t\t</span>");
-                    printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t</span>");
-                    printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"opblock-summary-description\">");
-                    printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t\t" + myData.getSummary());
-                    printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t</div>");
+                    printSummary(printWriter, myData);
 
                     printWriter.println("\t\t\t\t\t\t\t\t\t\t\t</div>");
                     printWriter.println("\t\t\t\t\t\t\t\t\t\t</div>");
@@ -146,6 +139,17 @@ public class BlWriterImpl implements IBlWriter {
 
     }
 
+    private void printSummary(PrintWriter printWriter, SwaggerData myData) {
+        printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"opblock-summary-path\">");
+        printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t\t<span>");
+        printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\t" + myData.getBasePath().concat(myData.getPath()));
+        printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t\t</span>");
+        printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t</span>");
+        printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"opblock-summary-description\">");
+        printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t\t" + myData.getSummary());
+        printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t</div>");
+    }
+
     private void endTagSection(PrintWriter printWriter) {
         printWriter.println("\t\t\t\t\t\t\t\t\t</div>");
         printWriter.println("\t\t\t\t\t\t\t\t</div>");
@@ -157,6 +161,13 @@ public class BlWriterImpl implements IBlWriter {
         printWriter.println("\t\t\t\t\t\t\t\t\t\t<span>");
         printWriter.println("\t\t\t\t\t\t\t\t\t\t\t" + mydata.getTag());
         printWriter.println("\t\t\t\t\t\t\t\t\t\t</span>");
+        printWriter.println("\t\t\t\t\t\t\t\t\t\t<small>");
+        printWriter.println("\t\t\t\t\t\t\t\t\t\t\t<p>");
+        if (mydata.getMemTagMap() != null && mydata.getMemTagMap().containsKey(mydata.getTag())) {
+            printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t" + (String) mydata.getMemTagMap().get(mydata.getTag()));
+        }
+        printWriter.println("\t\t\t\t\t\t\t\t\t\t\t</p>");
+        printWriter.println("\t\t\t\t\t\t\t\t\t\t</small>");
         printWriter.println("\t\t\t\t\t\t\t\t\t</h4>");
         printWriter.println("\t\t\t\t\t\t\t\t\t<div style=\"height: auto; border: none; margin: 0px; padding: 0px;\">");
     }

@@ -1,19 +1,21 @@
 
-package com.mapfre.tron.bl.impl;
+package com.mapfre.tron.cmn.yaml.bl.impl;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.mapfre.tron.bl.IBlExtract;
-import com.mapfre.tron.model.SwaggerData;
+import com.mapfre.tron.cmn.yaml.bl.IBlExtract;
+import com.mapfre.tron.cmn.yaml.model.SwaggerData;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,15 +30,8 @@ import lombok.extern.slf4j.Slf4j;
 public class BlExtractImpl implements IBlExtract {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    @Override
-    public List<SwaggerData> getData() {
-        log.info("GetData operation had been called");
-
+    public List<SwaggerData> extract(File file) {
         List<SwaggerData> datas = new ArrayList<>();
-
-        // Loading the YAML file from the /resources folder
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        File file = new File(classLoader.getResource("cmn.yaml").getFile());
 
         // Instantiating a new ObjectMapper as a YAMLFactory
         ObjectMapper om = new ObjectMapper(new YAMLFactory());
@@ -50,8 +45,22 @@ public class BlExtractImpl implements IBlExtract {
             String lvProtocol;
             String lvTag;
             String lvSummary;
+            Map<String, String> memTagMap = null;
 
+            // loading tags in memory
             LinkedHashMap pathsMap = (LinkedHashMap) yamlMap.get("paths");
+            if (yamlMap.get("tags") != null) {
+                memTagMap = new HashMap<>();
+                List<LinkedHashMap> tagsList = (ArrayList) yamlMap.get("tags");
+                String name;
+                String description;
+                for (LinkedHashMap tagMap : tagsList) {
+                    name = (String) tagMap.get("name");
+                    description = (String) tagMap.get("description");
+                    memTagMap.put(name, description);
+                }
+            }
+
             Set<String> pathsSet = pathsMap.keySet();
             String lvBasePath = (String) yamlMap.get("basePath");
             LinkedHashMap tagsMap;
@@ -72,6 +81,10 @@ public class BlExtractImpl implements IBlExtract {
                             .tag(lvTag)
                             .summary(lvSummary)
                             .build();
+
+                    if (memTagMap != null) {
+                        data.setMemTagMap(memTagMap);
+                    }
 
                     datas.add(data);
                 }

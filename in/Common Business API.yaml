@@ -1,0 +1,1462 @@
+swagger: '2.0'
+info:
+  description: 'QuoteAndBuy. Revision date: 30/01/2020.'
+  version: '1.1'
+  title: Common Business API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: apis-services.mapfre.com
+basePath: "/api"
+tags:
+- name: Policy
+  description: This resource provides generic data from the policy as contractual
+    information between MAPFRE and the Client, such as its branch, product, coverage
+    and associated risks, payment methods ,status, and dates of issue, renewal, expiration,
+    etc.
+- name: Project
+  description: Budget representes an structured binding temporary offer
+- name: Simulation
+  description: Simulation represents a non quick binding temporary offer
+schemes:
+- https
+paths:
+  "/policy/{policyId}/contactChannel":
+    get:
+      tags:
+      - Policy
+      summary: Get policy's contact Channel
+      description: Query policy contact Channel
+      operationId: getContactChannelPolicy
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: policyId
+        in: path
+        required: true
+        type: string
+        description: Numerical reference that MAPFRE assigns to each insurance contract
+          to identify it
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/ContactChannel
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/policy/{policyId}/documents":
+    get:
+      tags:
+      - Policy
+      summary: Get policy's documents
+      operationId: getPolicyDocuments
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: policyId
+        in: path
+        required: true
+        type: string
+        description: Numerical reference that MAPFRE assigns to each insurance contract
+          to identify it
+      - name: companyId
+        in: query
+        type: string
+        required: true
+        description: Identifier of the company owns the final contract
+      - name: owner
+        in: query
+        type: string
+        enum:
+        - MAPFRE
+        - CLIENT
+        description: Literal that indicates who owns the document. Possible values
+          "MAPFRE" if the document has been incorporated into the set of documents
+          by MAPFRE, and "CLIENT" if the document has been incorporated into the set
+          of documents by the client
+      - name: sortBy
+        in: query
+        enum:
+        - documentName
+        - documentDateCapture
+        - documentSize
+        type: string
+        description: Field indicator on which ordering is requested in the response.
+      - name: sortOrder
+        in: query
+        enum:
+        - ASC
+        - DESC
+        type: string
+        description: Indicator of the order to apply.
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/Document
+          headers:
+            totalItems:
+              description: Total number of items
+              type: integer
+              format: int32
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/policy/{policyId}/paymentMethod":
+    get:
+      tags:
+      - Policy
+      summary: Get policy's payment method
+      description: Query payment method
+      operationId: getPolicyPaymentMethod
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: policyId
+        in: path
+        required: true
+        type: string
+        description: Numerical reference that MAPFRE assigns to each insurance contract
+          to identify it
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: objectsAPI.yaml#/definitions/PaymentMethod
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+    put:
+      tags:
+      - Policy
+      summary: Modify payment method
+      description: Modify payment method
+      operationId: putPaymentMethod
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: policyId
+        in: path
+        type: string
+        required: true
+        description: Numerical reference that MAPFRE assigns to each insurance contract
+          to identify it
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - in: body
+        name: body
+        description: PaymentMethod
+        schema:
+          $ref: objectsAPI.yaml#/definitions/PaymentMethod
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: objectsAPI.yaml#/definitions/PolicyDataModificationResponse 
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/policy/{policyId}/risks":
+    get:
+      tags:
+      - Policy
+      summary: Get policy's risks
+      operationId: getRisks
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: policyId
+        in: path
+        type: string
+        required: true
+        description: Numerical reference that MAPFRE assigns to each insurance contract
+          to identify it
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/RiskBase
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/policy/{policyId}/receipts":
+    get:
+      tags:
+      - Policy
+      summary: Get policy's receipts
+      operationId: GetReceiptByPolicy
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: policyId
+        in: path
+        required: true
+        type: string
+        description: Numerical reference that MAPFRE assigns to each insurance contract to identify it
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: receiptStatusCode
+        in: query
+        type: string
+        description: Identifies the receipt status code
+      - name: effectiveDate
+        in: query
+        type: string
+        format: date
+        description: Receipt Effect Date. It is the start date of the policy period that is associated with the receipt
+      - name: dueDate
+        in: query
+        type: string
+        format: date
+        description: Indicates the receipt due date for payment. 
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/Receipt
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/policy/{policyId}/risk/{riskId}/coverages":
+    get:
+      tags:
+      - Policy
+      summary: Get policy's coverages
+      description: Get policy's coverages
+      operationId: getCoverages
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: policyId
+        in: path
+        type: string
+        required: true
+        description: Numerical reference that MAPFRE assigns to each insurance contract
+          to identify it
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: riskId
+        in: path
+        type: string
+        required: true
+        description: risk identifier code
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/Coverage
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/policy/{policyId}/risk/{riskId}/coverage/{coverageId}":
+    get:
+      tags:
+      - Policy
+      summary: Get coverage
+      description: Query coverage
+      operationId: getCoverageById
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: policyId
+        in: path
+        type: string
+        required: true
+        description: Numerical reference that MAPFRE assigns to each insurance contract
+          to identify it
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: riskId
+        in: path
+        type: string
+        required: true
+        description: risk identifier code
+      - name: coverageId
+        in: path
+        type: string
+        required: true
+        description: Coverage Code
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Coverage
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/policy/{policyId}/risk/{riskId}":
+    get:
+      tags:
+      - Policy
+      summary: Get policy's risk
+      operationId: getRiskById
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: policyId
+        in: path
+        type: string
+        required: true
+        description: Numerical reference that MAPFRE assigns to each insurance contract
+          to identify it
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: riskId
+        in: path
+        type: string
+        required: true
+        description: risk identifier code
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: objectsAPI.yaml#/definitions/RiskBase
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/policy/{policyId}/document":
+    post:
+      tags:
+      - Policy
+      summary: Create a policy document.
+      description: Create a policy document.
+      operationId: postPolicyDocument
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: policyId
+        in: path
+        required: true
+        type: string
+        description: Numerical reference that MAPFRE assigns to each insurance contract
+          to identify it
+      - in: body
+        name: printingDocument
+        description: Create document
+        schema:
+          $ref: objectsAPI.yaml#/definitions/PrintingDocument
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: objectsAPI.yaml#/definitions/InlineResponse2002
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/project/{projectId}/document":
+    post:
+      tags:
+      - Project
+      summary: Creates a project document.
+      description: Creates a project document.
+      operationId: postProjectDocument
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: projectId
+        in: path
+        required: true
+        type: string
+        description: Numerical reference that MAPFRE assigns to each insurance project
+          to identify it
+      - in: body
+        name: PrintingDocument
+        description: Create document
+        schema:
+          $ref: objectsAPI.yaml#/definitions/PrintingDocument
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: objectsAPI.yaml#/definitions/InlineResponse2002
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/policy/{policyId}":
+    delete:
+      tags:
+      - Policy
+      summary: Delete insurance policy
+      description: Delete insurance policy
+      operationId: deletePolicy
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: policyId
+        in: path
+        required: true
+        type: string
+        description: Numerical reference that MAPFRE assigns to each insurance contract
+          to identify it
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: cancellationDate
+        in: query
+        type: string
+        format: date
+        description: Cancellation Date
+      - name: policyCancellationReasonCode
+        in: query
+        type: string
+        description: Policy cancellation reason  code
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: objectsAPI.yaml#/definitions/PolicyDataModificationResponse 
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+    get:
+      tags:
+      - Policy
+      summary: Get insurance policy
+      operationId: getPolicy
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: policyId
+        in: path
+        required: true
+        type: string
+        description: Numerical reference that MAPFRE assigns to each insurance contract
+          to identify it
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: queryDate
+        in: query
+        required: false
+        type: string
+        format: date
+        description: Filter by date (not time)
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user  
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token  
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "objectsAPI.yaml#/definitions/CommonPolicy"
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+    put:
+      tags:
+      - Policy
+      summary: Modify Policy
+      operationId: putPolicy
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: policyId
+        in: path
+        type: string
+        required: true
+        description: Numerical reference that MAPFRE assigns to each insurance contract
+          to identify it
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company who owns the final contract
+      - in: body
+        name: body
+        description: Policy
+        schema:
+          $ref: "objectsAPI.yaml#/definitions/CommonPolicy"
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user  
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/Document     
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/policy/{policyId}/paymentDivision":
+    put:
+      tags:
+        - Policy
+      summary: Modify the policy payment division
+      description: Modify the policy payment division
+      operationId: putPolicyPaymentDivision
+      produces:
+        - application/json
+      parameters:
+        - name: Accept-Language
+          in: header
+          required: true
+          type: string
+        - name: policyId
+          in: path
+          required: true
+          type: string
+          description: Identifier code of policy
+        - name: companyId
+          in: query
+          type: string
+          description: Identifier of the company who owns the final contract
+        - in: body
+          name: body
+          description: Policy payment division
+          schema:
+            $ref: objectsAPI.yaml#/definitions/PaymentDivisionOption      
+        - name: userBK
+          in: header
+          required: false
+          type: string
+          description: Backend user    
+        - name: tokenClientId
+          in: header
+          required: false
+          type: string
+          description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation 
+          schema:
+            $ref: objectsAPI.yaml#/definitions/PolicyDataModificationResponse 
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  /policy/{policyId}/availablePaymentMethodTypes:
+    get:
+      tags:
+        - Policy
+      summary: Service for obtaining available payment method types for a policy
+      description: Service for obtaining available payment method types for a policy
+      operationId: getPolicyAvailablePaymentMethodTypes
+      produces:
+        - application/json
+      parameters:
+        - name: Accept-Language
+          in: header
+          required: true
+          type: string
+        - name: policyId
+          in: path
+          required: true
+          type: string
+          description: Identifier code of policy
+        - name: companyId
+          in: query
+          type: string
+          description: Identifier of the company who owns the final contract
+        - name: userBK
+          in: header
+          required: false
+          type: string
+          description: Backend user    
+        - name: tokenClientId
+          in: header
+          required: false
+          type: string
+          description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/ParameterResult
+        '204':
+          description: No content              
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  /policy/{policyId}/paymentDivisions:
+    get:
+      tags:
+        - Policy
+      summary: Get payment division options for a policy
+      description: Get payment division options for a policy
+      operationId: getPolicyPaymentDivisions
+      produces:
+        - application/json
+      parameters:
+        - name: Accept-Language
+          in: header
+          required: true
+          type: string
+        - name: policyId
+          in: path
+          required: true
+          type: string
+          description: Identifier code of policy
+        - name: companyId
+          in: query
+          type: string
+          description: Identifier of the company who owns the final contract
+        - name: userBK
+          in: header
+          required: false
+          type: string
+          description: Backend user    
+        - name: tokenClientId
+          in: header
+          required: false
+          type: string
+          description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/PaymentDivisionOption
+        '204':
+          description: No content              
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  /policy/{policyId}/claims:
+    get:
+      tags:
+      - Claim
+      summary: Get claims by policy
+      operationId: getClaimsByPolicy
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: policyId
+        in: path
+        type: string
+        required: true
+        description: Numerical reference that MAPFRE assigns to each insurance contract
+          to identify it
+      - name: riskId
+        in: query
+        type: string
+        description: risk identifier code  
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: claimStatusCode
+        in: query
+        type: string
+        description: 'Status for the claim in the moment it is consulted, for example: RA, FI, VA, EX, RE, CL'
+      - name: openDateFrom
+        in: query
+        type: string
+        format: date
+        description: Date From when the claim 
+      - name: openDateTo
+        in: query
+        type: string
+        format: date
+        description: Date To when the claim 
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user   
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/ClaimBasicView
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/policyBase/{policyId}":
+    get:
+      tags:
+      - Policy
+      summary: Get policy base
+      operationId: getPolicyBase
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: policyId
+        in: path
+        required: true
+        type: string
+        description: Numerical reference that MAPFRE assigns to each insurance contract
+          to identify it
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: queryDate
+        in: query
+        type: string
+        format: date
+        description: Filter by date (not time)
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user 
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "objectsAPI.yaml#/definitions/PolicyBase"
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/policy/{policyId}/simulation/paymentMethod":
+    post:
+      tags:
+      - Simulation
+      summary: Post policy's simulation changing payment method
+      description: Post policy's simulation changing payment method
+      operationId: postPolicySimulatePaymentMethod
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: policyId
+        in: path
+        type: string
+        required: true
+        description: Numerical reference that MAPFRE assigns to each insurance contract
+          to identify it
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - in: body
+        name: body
+        description: PaymentMethod
+        schema:
+          $ref: objectsAPI.yaml#/definitions/PaymentMethod
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user 
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/SimulationReceipt 
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/policy/{policyId}/simulation/paymentDivision":
+    post:
+      tags:
+      - Simulation
+      summary: Post policy's simulation changing payment division
+      description: Post policy's simulation changing payment division
+      operationId: postPolicySimulatePaymentDivision
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: policyId
+        in: path
+        type: string
+        required: true
+        description: Numerical reference that MAPFRE assigns to each insurance contract
+          to identify it
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user 
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      - in: body
+        name: body
+        description: Policy payment division
+        schema:
+          $ref: objectsAPI.yaml#/definitions/PaymentDivisionOption         
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/SimulationReceipt 
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+securityDefinitions:
+  mapfre_auth:
+    type: oauth2
+    authorizationUrl: http://auth.mapfre.com/oauth/
+    flow: implicit
+    scopes:
+      read: Grants read access
+      write: Grants write access
+      admin: Grants access to admin operations
+definitions:
+  Project:
+    allOf:
+    - $ref: objectsAPI.yaml#/definitions/ProjectBase
+    - type: object
+      properties:
+        paymentMethod:
+          description: List of fractioned payment Method.
+          type: array
+          items:
+            $ref: objectsAPI.yaml#/definitions/PaymentMethod
+        paymentModality:
+          type: array
+          description: List of payment modality for each commercial product
+          items:
+            $ref: objectsAPI.yaml#/definitions/PaymentModality
+        policyParticipant:
+          description: List of participants figures at policy level
+          type: array
+          items:
+            $ref: objectsAPI.yaml#/definitions/Participant
+        risk:
+          description: Risk list
+          type: array
+          items:
+            $ref: "#/definitions/Risk"
+  Risk:
+    allOf:
+    - $ref: objectsAPI.yaml#/definitions/RiskBase
+    - type: object
+      properties:
+        coverage:
+          description: Coverage list
+          type: array
+          items:
+            $ref: objectsAPI.yaml#/definitions/Coverage
+        riskParticipant:
+          description: Participant list
+          type: array
+          items:
+            $ref: objectsAPI.yaml#/definitions/Participant
+        LoBDetail:
+          type: object
+  Simulation:
+    allOf:
+    - $ref: objectsAPI.yaml#/definitions/SimulationBase
+    - type: object
+      properties:
+        risk:
+          $ref: "#/definitions/Risk"
+  Policy:
+    allOf:
+    - $ref: objectsAPI.yaml#/definitions/PolicyBase
+    - type: object
+      properties:
+        paymentMethod:
+          description: This resource brings information about the payment methods
+            used
+          $ref: objectsAPI.yaml#/definitions/PaymentMethod
+        paymentModality:
+          description: List of payment modality for each commercial product
+          $ref: objectsAPI.yaml#/definitions/PaymentModality
+        premiumDetail:
+          description: Premium policy detail
+          $ref: objectsAPI.yaml#/definitions/PremiumDetail
+        policyParticipant:
+          description: Participant list
+          type: array
+          items:
+            $ref: objectsAPI.yaml#/definitions/Participant
+        risk:
+          description: Risks list
+          type: array
+          items:
+            $ref: "#/definitions/Risk"
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
