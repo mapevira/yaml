@@ -1,0 +1,2151 @@
+swagger: '2.0'
+info:
+  description: Mapfre TSY API NEWTRON
+  version: '${project.version}'
+  title: Mapfre TSY API NEWTRON
+basePath: /newtron/api/treasury
+host: api.mapfre.com
+securityDefinitions:
+  basicAuth:
+    type: basic
+security:
+  - basicAuth: []
+schemes:
+  - http
+  - https
+paths:
+  '/about/query':
+    get:
+      tags:
+        - Settings
+      summary: Query about application
+      description: >-
+        Query Query about application. It will return the information about the deployed application.
+      operationId: getAboutQuery
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: false
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: false
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: false
+          type: string
+      responses:
+        '200':
+          description: The information about the deployed application
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/About'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  '/receipt/{rcpVal}/doc':
+    post:
+      tags:
+        - Treasury
+      summary: Receipt document generation response
+      description: >-
+        Receipt document generation response. It will print a receipt. It will
+        be mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getReceiptDoc
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: rcpVal
+          in: path
+          description: Receipt value
+          required: true
+          type: integer
+        - name: inReceiptDoc
+          in: body
+          description: Input data to generate receipt document
+          required: true
+          schema:
+            $ref: '#/definitions/InReceiptDoc'
+      responses:
+        '200':
+          description: Receipt document
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OCmnRerS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /receipt:
+    get:
+      tags:
+        - Treasury
+      summary: Query Receipt
+      description: >-
+        Query Receipt. It will return the information about the receipt It will
+        be mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getReceipt
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: rcpVal
+          in: header
+          description: Receipt
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Premium receipt information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/ORcpPmrS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /PaymentScheduleDefinition:
+    get:
+      tags:
+        - Treasury
+      summary: Query Payment Schedule Definition
+      description: >-
+        Query Payment Schedule Definition. It will return the information about
+        the Payment schedule definition. It will be mandatory send the
+        parameters defined in the service and the service will response with the
+        output object defined.
+      operationId: getPaymentScheduleDefinition
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: pmsVal
+          in: header
+          description: Payment Schedule
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Payment schedule definition
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OPsfPsfS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /PaymentScheduleDefinitionList:
+    get:
+      tags:
+        - Treasury
+      summary: Query Payment Schedule Definition List
+      description: >-
+        Query Payment Schedule Definition List. It will return the information
+        about the Payment schedule definition list. It will be mandatory send
+        the parameters defined in the service and the service will response with
+        the output object defined.
+      operationId: getPaymentScheduleDefinitionList
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Payment schedule definition list
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OPsfPsfP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /receipt/querybyply:
+    post:
+      tags:
+        - Treasury
+      summary: Query Receipts by policy
+      description: >-
+        Query Receipts by policy. It will return the information about the
+        receipts. It will be mandatory send the parameters defined in the
+        service and the service will response with the output object defined.
+      operationId: getReceiptByPly
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: plyVal
+          in: header
+          description: Policy value
+          required: true
+          type: string
+        - name: rcpStsTypVal
+          in: query
+          description: receipt status type value
+          type: string
+        - name: inlDat
+          in: query
+          description: initial date
+          type: integer
+          format: int64
+        - name: fnlDat
+          in: query
+          description: final date
+          type: integer
+          format: int64
+        - name: inPolicy
+          in: body
+          description: Input data to find a policy
+          required: true
+          schema:
+            $ref: '#/definitions/InPolicy'
+      responses:
+        '200':
+          description: Premium receipt list
+          schema:
+            type: array
+            description: Premium receipt list
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/ORcpErcPC'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /receipt/querybyqtn:
+    get:
+      tags:
+        - Treasury
+      summary: Query Receipts by quotation
+      description: >-
+        Query Receipts by quotation. It will return the information about the
+        receipts. It will be mandatory send the parameters defined in the
+        service and the service will response with the output object defined.
+      operationId: getReceiptByQtn
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: qtnVal
+          in: query
+          description: Quotation value
+          required: true
+          type: string
+        - name: enrSqn
+          in: query
+          description: Endorsement sequence
+          required: true
+          type: integer
+        - name: aplVal
+          in: query
+          type: integer
+          description: Application value
+          required: true
+        - name: aplEnrSqn
+          in: query
+          type: integer
+          description: Application endorsement value
+          required: true
+      responses:
+        '200':
+          description: Premium receipt list
+          schema:
+            type: array
+            description: Premium receipt list
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/ORcpErcPC'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /receipt/querybyplh:
+    get:
+      tags:
+        - Treasury
+      summary: Query Receipts by policy holder
+      description: >-
+        Query Receipts by policy holder. It will return the receipts that belong
+        to a policy holder. The service will filter by the receipt status and 
+        effective dates. It will be mandatory send the parameters defined in
+        the service and the service will response with the output object
+        defined.
+      operationId: getReceiptByPlh
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: plhDcmTypVal
+          in: query
+          description: Policy Holder Document Type Value
+          required: true
+          type: string
+        - name: plhDcmVal
+          in: query
+          description: Policy Holder Document Value
+          required: true
+          type: string
+        - name: rcpStsTypVal
+          in: query
+          description: receipt status type value
+          required: true
+          type: string
+        - name: crnVal
+          in: query
+          description: currency value
+          type: integer
+        - name: inlDat
+          in: query
+          description: initial date
+          required: true
+          type: integer
+          format: int64
+        - name: fnlDat
+          in: query
+          description: final date
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Premium receipt list
+          schema:
+            type: array
+            description: Premium receipt list
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/ORcpPmrS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /cardTypes:
+    get:
+      tags:
+        - Treasury
+      summary: Query Card Types
+      description: >-
+        Query Card types. It will return the card types. It will be mandatory
+        send the parameters defined in the service and the service will response
+        with the output object defined.
+      operationId: getCardTypes
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: Card type list
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OCfdCdfP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /cardCodes:
+    get:
+      tags:
+        - Treasury
+      summary: Query Card codes
+      description: >-
+        Query Card codes. It will be mandatory send the parameters defined in
+        the service and the service will response with the output object
+        defined.
+      operationId: getCardCodes
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cdtCrdTypVal
+          in: header
+          description: Credit Card Type Value
+          required: true
+          type: integer
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: Card code list
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OCfdCdfP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /receipt/queryfirstbyply:
+    get:
+      tags:
+        - Treasury
+      summary: Query first receipt by policy
+      description: >-
+       description: >-
+        Query the first  remittance ready to be collected. It will be mandatory 
+        send the parameters defined in the service and the service will 
+        response with the output object defined.
+      operationId: getReceiptFirstByPly
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: plyVal
+          in: header
+          description: policy
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Premium installment
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/ORcpPmiS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  '/receipt/{rcpVal}/collect':
+    post:
+      tags:
+        - Treasury
+      summary: Collect receipt
+      description: >-
+        Collection of a receipt making the compensation against the account
+        passed by parameter. It will be mandatory send the parameters defined
+        in the service and the service will response with the
+        output object defined.
+      operationId: postReceiptCollect
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: rcpVal
+          in: path
+          description: Receipt value
+          required: true
+          type: integer
+        - name: inReceiptCollection
+          in: body
+          description: Input data to collect a receipt 
+          required: true
+          schema:
+            $ref: '#/definitions/InReceiptCollection'
+      responses:
+        '200':
+          description: Collected successfully
+          schema:
+            type: object
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /receipt/collectionAdvance:
+    post:
+      tags:
+        - Treasury
+      summary: Generate advance collection movement
+      description: >-
+        Generate advance collection movement. It will be mandatory send the
+        parameters defined in the service and the service will response with the
+        output object defined
+      operationId: POST_receipt_collectionAdvance
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: plyVal
+          in: query
+          description: policy
+          required: true
+          type: string
+        - name: lobVal
+          in: query
+          description: line of business
+          type: integer
+        - name: enrTypVal
+          in: query
+          description: endorsement type
+          required: true
+          type: string
+        - name: thpVal
+          in: query
+          description: Third Person Value
+          type: integer
+        - name: ORcpCtaS
+          in: body
+          description: Collection advance
+          required: true
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/ORcpCtaS'
+      responses:
+        '200':
+          description: Collection advance
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/ORcpCtaS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /receipt/{rcpVal}/actions:
+    get:
+      tags:
+        - Actions
+      summary: Query available actions from receipt
+      description: >-
+        It will return the available actions from a receipt. The service
+        will calculate the available actions according to the status of 
+        the receipt. It will be mandatory send the parameters defined in 
+        the service and the service will response with the output object
+        defined.
+      operationId: GET_receiptActions
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: rcpVal
+          in: path
+          description: Receipt
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Action List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OTrnSscS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /receipt/queryTotByPly:
+    get:
+      tags:
+        - Treasury
+      summary: Query Total Receipt from policy
+      description: >-
+        Query total Receipt from policy. It will return the summatory of the 
+        receipts that belong to a policy. It will be mandatory send the parameters defined in
+        the service and the service will response with the output object
+        defined.
+      operationId: getTotReceiptByPly
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: plyVal
+          in: query
+          description: policy
+          required: true
+          type: string
+        - name: aplVal
+          in: query
+          description: Application
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Premium installment information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/ORcpPmiS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /receipt/queryTotByQtn:
+    get:
+      tags:
+        - Treasury
+      summary: Query Total Receipt from quotation
+      description: >-
+        Query total Receipt from quotation. It will return the summatory of the 
+        receipts that belong to a quotation. It will be mandatory send the parameters defined in
+        the service and the service will response with the output object
+        defined.
+      operationId: getTotReceiptByQtn
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: qtnVal
+          in: query
+          description: quotation
+          required: true
+          type: string
+        - name: aplVal
+          in: query
+          description: Application
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Premium installment information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/ORcpPmiS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  '/orderInformation/querybyfile':
+    get:
+      tags:
+        - Treasury
+      summary: Query order information by file
+      description: >-
+        Query order information by file. It will return the settlement of the file
+        in which the payment order is related to the insured or the policy holder. 
+        It will be mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getOrderInformationByFile
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: lssVal
+          in: query
+          description: Loss value
+          required: true
+          type: string
+        - name: filVal
+          in: query
+          description: File Information
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Order Information List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OPyoOriS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /receipt/querybyplhcomplete:
+    get:
+      tags:
+        - Treasury
+      summary: Query Receipts by policy holder complete
+      description: >-
+        Query Receipts by policy holder. It will return the receipts that belong
+        to a policy holder. The service will filter by the receipt status and 
+        effective dates. It will be mandatory send the parameters defined in
+        the service and the service will response with the output object
+        defined.
+      operationId: getReceiptByPlhComplete
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: plhDcmTypVal
+          in: query
+          description: Policy Holder Document Type Value
+          required: true
+          type: string
+        - name: plhDcmVal
+          in: query
+          description: Policy Holder Document Value
+          required: true
+          type: string
+        - name: rcpStsTypVal
+          in: query
+          description: Receipt status type value
+          required: false
+          type: string
+        - name: inlDat
+          in: query
+          description: initial date
+          required: false
+          type: integer
+          format: int64
+        - name: fnlDat
+          in: query
+          description: final date
+          required: false
+          type: integer
+          format: int64
+        - name: lobVal
+          in: query
+          description: line of business
+          required: false
+          type: array
+          items:
+            type: integer
+      responses:
+        '200':
+          description: Premium receipt list
+          schema:
+            type: array
+            description: Premium receipt list
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/ORcpErcC'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /receipt/{rcpVal}:
+    get:
+      tags:
+        - Treasury
+      summary: Query Complete Receipt
+      description: >-
+        Query Receipt. It will return the information about the receipt It will
+        be mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getReceiptComplete
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: rcpVal
+          in: path
+          description: Receipt
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Premium receipt information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/ORcpErcC'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error' 
+  /receipt/collectMassive:
+    post:
+      tags:
+        - Treasury
+      summary: Massive receipt collection 
+      description: >-
+        Massive collection of receipts passed through the receipt
+        mailbox. It will be mandatory send the parameters defined
+        in the service and the service will response with the
+        output object defined.
+      operationId: postCollectMasive
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: pocDat 
+          in: query
+          description: Processing Date
+          required: true 
+          type: integer 
+          format: int64
+        - name: canMvm	
+          in: query	
+          description: Cancellation	
+          required: true
+          type: string
+        - name: btcMvmTypVal
+          in: query 
+          description: batch movement type value 
+          required: true
+          type: string
+        - name: inReceiptsMailbox 
+          in: body
+          description: Mailboxes to collect receipts 
+          required: true
+          schema:
+            $ref: '#/definitions/InReceiptsMailbox'
+      responses:
+        '200':
+          description: Collected successfully
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /receiptSitutationsDefinition:
+    get:
+      tags:
+        - Receipt
+      summary: Query Receipt Situations Definition
+      description: >-
+        Query Receipt Situations Definition. It will return the situations of 
+        a receipt. It will be mandatory send the parameters defined in the service 
+        and the service will response with the output object defined.
+      operationId: getReceiptSitutationsDefinition
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Receipt Situations Definition List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/ORcdTsdS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /receiptSitutationDefinition/{rcpStsTypVal}:
+    get:
+      tags:
+        - Receipt
+      summary: Query Receipt Situations Definition
+      description: >-
+        Query Receipt Situations Definition. It will return the situations of 
+        a receipt. It will be mandatory send the parameters defined in the service 
+        and the service will response with the output object defined.
+      operationId: getReceiptSitutationDefinition
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: rcpStsTypVal
+          in: path
+          description: Receipt Status Type Value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Receipt Situations Definition
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/ORcdTsdS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /causesDefinition:
+    get:
+      tags:
+        - Treasury
+      summary: Query Treasury Causes Definition
+      description: >-
+        Query Treasury Causes Defintion. It will return the definition of 
+        treasury causes. It will be mandatory send the parameters defined in the service 
+        and the service will response with the output object defined.
+      operationId: getTreasuryCausesDefinition      
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: string
+        - name: tscTypVal
+          in: query
+          description: Treasury Cause Type Value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Treasury Causes Definition List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OTgfUcdS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /causeDefinition/{tsyCasVal}:
+    get:
+      tags:
+        - Treasury
+      summary: Query Treasury Cause Definition
+      description: >-
+        Query Treasury Cause Defintion. It will return the definition of 
+        a treasury cause. It will be mandatory send the parameters defined in the service 
+        and the service will response with the output object defined.
+      operationId: getTreasuryCauseDefinition      
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: string
+        - name: tscTypVal
+          in: query
+          description: Treasury Cause Type Value
+          required: true
+          type: string
+        - name: tsyCasVal
+          in: path
+          description: Treasury Reason Value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Treasury Causes Definition List
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OTgfUcdS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  '/receipt/{rcpVal}/changePaymentDivision':
+    post:
+      tags:
+        - Treasury
+      summary: Change payment division of a receipt
+      description: >-
+        Change payment division of a receipt. It will be mandatory send the parameters defined
+        in the service and the service will response with the
+        output object defined.
+      operationId: putChangeReceiptPaymentDivision
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: rcpVal
+          in: path
+          description: Receipt value
+          required: true
+          type: integer
+        - name: pmsVal
+          in: query
+          description: Payment Schedule
+          required: false
+          type: integer
+        - name: inlInmAmn
+          in: query
+          type: string
+          description: Initial Installment Amount
+          required: true
+      responses:
+        '201':
+          description: Operation succesfully done!
+          schema:
+            type: array
+            description: Premium receipt list
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/ORcpPmrS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /payments/queryChkCah:
+    get:
+      tags:
+        - Receipt
+      summary: Query Payments by check and cash per client
+      description: >-
+        Query Payments by check and cash per client. It will return 
+        the notes related to payments that the client has made by check or cash,
+        between two dates. It will be mandatory send the parameters defined in the service 
+        and the service will response with the output object defined.
+      operationId: getPaymentsCheckAndCashByClient
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpDcmTypVal
+          in: header
+          description: Third Person Document Type Value
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: header
+          description: Third Person Document Number
+          required: true
+          type: string
+        - name: inlDat
+          in: query 
+          description: Initial date
+          required: true
+          type: integer 
+          format: int64
+        - name: fnlDat
+          in: query
+          description: Final date
+          required: true
+          type: integer 
+          format: int64
+      responses:
+        '200':
+          description: Receipt Payment List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/ODlrPotS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /receipt/queryTotalPendingByPly:
+    get:
+      tags:
+        - Treasury
+      summary: Query Total Pending Receipts by policy
+      description: >-
+        Query Total Pending Receipts by policy. It will return the summatory of the pending 
+        receipts that belong to a policy. It will be mandatory send the parameters defined in
+        the service and the service will response with the output object
+        defined.
+      operationId: getTotPendingReceiptByPly
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: plyVal
+          in: query
+          description: policy
+          required: true
+          type: string
+        - name: aplVal
+          in: query
+          description: Application
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Premium installment information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/ORcpPmrS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /receipt/queryCollectionAdvanceWithAggregated:
+    get:
+      tags:
+        - Receipt
+      summary: Query Collection advance with total aggregated 
+      description: >-
+        Query Collection advance with total aggregated. It will return 
+        the collection advance from a receipt with total aggregated.
+        It will be mandatory send the parameters defined in the service 
+        and the service will response with the output object defined.
+      operationId: getCollectionAdvanceWithAggregated
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: crcVal
+          in: query
+          description: Crossing Value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Receipt Payment List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/ORcpCtaS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /receipt/{rcpVal}/movement:
+    get:
+      tags:
+        - Receipt
+      summary: Query receipt movement by date
+      description: >-
+        Query receipt movement by date. It will return the information 
+        about the receipt movements between dates. It will be mandatory
+        send the parameters defined in the service and the service will
+        response with the output object defined.
+      operationId: getReceiptMovementsByDate
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: rcpVal
+          in: path
+          description: Receipt Value
+          required: true
+          type: integer
+        - name: inlDate
+          in: query
+          description: Initial date
+          required: true
+          type: integer 
+          format: int64
+        - name: fnlDate
+          in: query
+          description: Final date
+          required: true
+          type: integer 
+          format: int64
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Receipt Situations  List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/ORcpPmrS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /receipt/queryTotByPlyEnr:
+    get:
+      tags:
+        - Treasury
+      summary: Query Total Receipt from policy
+      description: >-
+        Query total Receipt from policy in a specific moment. It will return the summatory of the 
+        receipts that belong to a policy for a specific endorsement value. It will be mandatory send the parameters defined in
+        the service and the service will response with the output object
+        defined.
+      operationId: getTotReceiptByPlyEnr
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: plyVal
+          in: query
+          description: policy
+          required: true
+          type: string
+        - name: aplVal
+          in: query
+          description: Application
+          required: true
+          type: integer
+        - name: enrSqn
+          in: query
+          description: endorsment sequence
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Premium installment information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/ORcpPmiS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /notification/queryTreasuryDocuments:
+    post:
+      tags:
+        - Treasury Notification
+      summary: Query treasury documents by operation Id
+      description: >-
+         Query treasury documents by operation Id. It will be mandatory 
+         send the parameters defined in the service and the service
+         will response with the output object defined.
+      operationId: getTreasuryDocumentsByOprId
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: oprIdnVal
+          in: query
+          description: operation id
+          required: true
+          type: string
+        - name: vldDat
+          in: query
+          description: valid date
+          required: false
+          type: integer
+          format: int64
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: InInformationTom
+          in: body
+          description: Input Data to query Treasury Documents
+          required: true
+          schema:
+            $ref: '#/definitions/InInformationTom'
+      responses:
+        '200':
+          description: Treasury Notifications List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OTrnNtfS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /notification/queryAccountingDocuments:
+    get:
+      tags:
+        - Accounting Notification
+      summary: Query accounting documents by operation Id
+      description: >-
+         Query accounting documents by operation Id. It will be mandatory 
+         send the parameters defined in the service and the service
+         will response with the output object defined.
+      operationId: getAccountingDocumentsByOprId
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: oprIdnVal
+          in: query
+          description: operation id
+          required: true
+          type: string
+        - name: encVal
+          in: query
+          description: Entry Class Value
+          required: true
+          type: string          
+        - name: vldDat
+          in: query
+          description: valid date
+          required: false
+          type: integer
+          format: int64
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Treasury Notifications List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OTrnNtfS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /receiptGroup:
+    get:
+      tags:
+        - Treasury
+      summary: Query Receipt Group
+      description: >-
+        Query Receipt Group. It will return the information about the receipt group. It will
+        be mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getReceiptGroup
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: pymDcmTypVal
+          in: query
+          description: Payment Document Type Value
+          required: true
+          type: string
+        - name: pymDcmVal
+          in: query
+          description: Payment Third Person Document Value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: receipt group information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/ORcpRcgS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /receiptGroup/receipts:
+    get:
+      tags:
+        - Treasury
+      summary: Query Receipts From Receipt Group
+      description: >-
+        Query Receipts from Receipt Group. It will return the list of receipts of 
+        receipt group. It will be mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getReceiptsFromReceiptGroup
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: pymDcmTypVal
+          in: query
+          description: Payment Document Type Value
+          required: true
+          type: string
+        - name: pymDcmVal
+          in: query
+          description: Payment Third Person Document Value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: receipt information list
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/ORcpPmrS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /receiptGroup/movements:
+    get:
+      tags:
+        - Treasury
+      summary: Query Receipt Group movements
+      description: >-
+        Query Receipt Group movements by date. It will return the information
+        about the receipt group movements filtering by date. It will
+        be mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getReceiptGroupMovementsByDate
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: pymDcmTypVal
+          in: query
+          description: Payment Document Type Value
+          required: true
+          type: string
+        - name: pymDcmVal
+          in: query
+          description: Payment Third Person Document Value
+          required: true
+          type: string
+        - name: inlDat
+          in: query
+          description: Initial date
+          required: false
+          type: integer 
+          format: int64
+        - name: fnlDat
+          in: query
+          description: Final date
+          required: false
+          type: integer 
+          format: int64
+      responses:
+        '200':
+          description: receipt group information list
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/ORcpRcgS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+definitions:
+  InInformationTom:
+    description: Input Data to query Tom  
+    properties:
+      frsLvlVal:
+        type: integer
+        description: First Level
+        example: 99
+      scnLvlVal:
+        type: integer
+        description: Second Level
+        example: 999
+      thrLvlVal:
+        type: integer
+        description: Third Level
+        example: 9999
+  InReceiptsMailbox:
+    description: Mailboxes receipts
+    properties:
+      oRcpMtgPT:
+        type: array
+        description: Massive Collection Guide
+        items:
+          $ref: 'API_OBJECTS.yaml#/definitions/ORcpMtgS'
+      oRcpMtgHedPT: 
+        type: array
+        description: Massive Collection Guide Header
+        items:
+          $ref: 'API_OBJECTS.yaml#/definitions/ORcpMtgS'
+      oRcpMtgCosPT: 
+        type: array
+        description: Massive Compensation Guide
+        items:
+          $ref: 'API_OBJECTS.yaml#/definitions/ORcpMtgS'
+  InReceiptDoc:
+    description: Document input
+    properties:
+      inRcpAtr:
+        description: Attribute List
+        type: array
+        items:
+          $ref: '#/definitions/InPlyAtr'
+  InReceiptCollection:
+    description: Input data to collect a receipt
+    properties:
+      cshVal:
+        type: string
+        description: Cashier value
+        example: TRON2000
+      cloCrnVal:
+        type: integer
+        description: Collection Currency
+        example: 1
+      cloTnsBlcVal:
+        type: integer
+        description: Collection Transaction Block Value
+        example: 11111112
+  InPlyAtr:
+    description: Attribute
+    properties:
+      fldNam:
+        type: string
+        description: Field Name
+        example: COD_MODALIDAD
+      fldValVal:
+        type: string
+        description: Field Value
+        example: 3100
+  InPolicy:
+    description: Input data to search a policy
+    required:
+      - aplVal
+    properties:
+      enrSqn:
+        type: string
+        description: Endorsement sequence
+        example: 0
+      aplVal:
+        type: integer
+        description: Application value
+        example: 0
+      aplEnrSqn:
+        type: integer
+        description: Application endorsement value
+        example: 0

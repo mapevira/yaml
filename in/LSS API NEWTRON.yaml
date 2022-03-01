@@ -1,0 +1,3087 @@
+swagger: '2.0'
+info:
+  description: Mapfre LSS API NEWTRON
+  version: '${project.version}'
+  title: Mapfre LSS API NEWTRON
+basePath: /newtron/api/loss
+host: api.mapfre.com
+securityDefinitions:
+  basicAuth:
+    type: basic
+security:
+  - basicAuth: []
+schemes:
+  - http
+  - https
+paths:
+  '/about/query':
+    get:
+      tags:
+        - Settings
+      summary: Query about application
+      description: >-
+        Query Query about application. It will return the information about the deployed application.
+      operationId: getAboutQuery
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: false
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: false
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: false
+          type: string
+      responses:
+        '200':
+          description: The information about the deployed application
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/About'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  '/{lssVal}/fileInformation/query':
+    get:
+      tags:
+        - Loss
+      summary: Query file information list
+      description: >-
+        Query file information list. It will return the list of file information
+        according the loss value. It will be mandatory send the parameters
+        defined in the service and the service will response with the output
+        object defined.
+      operationId: getFileInformationList
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: string
+        - name: filTypVal
+          in: query
+          description: File Type Value
+          required: false
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: File information List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OLssFliP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  '/{lssVal}/fileInformation/{filVal}/query':
+    get:
+      tags:
+        - Loss
+      summary: Query file information
+      description: >-
+        Query file information. It will return the information of a file
+        information according the loss value. It will be mandatory send the
+        parameters defined in the service and the service will response with the
+        output object defined.
+      operationId: getFileInformation
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: string
+        - name: filVal
+          in: path
+          description: File Information
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: File information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OLssFliS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /lossInformation/querybyply:
+    get:
+      tags:
+        - Loss
+      summary: Query loss information by policy
+      description: >-
+        Query loss information. It will return the loss information according
+        the policy value. It will be mandatory send the parameters defined in
+        the service and the service will response with the output object
+        defined.
+      operationId: getLossInformationByPly
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: plyVal
+          in: query
+          description: Policy Value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Loss information List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OLssLsiP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /1.0/lossInformation/querybyply:
+    get:
+      tags:
+        - Loss
+      summary: Query loss information by policy v1
+      description: >-
+        Query loss information. It will return the loss information according
+        the policy value. This new version adds filters to the search.
+        It will be mandatory send the parameters defined in
+        the service and the service will response with the output object
+        defined.
+      operationId: getLossInformationByPlyv1
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: plyVal
+          in: query
+          description: Policy Value
+          required: true
+          type: string
+        - name: lssStsTypVal
+          in: query
+          description: Loss Status Type Value
+          type: string
+        - name: inlDat
+          in: query
+          description: initial date
+          type: integer
+          format: int64
+        - name: fnlDat
+          in: query
+          description: final date
+          type: integer
+          format: int64
+        - name: rskVal
+          in: query
+          description: risk
+          type: integer
+      responses:
+        '200':
+          description: Loss information List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OLssLsiP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  '/lossInformation/{lssVal}/query':
+    get:
+      tags:
+        - Loss
+      summary: Query loss information
+      description: >-
+        Query loss information. It will return the loss information. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getLossInformation
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Loss information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OLssLsiS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  '/{lssVal}/query':
+    get:
+      tags:
+        - Loss
+      summary: Query complete loss
+      description: >-
+        Query complete loss. It will return the loss complete information. It
+        will be mandatory send the parameters defined in the service and the
+        service will response with the output object defined.
+      operationId: getCompleteLoss
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Loss
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OLssLssC'
+          examples: {}
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /subpartList:
+    get:
+      tags:
+        - Loss
+      summary: Query subpart list
+      description: >-
+        Query psubpart List. It will return the information about the subpart
+        list. It will be mandatory send the parameters defined in the service
+        and the service will response with the output object defined.
+      operationId: getSubpartList
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: pmOwnTypVal
+          in: query
+          description: Owner Type Value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Property loss appraisal definition list
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OLsfPlfP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /damageList:
+    get:
+      tags:
+        - Loss
+      summary: Query damage list
+      description: >-
+        Query damage list. It will return the information about the damage list.
+        It will  be mandatory send the parameters defined in the service and the
+        service will response with the output object defined.
+      operationId: getDamageList
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: pmOwnTypVal
+          in: query
+          description: Owner Type Value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Property loss appraisal definition list
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OLsfPlfP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /open:
+    post:
+      tags:
+        - Loss
+      summary: Open loss
+      description: Open loss. It will generate a loss from the input data
+      operationId: createLoss
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: inNewLoss
+          in: body
+          description: Input data to open a loss
+          required: true
+          schema:
+            $ref: '#/definitions/InLossInformation'
+      responses:
+        '201':
+          description: Loss information response
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OLssLsiS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found.
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /modify:
+    put:
+      tags:
+        - Loss
+      summary: Modify loss
+      description: Modify loss. It will modify a loss from the input data
+      operationId: updateLoss
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: inNewLoss
+          in: body
+          description: Input data to open a loss
+          required: true
+          schema:
+            $ref: '#/definitions/InLossInformation'
+      responses:
+        '201':
+          description: Loss information response
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OLssLsiS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found.
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /fileInformation/open:
+    post:
+      tags:
+        - Loss
+      summary: Open file
+      description: Open file. It will create a file from the input data
+      operationId: createOpenFile
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: inNewFile
+          in: body
+          description: Input data to open a file
+          required: true
+          schema:
+            $ref: '#/definitions/InFileInformation'
+      responses:
+        '201':
+          description: File information response list
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OLssFliP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found.
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /fileInformation/modify:
+    put:
+      tags:
+        - Loss
+      summary: Modify file
+      description: Modify loss. It will modify a file from the input data
+      operationId: updateModifyFile
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: inNewFile
+          in: body
+          description: Input data to modify a file
+          required: true
+          schema:
+            $ref: '#/definitions/InFileInformation'
+      responses:
+        '201':
+          description: File information response
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OLssFliS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found.
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /lossInformation/qrybyply:
+    get:
+      tags:
+        - Loss
+      summary: Query loss information list by policy
+      description: >-
+        Query loss information list by policy. It will return the loss
+        information according the policy value. It will be mandatory send the
+        parameters defined in the service and the service will response with the
+        output object defined.
+      operationId: getLossInformationListByPly
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: plyVal
+          in: query
+          description: Policy Value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Loss information List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OLssLsiP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /{lssVal}/externalIntervention:
+    get:
+      tags:
+        - External Intervention
+      summary: Query external information from loss
+      description: >-
+        Query external information from loss. It will return the information of the 
+        thrid party that contacts the company to inform about a loss. It
+        will be mandatory send the parameters defined in the service and the
+        service will response with the output object defined.
+      operationId: getExternalIntervention
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Exernal Intervention
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OLssExiC'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /{lssVal}/consequences:
+    get:
+      tags:
+        - Consequence
+      summary: Query consequences from loss
+      description: >-
+        Query consequences from loss. It will return the information of the 
+        consequences in a loss. It will be mandatory send the parameters defined 
+        in the service and the service will response with the output object defined.
+      operationId: getConsequences
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Consequence list
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OLssCnqS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /{lssVal}/claimDescription:
+    get:
+      tags:
+        - Claim Description
+      summary: Query claim description from loss
+      description: >-
+        Query claim description from loss. It will return the description of 
+        the loss. It will be mandatory send the parameters defined 
+        in the service and the service will response with the output object defined.
+      operationId: getClaimDescription
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Claim Description
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OLssCisS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /{lssVal}/driver:
+    get:
+      tags:
+        - Driver
+      summary: Query driver from loss
+      description: >-
+        Query driver from loss. It will return the description of 
+        a driver in a loss. It will be mandatory send the parameters defined 
+        in the service and the service will response with the output object defined.
+      operationId: getDriver
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Driver
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OLssDrvC'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /{lssVal}/materialLosses:
+    get:
+      tags:
+        - Material Loss
+      summary: Query material losses from loss
+      description: >-
+        Query material losses from loss. It will return the description of 
+        all material losses in a loss. It will be mandatory send the parameters defined 
+        in the service and the service will response with the output object defined.
+      operationId: getMaterialLosses
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Material loss list
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OLssMtlC'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /{lssVal}/personalLosses:
+    get:
+      tags:
+        - Personal Loss
+      summary: Query personal losses from loss
+      description: >-
+        Query personal losses from loss. It will return the description of 
+        all personal losses in a loss. It will be mandatory send the parameters defined 
+        in the service and the service will response with the output object defined.
+      operationId: getPersonalLosses
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Personal loss list
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OLssPlsC'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /{lssVal}/criminalDefense:
+    get:
+      tags:
+        - Criminal Defense
+      summary: Query criminal defense from loss
+      description: >-
+        Query criminal defense from loss. It will return the description of 
+        all personal losses in a loss. It will be mandatory send the parameters defined 
+        in the service and the service will response with the output object defined.
+      operationId: getCriminalDefense
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Criminal Defense
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OLssCrfC'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /{lssVal}/accesories:
+    get:
+      tags:
+        - Accesory
+      summary: Query accesories from loss
+      description: >-
+        Query accesories from loss. It will return the accesories
+        in a loss. It will be mandatory send the parameters defined 
+        in the service and the service will response with the output object defined.
+      operationId: getAccesories
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Accesory list
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OPlyAcrS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /{lssVal}/autoLossPlace:
+    get:
+      tags:
+        - Loss Place
+      summary: Query loss Place from auto loss
+      description: >-
+        Query loss place from loss. It will return the loss palce
+        in an auto loss. It will be mandatory send the parameters defined 
+        in the service and the service will response with the output object defined.
+      operationId: getAutoLossPlace
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Loss Place
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OLssLspC'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /{lssVal}/othersLossPlace:
+    get:
+      tags:
+        - Loss Place
+      summary: Query loss Place from other loss
+      description: >-
+        Query loss place from loss. It will return the loss place
+        in other loss. It will be mandatory send the parameters defined 
+        in the service and the service will response with the output object defined.
+      operationId: getOthersLossPlace
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Loss Place
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OLssLspC'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'            
+  /{lssVal}/witnesses:
+    get:
+      tags:
+        - Witness
+      summary: Query witnesses from loss
+      description: >-
+        Query witnesses from loss. It will return the witnesses in a
+        loss. It will be mandatory send the parameters defined 
+        in the service and the service will response with the output object defined.
+      operationId: getWitnessesFromLoss
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Witness list
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OLssWtnC'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'            
+  /{lssVal}/insuredPartyAuto:
+    get:
+      tags:
+        - Insured Party Auto
+      summary: Query insured party auto from loss
+      description: >-
+        Query insured party auto from loss. It will return the informaton about
+        the auto of the insured in a loss. It will be mandatory send the parameters defined 
+        in the service and the service will response with the output object defined.
+      operationId: getInsuredPartyAuto
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Insured party auto
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OLssIpfC'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /{lssVal}/attributes:
+    get:
+      tags:
+        - Attribute
+      summary: Query attributes from loss
+      description: >-
+        Query attributes from loss. It will return the attributes in a
+        loss. It will be mandatory send the parameters defined 
+        in the service and the service will response with the output object defined.
+      operationId: getAttributesFromLoss
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: string
+        - name: filVal
+          in: query
+          description: File value
+          required: true
+          type: integer
+        - name: lobVal
+          in: query
+          description: Line of business
+          required: true
+          type: integer        
+        - name: stuVal
+          in: query
+          description: Structure 
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Attribute list
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OPlyAtrS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'            
+  /{lssVal}/ocurrences:
+    get:
+      tags:
+        - Ocurrence
+      summary: Query ocurrences from loss
+      description: >-
+        Query ocurrences from loss. It will return the ocurrences in a
+        loss. It will be mandatory send the parameters defined 
+        in the service and the service will response with the output object defined.
+      operationId: getOcurrencesFromLoss
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: string
+        - name: filVal
+          in: query
+          description: File value
+          required: true
+          type: integer
+        - name: stuVal
+          in: query
+          description: Structure 
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Ocurrence list
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OPlyOcaS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'          
+  /{lssVal}/file/{filVal}/reasons:
+    get:
+      tags:
+        - Reason
+      summary: Query reasons from a file
+      description: >-
+        Query reasons from file. It will return the reason in a file of a
+        loss. It will be mandatory send the parameters defined 
+        in the service and the service will response with the output object defined.
+      operationId: getReasonFromFile
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: string
+        - name: filVal
+          in: path
+          description: File value
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Reason list
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OLssRsnS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'     
+  /{lssVal}/file/{filVal}/materialLoss:
+    get:
+      tags:
+        - Material Loss
+      summary: Query material loss from a file
+      description: >-
+        Query material loss from file. It will return the information of material loss
+        in a file of a loss. It will be mandatory send the parameters defined 
+        in the service and the service will response with the output object defined.
+      operationId: getMaterialLossFromFile
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: string
+        - name: filVal
+          in: path
+          description: File value
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Material Loss
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OLssMtlC'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'         
+  /{lssVal}/file/{filVal}/criminalDefense:
+    get:
+      tags:
+        - Criminal Defense
+      summary: Query criminal defense from a file
+      description: >-
+        Query criminal defense from file. It will return the information of criminal defense
+        in a file of a loss. It will be mandatory send the parameters defined 
+        in the service and the service will response with the output object defined.
+      operationId: getCriminalDefenseFromFile
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: string
+        - name: filVal
+          in: path
+          description: File value
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Criminal Defense
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OLssCrfC'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'  
+  /{lssVal}/file/{filVal}/accesories:
+    get:
+      tags:
+        - Accesory
+      summary: Query accesories from file
+      description: >-
+        Query accesories from file. It will return the accesories
+        in a file of a loss. It will be mandatory send the parameters defined 
+        in the service and the service will response with the output object defined.
+      operationId: getAccesoriesFromFile
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: string
+        - name: filVal
+          in: path
+          description: File value
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Accesory list
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OPlyAcrS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /{lssVal}/file/{filVal}/insuredNoAuto:
+    get:
+      tags:
+        - Insured Party No Auto File
+      summary: Query insured party no auto from a file
+      description: >-
+        Query insuerd party no auto from file. It will be mandatory
+        send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getInsuredPartyNoAutoFromFile
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: string
+        - name: filVal
+          in: path
+          description: File value
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: The output object
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OLssIfnC'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'  
+  /{lssVal}/file/{filVal}/insuredPartyAuto:
+    get:
+      tags:
+        - Insured Party Auto
+      summary: Query insured party auto from a file
+      description: >-
+        Query insuerd party auto from file. It will be mandatory
+        send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getInsuredPartyAutoFromFile
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: string
+        - name: filVal
+          in: path
+          description: File value
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: The loss
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OLssIpfC'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'  
+  /lossInformation/qrybyplh:
+    get:
+      tags:
+        - Loss
+      summary: Query loss information by policy holder
+      description: >-
+        Query loss information by policiy holder. It will return the loss
+        information belonging to the policy holder introduced as parameter. 
+        It will be mandatory send the parameters defined in
+        the service and the service will response with the output object
+        defined.
+      operationId: getLossInformationByPlh
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: plhDcmTypVal
+          in: query
+          description: Policy Holder Document Type Value
+          required: true
+          type: string
+        - name: plhDcmVal
+          in: query
+          description: Policy Holder Document Value
+          required: true
+          type: string
+        - name: lssStsTypVal
+          in: query
+          description: Loss Status Type Value
+          type: string
+        - name: inlDat
+          in: query
+          description: initial date
+          type: integer
+          format: int64
+        - name: fnlDat
+          in: query
+          description: final date
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Loss information List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OLssLsiS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /{lssVal}/file/{filVal}/fileAmount:
+    get:
+      tags:
+        - Loss
+      summary: Query file amount
+      description: >-
+        Query file amount. It will return  the information about 
+        the file amount at the completion. It is querying: Sum of 
+        valued amount, coverage and coverage status, reserve concept 
+        value for the maximum movement of the company, claim and file 
+        given and grouped by coverage, reserve concept and coverage status.
+      operationId: getFileAmount
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: string
+        - name: filVal
+          in: path
+          description: File value
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: File Amount
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OLssFiaS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /fileInformation/reinstate:
+    post:
+      tags:
+        - File
+      summary: Reinstate a file
+      description: Reinstate file. It will reinstate a file from the input data
+      operationId: reinstateFile
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: inFileInfo
+          in: body
+          description: Input data to reinstate a file
+          required: true
+          schema:
+            $ref: '#/definitions/inFileInfo'
+      responses:
+        '201':
+          description: File information response
+          schema:
+              $ref: 'API_OBJECTS.yaml#/definitions/OLssFliP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found.
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /fileInformation/modifyValuation:
+    post:
+      tags:
+        - File
+      summary: Modify file valuation
+      description: Modify file valuation. It will modify a file valuation from the input data
+      operationId: modifyFileValuation
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: inFileInfo
+          in: body
+          description: Input data to modify a file valuation
+          required: true
+          schema:
+            $ref: '#/definitions/inFileInfo'
+      responses:
+        '201':
+          description: File information response
+          schema:
+              $ref: 'API_OBJECTS.yaml#/definitions/OLssFliP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found.
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error' 
+  /fileInformation/terminateAFile:
+    post:
+      tags:
+        - File
+      summary: Terminate a file 
+      description: Terminate a file. It will terminate a file from the input data
+      operationId: terminateFile
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: inTerminateAFile
+          in: body
+          description: Input data to terminate a file
+          required: true
+          schema:
+            $ref: '#/definitions/inTerminateAFile'
+      responses:
+        '201':
+          description: File information response
+          schema:
+              $ref: 'API_OBJECTS.yaml#/definitions/OLssFliP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found.
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error' 
+  /lossInformation/querybyagn:
+    get:
+      tags:
+        - Loss
+      summary: Query loss information by agent
+      description: >-
+        Query loss information by agent. It will return the loss information that
+        belong to an agent. This service adds filters to the search.
+        It will be mandatory send the parameters defined in
+        the service and the service will response with the output object
+        defined.
+      operationId: getLossInformationByAgn
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: agnVal
+          in: query
+          description: Agent value
+          required: true
+          type: integer
+        - name: lssStsTypVal
+          in: query
+          description: Loss Status Type Value
+          type: string
+        - name: inlDat
+          in: query
+          description: initial date
+          type: integer
+          format: int64
+        - name: fnlDat
+          in: query
+          description: final date
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Loss information List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OLssLsiP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /{lssVal}/actions:
+    get:
+      tags:
+        - Actions
+      summary: Query available actions from loss
+      description: >-
+        It will return the available actions from a loss. The service
+        will calculate the available actions according to the status of 
+        the loss. It will be mandatory send the parameters defined in 
+        the service and the service will response with the output object
+        defined.
+      operationId: GET_lossActions
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Action List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OTrnSscS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /{lssVal}/file/{filVal}/actions:
+    get:
+      tags:
+        - Actions
+      summary: Query available actions from file
+      description: >-
+        It will return the available actions from a file. The service
+        will calculate the available actions according to the status of 
+        the file. It will be mandatory send the parameters defined in 
+        the service and the service will response with the output object
+        defined.
+      operationId: getFileActions
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: string
+        - name: filVal
+          in: path
+          description: File value
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Action List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OTrnSscS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  '/lossInformation/{lssVal}/valuation':
+    get:
+      tags:
+        - Loss
+      summary: Query loss valuation
+      description: >-
+        Query loss information valuation. It will return the valuation of all files
+        in which the files are related to the insured. 
+        It will be mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getLossValuation
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: lssVal
+          in: path
+          description: Loss value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Loss information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OLssLsiS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  '/business_line/{lobVal}/lossReason/{lssRsnVal}/consequences':
+    get:
+      tags:
+        - Consequence
+      summary: Query consequences from loss reason
+      description: >-
+        Query consequences from loss reason. It will return the information of the 
+        consequences from a loss reason and a line of business. It will be mandatory 
+        send the parameters defined in the service and the service will response with the output object defined.
+      operationId: getConsequencesFromLossReason
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lobVal
+          in: path
+          description: Business line code
+          required: true
+          type: string
+        - name: lssRsnVal
+          in: path
+          description: Loss Reason Value
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Consequence definition list
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OLsfCqdS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /deleteMailbox:
+    delete:
+      tags:
+        - Loss
+      summary: Delete Mailbox
+      description: Delete Mailbox. It will delete the mailbox from the input data
+      operationId: deleteMailbox
+      consumes: 
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: inNewLoss
+          in: body
+          description: Input data to open a loss
+          required: true
+          schema:
+            $ref: '#/definitions/InLossInformation'
+      responses:
+        '200':
+          description: 'Operation succesfully done!'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found.
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /notification/queryLossDocuments:
+    post:
+      tags:
+        - Loss Notification
+      summary: Query Loss documents by operation Id
+      description: >-
+         Query Loss documents by operation Id. It will be mandatory 
+         send the parameters defined in the service and the service
+         will response with the output object defined.
+      operationId: getLossDocumentsByOprId
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: oprIdnVal
+          in: query
+          description: operation id
+          required: true
+          type: string
+        - name: vldDat
+          in: query
+          description: valid date
+          required: false
+          type: integer
+          format: int64
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: InInformationLom
+          in: body
+          description: Input Data to query Loss Documents
+          required: true
+          schema:
+            $ref: '#/definitions/InInformationLom'
+      responses:
+        '200':
+          description: Loss Notifications List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OTrnNtfS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  '/lossInformationMailbox/{rfrLssVal}':
+    get:
+      tags:
+        - Loss
+      summary: Query loss information from mailbox
+      description: >-
+        Query loss information from mailbox. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getLossInformationMailbox
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: rfrLssVal
+          in: path
+          description: Reference Loss value
+          required: true
+          type: string
+        - name: btcMvmTypVal
+          in: query
+          description: Loss Batch Movement Type Value
+          required: true
+          type: string
+        - name: btcPrcVal
+          in: query
+          description: Batch Process Value
+          required: true
+          type: integer
+        - name: pocDat
+          in: query
+          description: Processing Date          
+          type: integer
+          format: int64          
+      responses:
+        '200':
+          description: Loss information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OLssLsiS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /{rfrLssVal}/claimDescriptionMailbox:
+    get:
+      tags:
+        - Claim Description
+      summary: Query claim description mailbox from reference loss
+      description: >-
+        Query claim description mailbox from loss reference loss. It will return the description of 
+        the reference loss. It will be mandatory send the parameters defined 
+        in the service and the service will response with the output object defined.
+      operationId: getClaimDescriptionMailbox
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: rfrLssVal
+          in: path
+          description: Reference Loss value
+          required: true
+          type: string
+        - name: btcMvmTypVal
+          in: query
+          description: Loss Batch Movement Type Value
+          required: true
+          type: string
+        - name: btcPrcVal
+          in: query
+          description: Batch Process Value
+          required: true
+          type: integer
+        - name: pocDat
+          in: query
+          description: Processing Date          
+          type: integer
+          format: int64          
+      responses:
+        '200':
+          description: Claim Description
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OLssCisS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /createLossMailbox:
+    post:
+      tags:
+        - Loss
+      summary: Open loss
+      description: Create loss in the mailbox. It will fill the loss mailboxes from the 
+        input data. If the reference Loss exists, it updates the info.
+      operationId: postCreateLossMailbox
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: inNewLoss
+          in: body
+          description: Input data to open a loss
+          required: true
+          schema:
+            $ref: '#/definitions/InLossInformation'
+      responses:
+        '201':
+          description: Loss information response
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OLssLsiS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found.
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /{rfrLssVal}/attributesMailbox:
+    get:
+      tags:
+        - Attribute
+      summary: Query attributes mailbox from loss
+      description: >-
+        Query attributes mailbox from loss. It will return the attributes in a
+        reference loss. It will be mandatory send the parameters defined 
+        in the service and the service will response with the output object defined.
+      operationId: getAttributesFromLossMailbox
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: rfrLssVal
+          in: path
+          description: Loss reference value
+          required: true
+          type: string
+        - name: filVal
+          in: query
+          description: File value
+          required: true
+          type: integer
+        - name: lobVal
+          in: query
+          description: Line of business
+          required: true
+          type: integer        
+        - name: stuVal
+          in: query
+          description: Structure 
+          required: false
+          type: string
+        - name: btcMvmTypVal
+          in: query
+          description: Loss Batch Movement Type Value
+          required: true
+          type: string
+        - name: btcPrcVal
+          in: query
+          description: Batch Process Value
+          required: true
+          type: integer
+        - name: lodDat
+          in: query
+          description: Processing Date          
+          type: integer
+          format: int64   
+      responses:
+        '200':
+          description: Attribute list
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OPlyAtrS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /lossInformationMailbox/querybyply:
+    get:
+      tags:
+        - Loss
+      summary: Query loss information mailbox by policy v1
+      description: >-
+        Query loss information mailbox from policy. It will return the loss information mailbox according
+        the policy value. This new version adds filters to the search.
+        It will be mandatory send the parameters defined in
+        the service and the service will response with the output object
+        defined.
+      operationId: getLossInformationMailBoxFromPly      
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: plyVal
+          in: query
+          description: Policy Value
+          required: true
+          type: string
+        - name: inlDat
+          in: query
+          description: initial date
+          type: integer
+          format: int64
+        - name: fnlDat
+          in: query
+          description: final date
+          type: integer
+          format: int64
+        - name: rskVal
+          in: query
+          description: risk
+          type: integer
+      responses:
+        '200':
+          description: Loss information List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OLssLsiS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /{rfrLssVal}/ocurrencesMailbox:
+    get:
+      tags:
+        - Ocurrence
+      summary: Query ocurrences mailbox from loss
+      description: >-
+        Query ocurrences maiblbox from a reference loss. It will return the ocurrences in a
+        reference loss. It will be mandatory send the parameters defined 
+        in the service and the service will response with the output object defined.
+      operationId: getOcurrencesFromLossMailbox
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: rfrLssVal
+          in: path
+          description: Reference Loss value
+          required: true
+          type: string
+        - name: filVal
+          in: query
+          description: File value
+          required: true
+          type: integer
+        - name: stuVal
+          in: query
+          description: Structure 
+          required: false
+          type: string
+        - name: btcMvmTypVal
+          in: query
+          description: Loss Batch Movement Type Value
+          required: true
+          type: string
+        - name: btcPrcVal
+          in: query
+          description: Batch Process Value
+          required: true
+          type: integer
+        - name: lodDat
+          in: query
+          description: Processing Date          
+          type: integer
+          format: int64   
+      responses:
+        '200':
+          description: Ocurrence list
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OPlyOcaS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'   
+definitions:
+  InLossInformation:
+    description: Loss open input
+    properties:
+      lssMlgS:
+        $ref: 'API_OBJECTS.yaml#/definitions/OLssMlgS'
+      lssLsiS:
+        $ref: 'API_OBJECTS.yaml#/definitions/OLssLsiS'
+      lssExiC:
+        $ref: 'API_OBJECTS.yaml#/definitions/OLssExiC'
+      lssRsnPT:
+        type: array
+        items:
+          $ref: 'API_OBJECTS.yaml#/definitions/OLssRsnP'
+      lssCnqPT:
+        type: array
+        description: Consequence List
+        items:
+          $ref: 'API_OBJECTS.yaml#/definitions/OLssCnqS'
+      lssCisS:
+        $ref: 'API_OBJECTS.yaml#/definitions/OLssCisS'
+      lssMtlCT:
+        type: array
+        description: Material Loss List
+        items:
+          $ref: 'API_OBJECTS.yaml#/definitions/OLssMtlC'
+      lssPlsCT:
+        type: array
+        description: Personal Loss List
+        items:
+          $ref: 'API_OBJECTS.yaml#/definitions/OLssPlsC'
+      lssCrfC:
+        $ref: 'API_OBJECTS.yaml#/definitions/OLssCrfC'
+      lssLspC:
+        $ref: 'API_OBJECTS.yaml#/definitions/OLssLspC'
+      lssDrvC:
+        $ref: 'API_OBJECTS.yaml#/definitions/OLssDrvC'
+      lssWtnCT:
+        type: array
+        description: Witness List
+        items:
+          $ref: 'API_OBJECTS.yaml#/definitions/OLssWtnC'
+      plyAcrPT:
+        type: array
+        description: Accesory List
+        items:
+          $ref: 'API_OBJECTS.yaml#/definitions/OPlyAcrS'
+      lssIpfC:
+        $ref: 'API_OBJECTS.yaml#/definitions/OLssIpfC'
+      plyTlcCT:
+        type: array
+        description: Attribute loss complete list
+        items:
+          $ref: 'API_OBJECTS.yaml#/definitions/OPlyTlcC'
+      plyOclCT:
+        type: array
+        description: Occurence loss complete List
+        items:
+          $ref: 'API_OBJECTS.yaml#/definitions/OPlyOclC'
+  InFileInformation:
+    description: File open input
+    properties:
+      lssMlgS:
+        $ref: 'API_OBJECTS.yaml#/definitions/OLssMlgS'
+      lssRsnPT:
+        type: array
+        items:
+          $ref: 'API_OBJECTS.yaml#/definitions/OLssRsnP'
+      lssMtlC:
+        $ref: 'API_OBJECTS.yaml#/definitions/OLssMtlC'
+      lssPlsC:
+        $ref: 'API_OBJECTS.yaml#/definitions/OLssPlsC'
+      lssCrfC:
+        $ref: 'API_OBJECTS.yaml#/definitions/OLssCrfC'
+      plyAcrPT:
+        type: array
+        description: Accesory List
+        items:
+          $ref: 'API_OBJECTS.yaml#/definitions/OPlyAcrS'
+      lssIfnC:
+        $ref: 'API_OBJECTS.yaml#/definitions/OLssIfnC'
+      lssIpfC:
+        $ref: 'API_OBJECTS.yaml#/definitions/OLssIpfC'
+      plyTlcCT:
+        type: array
+        description: Attribute loss complete list
+        items:
+          $ref: 'API_OBJECTS.yaml#/definitions/OPlyTlcC'
+      plyOclCT:
+        type: array
+        description: Occurence loss complete list
+        items:
+          $ref: 'API_OBJECTS.yaml#/definitions/OPlyOclC'
+  inFileInfo:     
+    description: File input
+    properties:
+      lssMlgS:
+        $ref: 'API_OBJECTS.yaml#/definitions/OLssMlgS'
+      lssRsnPT:
+        type: array
+        items:
+          $ref: 'API_OBJECTS.yaml#/definitions/OLssRsnP'
+      lssFiaPT:
+        type: array
+        items:
+          $ref: 'API_OBJECTS.yaml#/definitions/OLssFiaP'
+  inTerminateAFile:     
+    description: File input
+    properties:
+      lssMlgS:
+        $ref: 'API_OBJECTS.yaml#/definitions/OLssMlgS'
+      lssRsnPT:
+        type: array
+        items:
+          $ref: 'API_OBJECTS.yaml#/definitions/OLssRsnP'
+  InInformationLom:
+    description: Input Data to query Lom  
+    properties:
+      lobVal:
+        type: integer
+        description: Business line code
+        example: 999
+      frsLvlVal:
+        type: integer
+        description: First Level
+        example: 99
+      scnLvlVal:
+        type: integer
+        description: Second Level
+        example: 999
+      thrLvlVal:
+        type: integer
+        description: Third Level
+        example: 9999
+      thrDstHnlVal:
+        type: string
+        description: Third Channel Distribution
+        example: 'ZZZZ'
+      gppVal:
+        type: string
+        description: Group Policy Value
+        example: 'ZZZZZZZZZZZZZ'
+      delVal:
+        type: integer
+        description: Deal value
+        example: 99999
+      sblVal:
+        type: integer
+        description: Subdeal Value
+        example: 99999
+      hpnVal:
+        type: string
+        description: Processing Plan
+        example: '9999'      
+      filTypVal:
+        type: string
+        description: File Type Value
+        example: '999'      
+      pcsVal:
+        type: string
+        description: Process Value
+        example: 'ZZZZ'      

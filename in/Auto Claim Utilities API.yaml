@@ -1,0 +1,157 @@
+swagger: '2.0'
+info:
+  description: 'Auto Claim Utilities API. Revision date: 30/01/2021.'
+  version: '1.0'
+  title: Auto Claim Utilities API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: apisb.mapfre.com
+basePath: "/api/CommonapplicationUtilities"
+tags:
+- name: Claim
+  description: Auto Claim Utilities 
+schemes:
+- https
+paths:
+
+  "/auto/claim/validationFlow":
+    post:
+      tags:
+      - Claim
+      summary: Service to obtain the validation of the current claim report
+      operationId: checkClaimAuto
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - in: body
+        name: body
+        description: In validate claim
+        schema:
+          type: object
+          properties:
+            stepFlowCode:
+              type: string
+              description: Indicates the step in the process where the user saved the claim draft
+            autoClaim:
+             $ref: objectsAPI.yaml#/definitions/AutoClaim
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: objectsAPI.yaml#/definitions/AutoClaimValidationFlow
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref:  objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/auto/claim/componentVisibility":
+    post:
+      tags:
+      - Claim
+      summary: Service to obtain the component visibility for claims flow
+      operationId: checkComponentVisibilityClaimAuto
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - in: body
+        name: body
+        description: In create claim
+        schema:
+          $ref: objectsAPI.yaml#/definitions/AutoClaim
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+             $ref: objectsAPI.yaml#/definitions/AutoClaimComponentsVisibility
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+
+securityDefinitions:
+  name:
+    type: apiKey
+    name: api_key
+    in: query
+  mapfre_auth:
+    type: oauth2
+    authorizationUrl: http://auth.mapfre.com/oauth/
+    flow: implicit
+    scopes:
+      read: Grants read access
+      write: Grants write access
+      admin: Grants access to admin operations
+definitions: {}
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io

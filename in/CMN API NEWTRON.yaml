@@ -1,0 +1,4725 @@
+swagger: '2.0'
+info:
+  description: Mapfre CMN API NEWTRON
+  version: '${project.version}'
+  title: Mapfre CMN API NEWTRON
+basePath: /newtron/api/common
+host: api.mapfre.com
+securityDefinitions:
+  basicAuth:
+    type: basic
+security:
+  - basicAuth: []
+schemes:
+  - http
+  - https
+paths:
+  '/about/query':
+    get:
+      tags:
+        - Settings
+      summary: Query about application
+      description: >-
+        Query Query about application. It will return the information about the deployed application.
+      operationId: getAboutQuery
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: false
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: false
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: false
+          type: string
+      responses:
+        '200':
+          description: The information about the deployed application
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/About'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /genderTypes:
+    get:
+      tags:
+        - Common
+      summary: Query Gender Types
+      description: >-
+        Query gender types. It will return the types of genders. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getGenderTypes
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Type List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OCmnTypP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /genderType:
+    get:
+      tags:
+        - Common
+      summary: Query Gender Type
+      description: >-
+        Query gender type. It will return the type of gender. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getGenderType
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: valVal
+          in: header
+          description: Value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Type
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OCmnTypS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /maritalStatusTypes:
+    get:
+      tags:
+        - Common
+      summary: Query Marital Status Types
+      description: >-
+        Query marital status types. It will return the types of marital status.
+        It will be mandatory send the parameters defined in the service and the
+        service will response with the output object defined.
+      operationId: getMaritalStatus
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Type List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OCmnTypP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /maritalStatusType:
+    get:
+      tags:
+        - Common
+      summary: Marital Status Type
+      description: >-
+        Query marital status type. It will return the type of marital status. It
+        will be mandatory send the parameters defined in the service and the
+        service will response with the output object defined.
+      operationId: GetMaritalStatusType
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: valVal
+          in: header
+          description: Value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Type
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OCmnTypS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /beneficiaryTypes:
+    get:
+      tags:
+        - Common
+      summary: Query Beneficiary Types
+      description: >-
+        Query beneficiary types. It will return the types of beneficiaries. It
+        will be mandatory send the parameters defined in the service and the
+        service will response with the output object defined.
+      operationId: getBeneficiaryTypes
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Type List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OCmnTypP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /beneficiaryType:
+    get:
+      tags:
+        - Common
+      summary: Query Beneficiary Type
+      description: >-
+        Query beneficiary type. It will return the type of beneficiary. It will
+        be mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getBeneficiaryType
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: valVal
+          in: header
+          description: Value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Type
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OCmnTypS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /addressTypes:
+    get:
+      tags:
+        - Common
+      summary: Query Address Types
+      description: >-
+        Query address types. It will return the types of address. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getAddressTypes
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Type List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OCmnTypP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /addressType:
+    get:
+      tags:
+        - Common
+      summary: Query Address Type
+      description: >-
+        Query address type. It will return the type of address. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getAddressType
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: valVal
+          in: header
+          description: Value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Type
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OCmnTypS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /zoneFourList:
+    get:
+      tags:
+        - Common
+      summary: Query Zone Four List
+      description: >-
+        Query zone four list. It will return the list of zone four. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getZoneFourList
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cnyVal
+          in: header
+          description: Country
+          required: true
+          type: string
+        - name: pvcVal
+          in: header
+          description: Province Value
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Zone four List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OGrsZnfP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /zoneFour:
+    get:
+      tags:
+        - Common
+      summary: Query Zone Four
+      description: >-
+        Query zone four. It will return the information of a zone four. It will
+        be mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getZoneFour
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cnyVal
+          in: header
+          description: Country
+          required: true
+          type: string
+        - name: pvcVal
+          in: header
+          description: Province Value
+          required: true
+          type: integer
+        - name: twnVal
+          in: header
+          description: Town Value
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Zone four
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OGrsZnfS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /zoneThreeList:
+    get:
+      tags:
+        - Common
+      summary: Query Zone Three List
+      description: >-
+        Query zone three list. It will return the list of zone three. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getZoneThreeList
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cnyVal
+          in: header
+          description: Country
+          required: true
+          type: string
+        - name: sttVal
+          in: header
+          description: State Value
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Zone three List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OGrsZotP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /zoneThree:
+    get:
+      tags:
+        - Common
+      summary: Query Zone Three
+      description: >-
+        Query zone three. It will return the information of a zone three. It
+        will be mandatory send the parameters defined in the service and the
+        service will response with the output object defined.
+      operationId: getZoneThree
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cnyVal
+          in: header
+          description: Country
+          required: true
+          type: string
+        - name: pvcVal
+          in: header
+          description: Province Value
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Zone three
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OGrsZotS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /zoneTwoList:
+    get:
+      tags:
+        - Common
+      summary: Query Zone Two List
+      description: >-
+        Query zone two list. It will return the list of zone two. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getZoneTwoList
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cnyVal
+          in: header
+          description: Country
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Zone two List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OGrsZntP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /zoneTwo:
+    get:
+      tags:
+        - Common
+      summary: Query Zone Two
+      description: >-
+        Query zone two. It will return the information of a zone two. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getZoneTwo
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cnyVal
+          in: header
+          description: Country
+          required: true
+          type: string
+        - name: sttVal
+          in: header
+          description: State
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Zone two
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OGrsZntS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /colour:
+    get:
+      tags:
+        - Common
+      summary: Query Colour
+      description: >-
+        Query colour. It will return the information of a colour. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getColour
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: colVal
+          in: header
+          description: Colour
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Colour
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OCmnColS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /colours:
+    get:
+      tags:
+        - Common
+      summary: Query Colours
+      description: >-
+        Query lcolours. It will return the colours. It will be mandatory send
+        the parameters defined in the service and the service will response with
+        the output object defined.
+      operationId: getColours
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Colour List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OCmnColP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /linesOfBusiness:
+    get:
+      tags:
+        - Common
+      summary: Query Lines of Business
+      description: >-
+        Query lines of business. It will return the lines of business. It will
+        be mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getLinesOfBusiness
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Line of Business List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OPrtLobP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /lineOfBusiness:
+    get:
+      tags:
+        - Common
+      summary: Query Line of Business
+      description: >-
+        Query line of business. It will return the line of business. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getLineOfBusiness
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: lobVal
+          in: header
+          description: Line of Business
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Line of Business
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OPrtLobS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /lineOfBusiness/{lobVal}/validationDate:
+    get:
+      tags:
+        - Common
+      summary: Query line of business validation date
+      description: >-
+        Query line of business validation date. It wil return the validation date of
+        a line of business for a date introduced as input. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getLineOfBusinessValidationDate
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lobVal
+          in: path
+          description: Line of Business
+          required: true
+          type: integer
+        - name: vldDat
+          in: query
+          description: Validation Date
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Line of Business
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OPrtLobS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /zoneOneList:
+    get:
+      tags:
+        - Common
+      summary: Query Zone One List
+      description: >-
+        Query zone one list. It will return the list of zone one. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getZoneOneList
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Zone one List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OGrsZnoP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /zoneOne:
+    get:
+      tags:
+        - Common
+      summary: Query Zone One
+      description: >-
+        Query zone one. It will return the information of a zone one. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getZoneOne
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cnyVal
+          in: header
+          description: Country
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Zone one
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OGrsZnoS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /bankAccountTypes:
+    get:
+      tags:
+        - Common
+      summary: Query Bank Account Types
+      description: >-
+        Query bank account types. It will return the types of bank accounts. It
+        will be mandatory send the parameters defined in the service and the
+        service will response with the output object defined.
+      operationId: getBankAccountTypes
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: Type List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OCmnTypP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /CollectorTypes:
+    get:
+      tags:
+        - Common
+      summary: Query Collector Types
+      description: >-
+        Query collector types. It will return the types of collector. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getCollectorTypes
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: Type List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OCmnTypP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /Currencies:
+    get:
+      tags:
+        - Common
+      summary: Query Currencies
+      description: >-
+        Query currencies. It will return the list of currencies. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getCurrencies
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: company
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: Currency List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OCrnCrnP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /titles:
+    get:
+      tags:
+        - Common
+      summary: Query Titles
+      description: >-
+        Query titles. It will return the types of titles. It will be mandatory
+        send the parameters defined in the service and the service will response
+        with the output object defined.
+      operationId: getTitles
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Type List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OCmnTypP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /nationalities:
+    get:
+      tags:
+        - Common
+      summary: Query Nationalities
+      description: >-
+        Query nationalites. It will return the types of nationalities. It will
+        be mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getNationalities
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Type List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OCmnTypP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /languages:
+    get:
+      tags:
+        - Common
+      summary: Query Languages
+      description: >-
+        Query languages. It will return the types of languages. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getLanguages
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Language List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OCmnLngS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /exchange_rate:
+    get:
+      tags:
+        - Common
+      summary: Query Exchange Rate
+      description: >-
+        Query exchange rate. It will return the exchange rate
+        in a currency for a date . It will be mandatory send 
+        the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getExchangeRate
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: crnVal
+          in: query
+          description: Currency
+          required: true
+          type: integer
+        - name: exrDat
+          in: query
+          description: Exchange rate date
+          required: true
+          type: integer
+          format: int64
+        - name: cmpVal
+          in: query
+          description: company
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: Exchange Rate
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OCrnExrS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'  
+  /thirdLevel/{thrLvlVal}:
+    get:
+      tags:
+        - Common
+      summary: Query Third Level
+      description: >-
+        Query the third level. It will return the third level of the
+        commercial structure . It will be mandatory send 
+        the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getThirdLevel
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: thrLvlVal
+          in: path
+          description: Third Level
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Third Level
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OCmuThlS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'  
+  /types:
+    get:
+      tags:
+        - Common
+      summary: Query Types
+      description: >-
+        Query types. It will return the types of the application. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getTypes
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: fldNam
+          in: query
+          description: Field code
+          required: true
+          type: string
+        - name: lobVal
+          in: query
+          description: Line of Business
+          type: integer
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: Type List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OCmnTypP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /attributeValues:
+    get:
+      tags:
+        - Common
+      summary: Query Attribute Values
+      description: >-
+        Query attribute values. It will return the values of the variable data. 
+        It will be mandatory send the parameters defined in the service and
+        the service will response with the output object defined.
+      operationId: getAttributeValues
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company
+          required: true
+          type: integer
+        - name: lobVal
+          in: query
+          description: Line of Business
+          type: integer
+        - name: mdtVal
+          in: query
+          description: Modality
+          type: integer
+        - name: fldNam
+          in: query
+          description: Field code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Attribute value List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OArdAbvS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /zoneFiveList:
+    get:
+      tags:
+        - Common
+      summary: Query Zone Five List
+      description: >-
+        Query zone five list. It will return the list of zone five (postalCode). 
+        It will be mandatory send the parameters defined in the service and the
+        service will response with the output object defined.
+      operationId: getZoneFiveList
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cnyVal
+          in: query
+          description: Country
+          required: true
+          type: string
+        - name: sttVal
+          in: query
+          description: State
+          required: true
+          type: integer
+        - name: pvcVal
+          in: query
+          description: Province Value
+          required: true
+          type: integer
+        - name: twnVal
+          in: query
+          description: Town Value
+          required: true
+          type: integer
+        - name: reaPsc
+          in: query
+          description: Real Postal Code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Zone Five List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OGrsZofS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /movementsRecord/queryByThp:
+    get:
+      tags:
+        - Movement Record
+      summary: Query movements record by third party
+      description: >-
+        Query movements record by third party. It will return the movements record
+        of a third party. It will be mandatory send the parameters defined in the
+        service and the service will response with the output object defined.
+      operationId: getMovementRecordList
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer       
+        - name: thpDcmTypVal
+          in: query
+          description: Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: document
+          required: true
+          type: string
+        - name: thpAcvVal
+          in: query
+          description: Activity
+          required: true
+          type: integer
+        - name: mvmIdn
+          in: query
+          description: Movement Identification
+          required: true
+          type: array
+          items:
+            type: string
+        - name: qryDat
+          in: query
+          description: Query Date
+          type: integer
+          format: int64
+        - name: mvmSttTypVal
+          in: query
+          description: Movement state type
+          type: string        
+        - name: mvmPbl
+          in: query
+          description: Public Movement
+          type: string     
+        - name: stsTypVal
+          in: query
+          description: Status Type Value
+          type: array
+          items:
+            type: string     
+        - name: prcTypVal
+          in: query
+          description: Process Type value
+          type: string   
+      responses:
+        '200':
+          description: Movement Record List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OCmnMvrS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /movementRecord:
+    post:
+      tags:
+        - Movement Record
+      summary: Create movement record for a third party
+      description: >-
+        Create or update movement record. It will create a new movement record
+        of a third party. It will be mandatory send the parameters defined in the
+        service and the service will response with the output object defined.
+      operationId: postMovementRecordList
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: thpDcmTypVal
+          in: query
+          description: Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Document
+          required: true
+          type: string
+        - name: thpAcvVal
+          in: query
+          description: Activity
+          required: true
+          type: integer
+        - name: inMovementRecord
+          in: body
+          description: Input data to new movement record
+          required: true
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OCmnMvrS'
+      responses:
+        '201':
+          description: Operation succesfully done!
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /lists:
+    post:
+      tags:
+        - Values/options list
+      summary: Get tron lists 
+      description: >-
+        Service that allows you to retrieve the information of all
+        lists of values ​​or options.
+      operationId: getValuesOptionList
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: inInfoList
+          in: body
+          description: Input data to get lists
+          required: true
+          schema:
+            $ref: '#/definitions/InInfoList'
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: false
+          type: integer 
+      responses:
+        '201':
+          description: Get Lists
+          schema:
+            type: array            
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OTrnLstValS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /constantsDefinition:
+    post:
+      tags:
+        - Constant Definition
+      summary: Query constants definition
+      description: >-
+        Query constants definition . It will return the constants definition
+        introduced as in parameters.
+      operationId: postConstantsDefinition
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: InConstantInformation
+          in: body
+          description: Input Data to query constants
+          required: true
+          schema:
+            $ref: '#/definitions/InConstantInformation'
+      responses:
+        '200':
+          description: Constant List
+          schema:
+            type: array            
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OPlyAtrS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found.
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /actuarialAge:
+    get:
+      tags:
+        - Common
+      summary: Query actuarial age
+      description: >-
+        Query actuarial age. It will return the actuarial age according
+        to the in parameters
+      operationId: getActuarialAge
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: qryDat
+          in: query
+          description: Query Date
+          required: true
+          type: integer
+          format: int64
+        - name: brdDat
+          in: query
+          description: Date of Birth
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Actuarial age
+          schema:
+            type: integer
+            example: 38
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /pid/dfq/lodW/tblPrr:
+    post:
+      tags:
+        - Life
+      summary: Save daily fund quotation
+      description: >-
+       Save daily funds quotation. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: postSaveDailyFundQuotation
+      parameters:
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: query
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer       
+      responses:
+        '201':
+          description: Operation succesfully done!
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /pid/pfc/lodW/tblPrr:
+    post:
+      tags:
+        - Life
+      summary: Save portfolio fund composition
+      description: >-
+        Save portfolio fund composition. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: postSavePortfolioFundComposition
+      parameters:
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: query
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer       
+      responses:
+        '201':
+          description: Operation succesfully done!
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /lineOfBusiness/{lobVal}/deals:
+    get:
+      tags:
+        - Common
+      summary: Query deals
+      description: >-
+        Query deals. It will return the deals that belong to a line of business. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getDeals
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lobVal
+          in: path
+          description: Line of Business
+          required: true
+          type: integer
+        - name: vldDat
+          in: query
+          description: Valid Date
+          required: false
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Deal List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OPrtDelS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /lineOfBusiness/{lobVal}/groupPolicies:
+    get:
+      tags:
+        - Common
+      summary: Query group policies
+      description: >-
+       Query group policies. It will return the group policies that belong 
+       to a line of business. It will be mandatory send the parameters defined 
+       in the service and the service will response with the output object defined.
+      operationId: getGroupPolicies
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lobVal
+          in: path
+          description: Line of Business
+          required: true
+          type: integer
+        - name: vldDat
+          in: query
+          description: Valid Date
+          required: false
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Group Policies List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/ONmrGppS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /zoneFive/{pslCodVal}:
+    get:
+      tags:
+        - Common
+      summary: Query Zone Five List by Postal Code
+      description: >-
+        Query zone five list. It will return the list of zone five (postalCode). 
+        It will be mandatory send the parameters defined in the service and the
+        service will response with the output object defined.
+      operationId: getZoneFiveByPslCodVal
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: pslCodVal
+          in: path
+          description: Postal Code
+          required: true
+          type: string
+        - name: reaPsc
+          in: query
+          description: Real Postal Code
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Zone Five List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OGrsZofS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /thirdLevel/{thrLvlVal}/contact:
+    get:
+      tags:
+        - Common
+      summary: Query Contact From Third Level
+      description: >-
+        Query the third level contact information. It will return the contact
+        of the third level of the commercial structure . It will be mandatory send 
+        the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getContactFromThirdLevel
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: thrLvlVal
+          in: path
+          description: Third Level
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Contact Information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OThpCntS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'  
+  /secondLevel/{scnLvlVal}/contact:
+    get:
+      tags:
+        - Common
+      summary: Query Contact From Second Level
+      description: >-
+        Query the second level contact information. It will return the contact
+        of the second level of the commercial structure . It will be mandatory send 
+        the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getContactFromSecondLevel
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: scnLvlVal
+          in: path
+          description: Second Level
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Contact Information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OThpCntS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error' 
+  /firstLevel/{frsLvlVal}/contact:
+    get:
+      tags:
+        - Common
+      summary: Query Contact From First Level
+      description: >-
+        Query the first level contact information. It will return the contact
+        of the first level of the commercial structure . It will be mandatory send 
+        the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getContactFromFirstLevel
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: frsLvlVal
+          in: path
+          description: First Level
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Contact Information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OThpCntS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'   
+  /variableConceptsDefinition:
+    post:
+      tags:
+        - Variable Concepts Definition
+      summary: Query variable concepts definition
+      description: >-
+        Query variable concepts definition . It will return the variable concepts definition
+        according to the in parameters
+      operationId: postVariableConceptsDefinition
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: InVariableConceptsInformation
+          in: body
+          description: Input Data to query constants
+          required: true
+          schema:
+            $ref: '#/definitions/InVariableConceptsInformation'
+      responses:
+        '200':
+          description: Variable Concepts List
+          schema:
+            type: array            
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OPlyAtrS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found.
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /thirdLevel/{thrLvlVal}/address:
+    get:
+      tags:
+        - Common
+      summary: Query Address From Third Level
+      description: >-
+        Query the third level address information. It will return the address
+        of the third level of the commercial structure . It will be mandatory send 
+        the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getAddresstFromThirdLevel
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: thrLvlVal
+          in: path
+          description: Third Level
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Address Information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OThpAdrS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'    
+  /menu:
+    get:
+      tags:
+        - Menu
+      summary: Query Newtron Menu
+      description: >-
+        Query Newtron Menu. It will return the Headers and the list of menu points.
+      operationId: getMenu
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: lngVal
+          in: query
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Menu List
+          schema:
+            $ref: '#/definitions/MenuDto'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /tdn/{lngVal}:
+    get:
+      tags:
+        - Traductions
+      summary: Query Newtron Traductions
+      description: >-
+        Query Newtron Traductions. It will return a map of key values.
+      operationId: getTraductions
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: path
+          description: Language code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Traduction List
+          schema:
+            type: object
+            properties:
+              key:
+                type: string
+                description: Traduction ID.
+              value:
+                type: string
+                description: Traduction text.
+            example:
+              {
+              "en": "Hello!",
+              "fr": "Bonjour!"
+              }  
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /user/{usrVal}:
+    get:
+      tags:
+        - User info
+      summary: Query Newtron User information
+      description: >-
+        Query Newtron user information.
+      operationId: getUserInfo
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: path
+          description: User
+          required: true
+          type: string
+      responses:
+        '200':
+          description: User info
+          schema:
+            $ref: '#/definitions/UserConnected'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /variableDefinition/queryByCompany:
+    get:
+      tags:
+        - Variable Definition
+      summary: Query variable definition by company
+      description: >-
+        Query variable  definition by company. It will return the variable definition
+        filtering by company
+      operationId: getVariableDefinitionByCompany
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: vrbNamVal
+          in: query
+          description: Variable Name
+          required: true
+          type: string
+        - name: vldDat
+          in: query
+          description: Validation Date
+          required: false
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Variable Definition List
+          schema:
+            type: array            
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OTrnVrbS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found.
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /variableDefinition/queryByLineOfBusiness:
+    get:
+      tags:
+        - Variable Definition
+      summary: Query variable definition by line of business
+      description: >-
+        Query variable  definition by line of business. It will return the variable definition
+        filtering by company and line of business
+      operationId: getVariableDefinitionByLineOfBusiness
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: lobVal
+          in: query
+          description: Line of Business
+          required: true
+          type: integer
+        - name: vrbNamVal
+          in: query
+          description: Variable Name
+          required: true
+          type: string
+        - name: vldDat
+          in: query
+          description: Validation Date
+          required: false
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Variable Definition List
+          schema:
+            type: array            
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OTrnVrbS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found.
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /variableDefinition/queryByThirdParty:
+    get:
+      tags:
+        - Variable Definition
+      summary: Query variable definition by thrid party
+      description: >-
+        Query variable  definition by thrid party. It will return the variable definition
+        filtering by third party
+      operationId: getVariableDefinitionByThirdParty
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: thpDcmTypVal
+          in: query
+          description: Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Document
+          required: true
+          type: string
+        - name: thpAcvVal
+          in: query
+          description: Activity
+          required: true
+          type: integer
+        - name: vrbNamVal
+          in: query
+          description: Variable Name
+          required: true
+          type: string
+        - name: vldDat
+          in: query
+          description: Validation Date
+          required: false
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Variable Definition List
+          schema:
+            type: array            
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OTrnVrbS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found.
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /variableDefinition/upddateByThirdParty:
+    put:
+      tags:
+        - Variable Definition
+      summary: Update variable definition by thrid party
+      description: >-
+        Update variable  definition by thrid party. It will update the variable definition
+         by third party
+      operationId: putVariableDefinitionByThirdParty
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: query
+          description: Language code
+          required: false
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer       
+        - name: thpDcmTypVal
+          in: query
+          description: Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: document
+          required: true
+          type: string
+        - name: thpAcvVal
+          in: query
+          description: Activity
+          required: true
+          type: integer
+        - name: vrbNamVal
+          in: query
+          description: Variable Name
+          required: true
+          type: string
+        - name: inVariableDefinition
+          in: body
+          description: Input data to update the variable definition
+          required: true
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OTrnVrbS'
+      responses:
+        '201':
+          description: Operation succesfully done!
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found.
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'  
+  /variableDefinition/queryByCoverage:
+    get:
+      tags:
+        - Variable Definition
+      summary: Query variable definition by coverage
+      description: >-
+        Query variable  definition by coverage. It will return the variable definition
+        filtering by coverage
+      operationId: getVariableDefinitionByCoverage
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: lobVal
+          in: query
+          description: Line of Business
+          required: true
+          type: integer
+        - name: mdtVal
+          in: query
+          description: Modality
+          type: integer
+          required: false
+        - name: cvrVal
+          in: query
+          description: Coverage
+          required: true
+          type: integer
+        - name: vrbNamVal
+          in: query
+          description: Variable Name
+          required: true
+          type: string
+        - name: vldDat
+          in: query
+          description: Validation Date
+          required: false
+          type: integer
+          format: int64
+        - name: prnVrbVal
+          in: query
+          description: Parent Variable Value
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Variable Definition List
+          schema:
+            type: array            
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OTrnVrbS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found.
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /sendCommunicationsToSFMConlineProcess:
+    post:
+      tags:
+        - Common
+      summary: Send communications to SFMC online process
+      description: >-
+       Send to SFMC online process
+      operationId: postSendToSFMConlineProcess
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: lngVal
+          in: query
+          description: Language code
+          required: true
+          type: string
+      responses:
+        '201':
+          description: Operation succesfully done!
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found.
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /sendCommunicationsToSFMCbatchProcess:
+    post:
+      tags:
+        - Common
+      summary: Send communications to SFMC batch process
+      description: >-
+       Send to SFMC online process
+      operationId: postSendToSFMCbatchProcess
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: lngVal
+          in: query
+          description: Language code
+          required: true
+          type: string
+      responses:
+        '201':
+          description: Operation succesfully done!
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found.
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /firstLevelDistributionChannelByCmp:
+    get:
+      tags:
+        - Common
+      summary: First Level Distribution Channel by Company
+      description: >-
+        Query First Level Distribution Channel by company. It will return
+        the types of languages. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getfirstLevelDistributionChannelByCmp
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer        
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Language List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/ODsrFdcS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /firstLevelDistributionChannelByCmp/{frsDstHnlVal}:
+    get:
+      tags:
+        - Common
+      summary: First Level Distribution Channel by Company
+      description: >-
+        Query First Level Distribution Channel by company. It will return
+        the types of languages. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getfirstLevelDistributionChannelByCmpById
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer        
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: frsDstHnlVal
+          in: path
+          description: First level distribution channel 
+          required: true
+          type: string
+      responses:
+        '200':
+          description: First level distribution channel 
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/ODsrFdcS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /secondLevelDistributionChannelByCmpFirst:
+    get:
+      tags:
+        - Common
+      summary: Second Level Distribution Channel by company and first level
+      description: >-
+        Query Second Distribution Channel by company and Fisrt Level. It will return
+        the types of languages. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getsecondLevelDistributionChannelByCmpFirst
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: frsDstHnlVal
+          in: query
+          description: First Channel Distribution
+          required: true
+          type: string           
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Language List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/ODsrSdcS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'  
+  /thirdLevelDistributionChannelByCmpFirstSecond:
+    get:
+      tags:
+        - Common
+      summary: Third Level Distribution Channel by company, first level and second level
+      description: >-
+        Query Third Level Distribution Channel by company, first level and second level.
+        It will return the types of languages. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getthirdLevelDistributionChannelByCmpFirstSecond
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: frsDstHnlVal
+          in: query
+          description: First Channel Distribution
+          required: true
+          type: string       
+        - name: scnDstHnlVal
+          in: query
+          description: Second Channel Distribution
+          required: true
+          type: string               
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Language List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/ODsrHdcS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /sectorList:
+    get:
+      tags:
+        - Common
+      summary: sector list by Company
+      description: >-        
+        Query sectors by company. It will return
+        the types of languages. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+        operationId: getsectorList
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Language List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OPrtSecS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /subsectorList:
+    get:
+      tags:
+        - Common
+      summary: SubSector list by sector
+      description: >-
+        Query subsectors by company and sector value. It will return
+        the types of languages. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getsubsectorList
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: secVal
+          in: query
+          description: Sector value
+          required: true
+          type: integer       
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Language List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OPrtSbsS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /companies:
+    get:
+      tags:
+        - Common
+      summary: Query Companies
+      description: >-
+        Query companies. It will return the companies. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getCompanies
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Company List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OCmuCmpS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /company/{cmpVal}:
+    get:
+      tags:
+        - Common
+      summary: Query Company
+      description: >-
+        Query company. It will return the detail of a compnay. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getCompany
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: path
+          description: Company code
+          required: true
+          type: integer
+
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Type
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OCmuCmpS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /language/{lngVal}:
+    get:
+      tags:
+        - Common
+      summary: Query Language
+      description: >-
+        Query language. It will return the language. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getLanguage
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: path
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Language 
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OCmnLngS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /collectorType/{valVal}:
+    get:
+      tags:
+        - Common
+      summary: Query Collector Type
+      description: >-
+        Query collector type. It will return the type of collector. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getCollectorType
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer        
+        - name: valVal
+          in: path
+          description: Value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Type
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OCmnTypS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /Currency/{sdrCrnVal}:
+    get:
+      tags:
+        - Common
+      summary: Query Currency
+      description: >-
+        Query currency. It will return the currency. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getCurrency
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: company
+          required: true
+          type: integer
+        - name: sdrCrnVal
+          in: path
+          description: standard currency value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Currency
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OCrnCrnS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /sector/{secVal}:
+    get:
+      tags:
+        - Common
+      summary: Query sector
+      description: >-        
+        Query sector. It will return
+        the sector. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getsector
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: secVal
+          in: path
+          description: Sector
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Sector
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OPrtSecS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /favorites/{cmpVal}/{usrVal}:
+    get:
+      tags:
+        - Common
+      summary: User favorites
+      description: >-
+        Query user favorites by company and user. It will return
+        the favorites of an user. It will be
+        mandatory send the parameters defined in the url.
+      operationId: getFavoritesList
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: path
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: path
+          description: Username
+          required: true
+          type: string       
+      responses:
+        '200':
+          description: Favorites List
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/FavoritesDto'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /favorites/{cmpVal}/{usrVal}/{oprIdnVal}:
+    post:
+      tags:
+        - Common
+      summary: User favorites
+      description: >-
+        Post a new user favorite of user determined by company. 
+        It will be saved on database
+      operationId: postFavoritesList
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: path
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: path
+          description: Username
+          required: true
+          type: string
+        - name: oprIdnVal
+          in: path
+          description: Operation identifier
+          required: true
+          type: string       
+      responses:
+        '200':
+          description: Favorite saved
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/FavoritesDto'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+    delete:
+      tags:
+        - Common
+      summary: User favorites
+      description: >-
+        Delete a user favorite of determined by company. 
+        It will be deleted from db.
+      operationId: deleteFavoritesList
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: path
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: path
+          description: Username
+          required: true
+          type: string
+        - name: oprIdnVal
+          in: path
+          description: Operation identifier
+          required: true
+          type: string       
+      responses:
+        '200':
+          description: Favorite deleted
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/FavoritesDto'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /variableDefinition/queryByCompany/{vrbVal}:
+    get:
+      tags:
+        - Variable Definition
+      summary: Query a variable definition by company
+      description: >-
+        Query variable  definition by company. It will return the variable definition
+        filtering by company
+      operationId: getVariableDefinitionByCompanyById
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: vrbNamVal
+          in: query
+          description: Variable Name
+          required: true
+          type: string
+        - name: vrbVal
+          in: path
+          description: Variable Value
+          required: true
+          type: string
+        - name: vldDat
+          in: query
+          description: Validation Date
+          required: false
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Variable Definition 
+          schema:
+              $ref: 'API_OBJECTS.yaml#/definitions/OTrnVrbS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found.
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /sector/{secVal}/subsector/{sbsVal}:
+    get:
+      tags:
+        - Common
+      summary: SubSector list by sector
+      description: >-
+        Query subsector by company and sector value. It will return
+        the subsector. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getSubSector
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: secVal
+          in: path
+          description: Sector value
+          required: true
+          type: integer   
+        - name: sbsVal
+          in: path
+          description: subSector value
+          required: true
+          type: integer      
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: SubSector
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OPrtSbsS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /type/{itcVal}:
+    get:
+      tags:
+        - Common
+      summary: Query Types
+      description: >-
+        Query type. It will return the type of the application. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getType
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: fldNam
+          in: query
+          description: Field code
+          required: true
+          type: string
+        - name: lobVal
+          in: query
+          description: Line of Business
+          type: integer
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: false
+          type: integer
+        - name: itcVal
+          in: path
+          description: Intermediary Action Type
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Type 
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OCmnTypS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /CollectorTypes/1.0/{mnrTypVal}:
+    get:
+      tags:
+        - Common
+      summary: Query Collector Types v1
+      description: >-
+        Query collector type v1. It will return the type of collector. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getCollectorTypeV1
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: mnrTypVal
+          in: path
+          description: Collector Type
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Collection manager definition List
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/ORcdTmdS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error' 
+  /CollectorTypes/1.0:
+    get:
+      tags:
+        - Common
+      summary: Query Collector Types v1
+      description: >-
+        Query collector types v1. It will return the types of collector. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getCollectorTypesV1
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: Collection manager definition List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/ORcdTmdS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /secondLevels:
+    get:
+      tags:
+        - Common
+      summary: Query Second Level List
+      description: >-
+        Query the second level list. It will return the list of second levels of the
+        commercial structure . It will be mandatory send 
+        the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getSecondLevels
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: frsLvlVal
+          in: query
+          description: First Level
+          required: true
+          type: number
+      responses:
+        '200':
+          description: Second Level List
+          schema:
+            type: array
+            items:
+             $ref: 'API_OBJECTS.yaml#/definitions/OCmuSnlS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /firstLevels:
+    get:
+      tags:
+        - Common
+      summary: Query First Level List
+      description: >-
+        Query the first levels. It will return the list of third levels of the
+        commercial structure . It will be mandatory send 
+        the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getFirstLevels
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: First Level List
+          schema:
+            type: array
+            items:
+             $ref: 'API_OBJECTS.yaml#/definitions/OCmuFslS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /thirdLevels:
+    get:
+      tags:
+        - Common
+      summary: Query Third Level List
+      description: >-
+        Query the third level list. It will return the list of third levels of the
+        commercial structure . It will be mandatory send 
+        the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getThirdLevels
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: frsLvlVal
+          in: query
+          description: First Level
+          required: true
+          type: number
+        - name: scnLvlVal
+          in: query
+          description: Second Level
+          required: true
+          type: number
+      responses:
+        '200':
+          description: Third Level List
+          schema:
+            type: array
+            items:
+             $ref: 'API_OBJECTS.yaml#/definitions/OCmuThlS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error' 
+  /fixedAttributes:
+    get:
+      tags:
+        - Common
+      summary: Query Fixed Attributes
+      description: >-
+        Query fixed attributes. It will return the list of 
+        fixed attributes. It will be mandatory send 
+        the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getFixedAttributes
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Fixed Attributes
+          schema:
+            type: array
+            items:
+             $ref: 'API_OBJECTS.yaml#/definitions/OArdFxaS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /queryEventNotProcessed:
+    post:
+      tags:
+        - event
+      summary: Query message list for event not processed
+      description: >-
+         Query message list for event not processed. It will return the message for event
+      operationId: getQueryEventNotProcessed
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer   
+        - name: evnIdnVal
+          in: query
+          description: Event Identifier
+          required: false
+          type: integer 
+        - name: qryDat
+          in: query
+          description: Query Date
+          required: true
+          type: integer
+          format: int64                
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Message event list
+          schema:
+            type: array            
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OTrnEvnS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found.
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /updateEvent:
+    post:
+      tags:
+        - event
+      summary: update received event as processed
+      description: >-
+         Update received event as processed. 
+      operationId: setUpdateEvent
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer   
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: oTrnEvnS
+          in: body
+          type: array
+          description: Event
+          required: true
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OTrnEvnS'        
+      responses:
+        '200':
+          description: "Operation sucessfully"
+          type: string
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found.
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /storageFromSelfService:
+    get:
+      tags:
+        - Self-Service
+      summary: Query Storage From Self-Service
+      description: >-
+        Query Storage From SelfService. It will return the variables saved for
+        the self service front end. It will be mandatory send the parameters 
+        defined in the service and the service will response with the output 
+        object defined.
+      operationId: getStorageFromSelfService
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: sfrIdnVal
+          in: query
+          description: Authentication Identifier
+          type: array
+          items:
+            type: string 
+        - name: sfrSciVal
+          in: query
+          description: Self-Service Section
+          required: true
+          type: string
+        - name: sfrSbsVal
+          in: query
+          description: Self-Service Subsection
+          required: true
+          type: string
+        - name: vrbDspVal
+          in: query
+          description: Variable Description
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Self-Service Storage
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OCmnSsgS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+    post:
+      tags:
+        - Self-Service
+      summary: Create Storage From Self-Service
+      description: >-
+        Create Storage From SelfService. It will create new variables from
+        the self service front end. It will be mandatory send the parameters 
+        defined in the service and the service will response with the output 
+        object defined.
+      operationId: postStorageFromSelfService
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: inSelfServiceStorage
+          in: body
+          description: Input data to new self service storage
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OCmnSsgS'
+      responses:
+        '201':
+          description: Operation succesfully done!
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /newtronOperationList:
+    get:
+      tags:
+        - Newtron Operation
+      summary: Query Newtron operation
+      description: >-
+        Query Newtron operations. It will return the newtron operations
+      operationId: getNewtronOperationList
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Newtron operation list
+          schema:
+            type: array            
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OTrnNwoS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found.
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+definitions:
+  InNewMovmentRecord:
+    description: Input movement record
+    properties:
+      CmnMvrS:
+        $ref: 'API_OBJECTS.yaml#/definitions/OCmnMvrS'
+      OCmnTmrS:
+        $ref: 'API_OBJECTS.yaml#/definitions/OCmnTmrS'
+  InInfoList:
+    description: Input Option Values list.
+    properties:
+      lstIdn:
+        type: string
+        description: List Identifier
+        example: 'Sec'
+      lstTyp:
+        type: string
+        description: List type
+        example: 'V'
+      insVal:
+        type: string
+        description: Installation value
+        example: 'TRN'
+      lstVrs:
+        type: string
+        description: List version
+        example: '2'
+      lstVal:
+        description: Properties list
+        type: object
+      cchChc:
+        type: boolean
+        description: Cacheable
+        example: true
+  InConstantInformation:
+    description: Input Data to query constants  
+    properties:
+      cmpVal:
+        type: integer
+        description: Company code
+        example: 1
+      lobVal:
+        type: integer
+        description: Business line code
+        example: 308
+      mdtVal:
+        type: integer
+        description: Modality
+        example: 80301  
+      crnVal:
+        type: integer
+        description: currency value
+        example: 2
+      cvrVal:
+        type: integer
+        description: coverage value
+        example: 9999
+      frsLvlVal:
+        type: integer
+        description: First Level
+        example: 99
+      scnLvlVal:
+        type: integer
+        description: Second Level
+        example: 999
+      thrLvlVal:
+        type: integer
+        description: Third Level
+        example: 9999
+      frsDstHnlVal:
+        type: string
+        description: First Channel Distribution
+        example: 'ZZZZ'
+      scnDstHnlVal:
+        type: string
+        description: Second Channel Distribution
+        example: 'ZZZZ'
+      thrDstHnlVal:
+        type: string
+        description: Third Channel Distribution
+        example: 'ZZZZ'
+      agnVal:
+        type: integer
+        description: Agent
+        example: 1
+      gppVal:
+        type: string
+        description: Group Policy Value
+        example: 'ZZZZZZZZZZZZZ'
+      delVal:
+        type: integer
+        description: Deal value
+        example: 99999
+      sblVal:
+        type: integer
+        description: Subdeal Value
+        example: 99999
+      plyVal:
+          type: string
+          description: Policy Value
+          example: 'ZZZZZZZZZZZZZ'
+      oPlyAtrPT:
+        type: array
+        description: Attributes List
+        items:
+          $ref: 'API_OBJECTS.yaml#/definitions/OPlyAtrS'
+  InVariableConceptsInformation:
+    description: Input Data to query variable concepts
+    required:
+      - cmpVal
+      - lobVal  
+      - vrbNam
+    properties:
+      cmpVal:
+        type: integer
+        description: Company code
+        example: 1
+      lobVal:
+        type: integer
+        description: Business line code
+        example: 308
+      mdtVal:
+        type: integer
+        description: Modality
+        example: 80301  
+      crnVal:
+        type: integer
+        description: currency value
+        example: 2
+      cvrVal:
+        type: integer
+        description: coverage value
+        example: 9999
+      frsLvlVal:
+        type: integer
+        description: First Level
+        example: 99
+      scnLvlVal:
+        type: integer
+        description: Second Level
+        example: 999
+      thrLvlVal:
+        type: integer
+        description: Third Level
+        example: 9999
+      frsDstHnlVal:
+        type: string
+        description: First Channel Distribution
+        example: 'ZZZZ'
+      scnDstHnlVal:
+        type: string
+        description: Second Channel Distribution
+        example: 'ZZZZ'
+      thrDstHnlVal:
+        type: string
+        description: Third Channel Distribution
+        example: 'ZZZZ'
+      agnVal:
+        type: integer
+        description: Agent
+        example: 1
+      gppVal:
+        type: string
+        description: Group Policy Value
+        example: 'ZZZZZZZZZZZZZ'
+      delVal:
+        type: integer
+        description: Deal value
+        example: 99999
+      sblVal:
+        type: integer
+        description: Subdeal Value
+        example: 99999
+      plyVal:
+          type: string
+          description: Policy Value
+          example: 'ZZZZZZZZZZZZZ'
+      vrbNam:
+          type: string
+          description: variable Name
+          example: 'HELPMETHODS-AS'
+  MenuDto:
+    description: Newtron Menu object
+    required:
+      - header
+      - list  
+    properties:
+      header:
+        type: array
+        description: Header menu options
+        example: [{
+         oprIdnVal: 'a',
+         oprIdnNam: 'descripcion',
+         funOprUrl: 'http://abc/de',
+         pgmDsb: 'N',
+         menSqnVal: 1
+      }]
+        items:
+          $ref: 'API_OBJECTS.yaml#/definitions/OCmnMenS'
+      list:
+        type: array
+        description: Menu options
+        example: [{
+         agrValPrn: 'newtron',
+         oprIdnVal: 'a',
+         oprIdnNam: 'descripcion',
+         funOprUrl: 'http://abc/de',
+         pgmDsb: 'N',
+         menSqnVal: 1
+      }]
+        items:
+          $ref: 'API_OBJECTS.yaml#/definitions/OCmnMenS'
+  UserConnected:
+    description: User connected info
+    required:
+      - usrData
+      - cmpData
+    properties:
+      usrData:
+        $ref: 'API_OBJECTS.yaml#/definitions/OThpUsrS'
+      cmpData:
+        type: array
+        items:
+          $ref: 'API_OBJECTS.yaml#/definitions/OCmuCmpS'
+  FavoritesDto:
+    description: User favorites
+    required:
+      - oprIdnVal
+    properties:
+      oprIdnVal:
+        type: string

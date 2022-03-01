@@ -1,0 +1,1428 @@
+swagger: '2.0'
+info:
+  description: 'Global Client API. Revision date: 30/06/2020.'
+  version: '1.0'
+  title: Global Client API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: apisb.mapfre.com
+basePath: "/api"
+tags:
+- name: Client
+  description: This resource gathers information of Person or Business Prospects,  Clients
+    or Exclients.  A Client means a person or business entity with a single relation
+    in whichever of the intervinents roles, or at least a insurance policy  or contract.
+    A prospect represents a single entity with a least a simulation or project.
+- name: Address
+  description: 'This resource gathers the Client address records, including the typification
+    for each of them such as: Residence, postal, or even Risk and also the preferred
+    by the Client.'
+- name: Claim
+  description: This entity collects the Client's claims
+- name: ContactMethod
+  description: This resource gathers the contact methods preferred by the Client,
+    such as e-mail, telephone, social media, etc.
+- name: DataProtection
+  description: This entity collects the Client's protection permission marks gathered
+    for different channels
+- name: Document
+  description: This entity collects the Client's documents
+- name: Interaction
+  description: The resource gathers incoming and outcoming interation between MAPFRE
+    and the Client
+- name: PaymentMethod
+  description: This resource brings information about the payment methods used by
+    the Client
+- name: Policy
+  description: This entity collects the Client's policies
+- name: Project
+  description: This entity collects the Client's projects
+- name: Receipt
+  description: This entity collects the Client's receipts
+schemes:
+- https
+paths:
+  "/client/{clientId}/receipts":
+    get:
+      tags:
+      - Receipt
+      summary: Find Client's Receipts
+      operationId: getReceiptByClient
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: clientId
+        in: path
+        required: true
+        type: string
+        description: Unique Client Id
+      - name: receiptStatusCode
+        in: query
+        type: string
+        description: Identifies the receipt status code
+      - name: effectiveDate
+        in: query
+        type: string
+        format: date
+        description: Receipt Effect Date. It is the start date of the policy period that is associated with the receipt
+      - name: dueDate
+        in: query
+        type: string
+        format: date
+        description: Indicates the receipt due date for payment.
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      - name: branchCodes
+        in: query
+        required: false
+        type: array
+        items:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/Receipt
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+
+  "/client/{clientId}":
+    get:
+      tags:
+      - Client
+      summary: Find Client by Id
+      operationId: getClient
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: clientId
+        in: path
+        required: true
+        type: string
+        description: Unique Client Id
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: objectsAPI.yaml#/definitions/ClientComplete
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/client/{clientId}/policies":
+    get:
+      tags:
+      - Policy
+      summary: Find Client's Policies
+      operationId: getPoliciesByClientId
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: clientId
+        in: path
+        required: true
+        type: string
+        description: Unique Client Id
+      - name: activePolicyInd
+        in: query
+        type: boolean
+        default: TRUE
+        description: If this field is FALSE search policies active and not active (Canceled, expired,etc) policy , if it is TRUE only active policies
+      - name: policyEffectiveDate
+        in: query
+        type: string
+        format: date
+        description: Filter by effective date-time. If the field is filled, the service returns the policies that are active on this date + time
+      - name: cancellationDateTo
+        in: query
+        type: string
+        format: date
+        description:  If this field is filled, search policies that have expired from this date to the present 
+      - name: onlyOneRisk
+        in: query
+        type: boolean
+        default: TRUE
+        description: If this field is FALSE search multi risk policies , It is TRUE only one risk
+      - name: branchCodes
+        in: query
+        type: array
+        items:
+          type: string
+        description: If this field is filled, search policies that belongs to  this list of branchs
+      - name: participantFigureTypeCodes
+        in: query
+        type: array
+        items:
+          type: string
+        description: If this field is filled,  search policies where the user represents this policy Rol (1 - holder, 2 - beneficiary....  )
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/PolicyClient
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/client/{clientId}/projects":
+    get:
+      tags:
+      - Project
+      summary: Find Client's Projects
+      operationId: getProjectsByClient
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: clientId
+        in: path
+        required: true
+        type: string
+        description: Unique Client Id
+      - name: onlyOneRisk
+        in: query
+        type: boolean
+        default: TRUE
+        description: If this field is FALSE search multi risk policies , It is TRUE only one risk
+      - name: branchCodes
+        in: query
+        type: array
+        items:
+          type: string
+        description: If this field is filled, search policies that belongs to  this list of branchs
+      - name: participantFigureTypeCodes
+        in: query
+        type: array
+        items:
+          type: string
+        description: If this field is filled,  search policies where the user represents this policy Rol (1 - holder, 2 - beneficiary....  )
+      - name: openDateFrom
+        in: query
+        type: string
+        format: date
+        description: Date From when the project is emited by the Client
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/ProjectClient
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/client/{clientId}/interactions":
+    get:
+      tags:
+      - Interaction
+      summary: Find Client's Interactions
+      operationId: getInteractionsByClientId
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: clientId
+        in: path
+        required: true
+        type: string
+        description: Unique Client Id
+      - name: interactionStatusCode
+        in: query
+        type: string
+        description: Status of the interaction
+      - name: channelCode
+        in: query
+        required: false
+        type: string
+        description: It allows to get the client's interaction list using the unique
+          client Id and the Channel
+      - name: interactionsDateTo
+        in: query
+        type: string
+        format: date
+        description: It allows to get the interactions until a specific date
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/Interaction
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/client/{clientId}/interaction/{interactionId}":
+    put:
+      tags:
+      - Interaction
+      summary: Communication status modification service
+      description: Communication status modification service
+      operationId: modifyIteraction
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: clientId
+        in: path
+        type: string
+        description: Client Identifier
+        required: true
+      - name: interactionId
+        in: path
+        type: string
+        description: Interaction identifier
+        required: true
+      - in: body
+        name: body
+        description: In put Interaction
+        schema:
+          $ref: objectsAPI.yaml#/definitions/Interaction
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/client/{clientId}/interaction":
+    post:
+      tags:
+      - Interaction
+      summary:  Create new communication status service
+      description: Create new communication status service
+      operationId: createIteraction
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: clientId
+        in: path
+        type: string
+        description: Client Identifier
+        required: true
+      - in: body
+        name: body
+        description: In put Interaction
+        schema:
+          $ref: objectsAPI.yaml#/definitions/Interaction
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/client/{clientId}/helpMethods":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining user help methods
+      description: Service for obtaining user help methods
+      operationId: getClientHelpMethods
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: clientId
+        in: path
+        description: Client identifier
+        required: true
+        type: string
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/HelpMethod
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Bad request
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+
+  "/client/{clientId}/addresses":
+    put:
+      tags:
+      - Address
+      summary: Modify Client's Addresses
+      operationId: putAddressesByClientId
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: clientId
+        in: path
+        required: true
+        type: string
+        description: Unique Client Id
+      - in: body
+        name: body
+        required: true
+        description: Information of Address of a Client.
+        schema:
+          type: array
+          items:
+            $ref: objectsAPI.yaml#/definitions/Address
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+
+  "/client/{clientId}/claims":
+    get:
+      tags:
+      - Claim
+      summary: Find Client's Claims
+      operationId: getClaimsByClient
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: clientId
+        in: path
+        required: true
+        type: string
+        description: Unique Client Id
+      - name: claimStatusCode
+        in: query
+        type: string
+        description: 'Status for the claim in the moment it is consulted, for example: RA, FI, VA, EX, RE, CL'
+      - name: openDateFrom
+        in: query
+        type: string
+        format: date
+        description: Date From when the claim is informed by the Client
+      - name: openDateTo
+        in: query
+        type: string
+        format: date
+        description: Date To when the claim is informed by the Client
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/ClaimBase
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/client/{clientId}/contactMethods":
+    put:
+      tags:
+      - ContactMethod
+      summary: Update an existing Client ContactMethod
+      operationId: putContactMethods
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: clientId
+        in: path
+        required: true
+        type: string
+        description: Unique Client Id
+      - in: body
+        name: ContactMethod
+        required: true
+        description: Information of contact Method of a Client.
+        schema:
+          type: array
+          items:
+            $ref: objectsAPI.yaml#/definitions/ContactMethod
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+
+  "/client/{clientId}/paymentMethods":
+    get:
+      tags:
+      - PaymentMethod
+      summary: Find Client's Payment Methods
+      operationId: getPaymentMethodsByClientId
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: clientId
+        in: path
+        required: true
+        type: string
+        description: Unique Client Id
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/PaymentMethod
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+
+  "/client/{clientId}/documents":
+    get:
+      tags:
+      - Document
+      summary: Find Client's Document
+      operationId: getClientDocuments
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: clientId
+        in: path
+        required: true
+        type: string
+        description: Unique Client Id
+      - name: type
+        in: query
+        description: It allows to get the client's documents list using the unique
+          client Id and the type
+        required: false
+        type: string
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/Document
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+
+  "/client/{clientId}/dataProtection":
+    get:
+      tags:
+      - DataProtection
+      summary: Find Client's Data Protection
+      operationId: getDataProtectionByClientId
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: clientId
+        in: path
+        required: true
+        type: string
+        description: Unique Client Id
+      - name: approvalTypeCodes
+        in: query
+        type: array
+        items:
+          type: string
+        description: If this field is filled,  search the Data Protections for this approvalTypeCodes
+      - name: policyEffectiveDate
+        in: query
+        type: string
+        format: date-time
+        description: Filter by effective date-time. If the field is filled, the service returns the DataProtection that are active on this date
+ 
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/DataProtection
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+
+  "/client/{clientId}/dataProtection/{dataProtectionId}":
+    put:
+      tags:
+      - DataProtection
+      summary: Update Client's Data Protection
+      description: This entity collects the Client's protection permission marks gathered
+        for different channels
+      operationId: putClientDataProtection
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: clientId
+        in: path
+        required: true
+        type: string
+        description: Unique Client Id
+      - name: dataProtectionId
+        in: path
+        required: true
+        type: string
+        description: Unique Id for the Data protection
+      - in: body
+        name: body
+        schema:
+          $ref: objectsAPI.yaml#/definitions/DataProtection
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/client/{clientId}/survey":
+    post:
+      tags:
+      - Survey
+      summary: Create Survey
+      operationId: createClientSurvey
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: clientId
+        in: path
+        required: true
+        type: string
+        description: Unique Client Id
+      - in: body
+        name: body
+        description: Create survey
+        schema:
+          $ref: objectsAPI.yaml#/definitions/Survey
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '201':
+          description: successful operation
+          schema:
+            type: object
+            properties:
+              surveyId:
+                type: string
+                description: Unique Survey Id
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/client/{clientId}/tasks":
+    get:
+      tags:
+      - Task
+      summary: Find Client's Task
+      operationId: getTasksByClient
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: clientId
+        in: path
+        required: true
+        type: string
+        description: Unique Client Id
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/Task
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/client/{clientId}/paymentMethod":
+    post:
+      tags:
+      - PaymentMethod
+      summary: Create payment method
+      operationId: createPaymentMethod
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: clientId
+        in: path
+        required: true
+        type: string
+        description: Unique Client Id
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      - in: body
+        name: body
+        description: Create payment method
+        schema:
+          $ref: objectsAPI.yaml#/definitions/PaymentMethod
+      responses:
+        '201':
+          description: successful operation
+          schema:
+            type: object
+            properties:
+              paymentMethodId:
+                type: string
+                description: Payment method identifier
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/client/{clientId}/paymentMethod/{paymentMethodId}":
+    delete:
+      tags:
+      - PaymentMethod
+      summary: Delete Client Payment Method
+      description: This resource brings information about the payment methods used
+        by the Client
+      operationId: deletePaymentMethodById
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: clientId
+        in: path
+        required: true
+        type: string
+        description: Unique Client Id
+      - name: paymentMethodId
+        in: path
+        required: true
+        type: string
+        description: Unique Payment Method Id
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/client/{clientId}/analyticProfile":
+    get:
+      tags:
+      - AnalyticProfile
+      summary: Find Client's analytic Profile
+      operationId: getAnalyticProfileByClientId
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: clientId
+        in: path
+        required: true
+        type: string
+        description: Unique Client Id
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: objectsAPI.yaml#/definitions/AnalyticProfile
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+
+securityDefinitions:
+  name:
+    type: apiKey
+    name: api_key
+    in: query
+  mapfre_auth:
+    type: oauth2
+    authorizationUrl: http://auth.mapfre.com/oauth/
+    flow: implicit
+    scopes:
+      read: Grants read access
+      write: Grants write access
+      admin: Grants access to admin operations
+definitions: {}
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io

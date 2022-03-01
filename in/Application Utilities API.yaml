@@ -1,0 +1,220 @@
+swagger: '2.0'
+info:
+  description: 'Application Utilities API. Revision date: 30/01/2020.'
+  version: '1.0'
+  title: Application Utilities API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: apisb.mapfre.com
+basePath: "/api/applicationUtilities"
+schemes:
+- https
+paths:
+  "/user/searchClientValidation":
+    post:
+      tags:
+      - User
+      summary: Validate if the user has individual policies in MAPFRE. If It has any policy checks  if the email and email match the customer's reference email/pohne
+      operationId: postSearchClientValidation
+      consumes:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        required: true
+        type: string
+      - in: body
+        name: bodySearchClientValidation
+        required: true
+        description: Inbound Parameters
+        schema:
+          $ref: objectsAPI.yaml#/definitions/SearchClientValidation
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: objectsAPI.yaml#/definitions/SearchClientValidationResponse
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/auto/policy/{policyId}/participant/{participantFigureId}/validation":
+    put:
+      tags:
+      - Polizas
+      summary: Modify info of participant in policy
+      operationId: putPolicyParticipantFigure
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+        enum:
+        - es-ES
+      - name: policyId
+        in: path
+        type: string
+        required: true
+        description: Numerical reference that MAPFRE assigns to each insurance contract
+          to identify it
+      - name: participantFigureId
+        in: path
+        type: string
+        required: true
+        description: participant identifier code
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - in: body
+        name: body
+        description: Auto Detail
+        schema:
+          $ref: 'objectsAPI.yaml#/definitions/Participant'
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: objectsAPI.yaml#/definitions/PolicyDataModificationResponse
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/auto/policy/{policyId}/risk/{riskId}/autoDetail/validation":
+    put:
+      tags:
+      - Polizas
+      summary: Check modification auto detail
+      operationId: putPolicyAutoDetail
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+        enum:
+        - es-ES
+        default: es-ES
+      - name: policyId
+        in: path
+        type: string
+        required: true
+        description: Numerical reference that MAPFRE assigns to each insurance contract
+          to identify it
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: riskId
+        in: path
+        type: string
+        required: true
+        description: risk identifier code
+      - in: body
+        name: body
+        description: Auto Detail
+        schema:
+          $ref: 'objectsAPI.yaml#/definitions/AutoDetail'
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: objectsAPI.yaml#/definitions/PolicyDataModificationResponse
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+securityDefinitions:
+  name:
+    type: apiKey
+    name: api_key
+    in: query
+  mapfre_auth:
+    type: oauth2
+    authorizationUrl: http://auth.mapfre.com/oauth/
+    flow: implicit
+    scopes:
+      read: Grants read access
+      write: Grants write access
+      admin: Grants access to admin operations
+definitions: {}
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io

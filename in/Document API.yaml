@@ -1,0 +1,245 @@
+swagger: '2.0'
+info:
+  description: 'Global Document API. Revision date: 30/06/2020.'
+  version: '1.0'
+  title: Global Document API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: apisb.mapfre.com
+basePath: "/api"
+tags:
+- name: Document
+  description: Document
+schemes:
+- https
+paths:
+  "/document/{documentId}":
+    get:
+      tags:
+      - Document
+      summary: Get Document
+      operationId: getDocumentById
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: documentId
+        in: path
+        required: true
+        type: string
+        description: document identifier code
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            "$ref": objectsAPI.yaml#/definitions/Document
+        '204':
+          description: No content
+          schema:
+            "$ref": objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            "$ref": objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            "$ref": objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            "$ref": objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            "$ref": objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            "$ref": objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+    delete:
+      tags:
+      - Document
+      summary: Delete Document by Id
+      operationId: deleteDocumentById
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: documentId
+        in: path
+        required: true
+        type: string
+        description: document identifier code
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        200:
+          description: successful operation
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  /document:
+    post:
+      tags:
+      - Document
+      summary: Create document
+      operationId: createDocument
+      consumes:
+      - application/json
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: Create document
+        schema:
+          $ref: objectsAPI.yaml#/definitions/Document
+      responses:
+        201:
+          description: successful operation
+          schema:
+            type: object
+            title: documentIdentifier
+            properties:
+              documentId:
+                type: string
+                description: document identifier code
+        400:
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        401:
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        403:
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        404:
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        500:
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  /document/{documentId}/mail:
+    post:
+      tags:
+      - Document
+      x-country-specific: MX
+      summary: Document sharing service
+      description: Document sharing service
+      operationId: mailDocument
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: documentId
+        in: path
+        required: true
+        type: string
+        description: document identifier code
+      - name: mail
+        in: body
+        required: true
+        schema:
+          $ref: objectsAPI.yaml#/definitions/Mail
+      produces:
+      - application/json
+      responses:
+        201:
+          description: successful operation
+        204:
+          description: No content
+        400:
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        401:
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        403:
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        404:
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        500:
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+securityDefinitions:
+  name:
+    type: apiKey
+    name: api_key
+    in: query
+  mapfre_auth:
+    type: oauth2
+    authorizationUrl: http://auth.mapfre.com/oauth/
+    flow: implicit
+    scopes:
+      read: Grants read access
+      write: Grants write access
+      admin: Grants access to admin operations
+definitions: {}
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io

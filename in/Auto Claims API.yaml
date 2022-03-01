@@ -1,0 +1,1238 @@
+swagger: '2.0'
+info:
+  description: 'Business API.'
+  version: '1.1'
+  title: Business API - Siniestros
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: apisb.mapfre.com
+basePath: "/api"
+tags:
+- name: Claim
+  description: Existing operations inside insurance claims
+schemes:
+- https
+paths:
+  "/auto/claim":
+    post:
+      tags:
+      - Claim
+      summary: Generate claim
+      operationId: generateClaimAuto
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - in: body
+        name: body
+        description: In create claim
+        schema:
+          $ref: objectsAPI.yaml#/definitions/AutoClaim
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '201':
+          description: successful operation
+          schema:
+            $ref: objectsAPI.yaml#/definitions/InlineResponse2001
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/auto/claim/{claimId}":
+    get:
+      tags:
+      - Claim
+      summary: Query claim
+      description: Query claim
+      operationId: getClaimAuto
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: claimId
+        required: true
+        in: path
+        type: string
+        description: Identifier code of claim
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: objectsAPI.yaml#/definitions/AutoClaim
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/auto/claim/{claimId}/actions":
+    get:
+      tags:
+      - Claim
+      summary: Service to obtain shares associated with a claim
+      operationId: getClaimAutoActions
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: claimId
+        in: path
+        required: true
+        type: string
+        description: Identifier code of claim
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/Action
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/auto/claim/{claimId}/documents":
+    get:
+      tags:
+      - Document
+      summary: Get claim's document
+      operationId: getClaimAutoDocuments
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: claimId
+        in: path
+        required: true
+        type: string
+        description: Identifier code of claim
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: owner
+        in: query
+        type: string
+        enum:
+        - MAPFRE
+        - CLIENT
+        description: Literal that indicates who owns the document. Possible values
+          "MAPFRE" if the document has been incorporated into the set of documents
+          by MAPFRE, and "CLIENT" if the document has been incorporated into the set
+          of documents by the client
+      - name: sortBy
+        in: query
+        enum:
+        - documentName
+        - documentDateCapture
+        - documentSize
+        type: string
+        description: Field indicator on which ordering is requested in the response.
+      - name: sortOrder
+        in: query
+        enum:
+        - ASC
+        - DESC
+        type: string
+        description: Indicator of the order to apply.
+      - name: includeProceedingDocsInd
+        in: query
+        type: boolean
+        description: If It is FALSE or It is not informed, the service will only return the claim documents if It is TRUE the service will also include the proceeding documents
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/ClaimDocument
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+    post:
+      tags:
+      - Document
+      summary: Create claim's documents
+      operationId: postClaimAutoDocuments
+      consumes:
+      - application/json
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: claimId
+        in: path
+        required: true
+        type: string
+        description: Identifier code of claim
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      - in: body
+        name: body
+        description: In Create document
+        schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/ClaimDocument
+      responses:
+        '201':
+          description: successful operation
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/auto/claim/{claimId}/proceeding/{proceedingId}/documents":
+    get:
+      tags:
+      - Document
+      summary: Get proceeding's documents
+      operationId: getProceedingAutoDocuments
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: claimId
+        in: path
+        required: true
+        type: string
+        description: Identifier code of claim
+      - name: proceedingId
+        in: path
+        required: true
+        type: string
+        description: Proceeding identificator
+      - name: owner
+        in: query
+        type: string
+        enum:
+        - MAPFRE
+        - CLIENT
+        description: Literal that indicates who owns the document. Possible values
+          "MAPFRE" if the document has been incorporated into the set of documents
+          by MAPFRE, and "CLIENT" if the document has been incorporated into the set
+          of documents by the client
+      - name: documentType
+        in: query
+        type: string
+        description: Document Type
+      - name: issueDocumentTypeCode   
+        in: query
+        type: string
+        required: false
+        description: 'Receipt type. Values: DEDUCTIBLE (pago deducible ) '
+      - name: sortBy
+        in: query
+        enum:
+        - documentName
+        - documentDateCapture
+        - documentSize
+        type: string
+        description: Field indicator on which ordering is requested in the response.
+      - name: sortOrder
+        in: query
+        enum:
+        - ASC
+        - DESC
+        type: string
+        description: Indicator of the order to apply.
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/Document
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+    post:
+      tags:
+      - Document
+      summary: Create proceeding's documents
+      operationId: postTaskAutoDocuments
+      consumes:
+      - application/json
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: claimId
+        required: true
+        in: path
+        type: string
+      - name: proceedingId
+        in: path
+        required: true
+        type: string
+        description: Proceeding identificator
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      - in: body
+        name: body
+        description: In Create document
+        schema:
+          $ref: objectsAPI.yaml#/definitions/Document
+      responses:
+        '201':
+          description: successful operation
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/auto/claim/{claimId}/indemnity":
+    get:
+      tags:
+      - Claim
+      summary: Indemnity detail
+      description: Indemnity only for the insured and in this case, this is a adding all the indemnities from each of proceeding
+      operationId: indemnityAutoProposalDesc
+      produces: 
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: claimId
+        in: path
+        required: true
+        type: string
+        description: Identifier code of claim
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/Indemnity
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+
+  "/auto/claim/{claimId}/proceedings":
+    get:
+      tags:
+      - Claim
+      summary: Query proceeding
+      description: Query procedding
+      operationId: getProceedingAutoByClaimId
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: claimId
+        in: path
+        required: true
+        type: string
+        description: Identifier code of claim
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/Proceeding
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+
+  "/auto/claim/{claimId}/proceeding/{proceedingId}/actions":
+    get:
+      tags:
+      - Claim
+      summary: Find proceeding's Actions
+      operationId: getActionsAutoByProceedingId
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: claimId
+        in: path
+        required: true
+        type: string
+        description: Identifier code of claim
+      - name: proceedingId
+        in: path
+        required: true
+        type: string
+        description: Identifier code of proceeding
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/Action
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/auto/claim/componentVisibility":
+    post:
+      tags:
+      - Claim
+      summary: Service to obtain the component visibility for claims flow
+      operationId: checkComponentVisibilityClaimAuto
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - in: body
+        name: body
+        description: In create claim
+        schema:
+          $ref: objectsAPI.yaml#/definitions/AutoClaim
+      responses:
+        '200':
+          description: successful operation
+          schema:
+              $ref: objectsAPI.yaml#/definitions/AutoClaimComponentsVisibility
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/auto/claim/{claimId}/proceeding/{proceedingId}/indemnity":
+    get:
+      tags:
+      - Claim
+      summary: Get proceeding indemnity detail 
+      description: Get only a proceeding indemnity detail for the insured.
+      operationId: getIndemnityAutoProceeding
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: claimId
+        in: path
+        required: true
+        type: string
+        description: Identifier code of claim
+      - name: proceedingId
+        in: path
+        required: true
+        type: string
+        description: Identifier code of proceeding  
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+                $ref: objectsAPI.yaml#/definitions/Indemnity
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/auto/claim/{claimId}/nextSteps":
+    get:
+      tags:
+      - Claim
+      summary: Get next stemps of reportes claim
+      description: Get next stemps of reportes claim
+      operationId: getClaimAutoNextSteps
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: claimId
+        required: true
+        in: path
+        type: string
+        description: Identifier code of claim
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/ClaimNextStep
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/auto/claim/draft/{draftId}":
+    delete:
+      tags:
+      - Draft
+      summary: Delete claim draft
+      operationId: DeleteClaimDraftAuto
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: draftId
+        in: path
+        required: true
+        type: string
+        description:  Identifier code of draft
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+    get:
+      tags:
+      - Draft
+      summary: Get claim draft
+      operationId: getClaimDraftAuto
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: draftId
+        in: path
+        required: true
+        type: string
+        description:  Identifier code of draft
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: objectsAPI.yaml#/definitions/AutoClaimDraft
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+    put:
+      tags:
+      - Draft
+      summary: Update claim draft
+      operationId: putClaimDraftAuto
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: draftId
+        in: path
+        required: true
+        type: string
+        description:  Identifier code of draft
+      - name: body
+        in: body
+        description: In update claim
+        schema:
+          $ref: objectsAPI.yaml#/definitions/AutoClaimDraft
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/auto/claim/draft/{draftId}/documents":
+    get:
+      tags:
+      - Draft
+      summary: Get draft documents
+      operationId: getDraftDocuments
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: draftId
+        in: path
+        required: true
+        type: string
+        description:  Identifier code of draft
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/Document
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+    post:
+      tags:
+      - Draft
+      summary: Create draft documents
+      operationId: postDraftDocuments
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: draftId
+        in: path
+        required: true
+        type: string
+        description:  Identifier code of draft
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      - name: body
+        in: body
+        description:  List of documents to create
+        schema:
+          type: array
+          items:
+            $ref: objectsAPI.yaml#/definitions/Document
+      responses:
+        '201':
+          description: successful operation
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/auto/claim/draft":
+    post:
+      tags:
+      - Draft
+      summary: Generate claim draft
+      operationId: generateClaimDraftAuto
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      - in: body
+        name: body
+        description: In create claim
+        schema:
+          $ref: objectsAPI.yaml#/definitions/AutoClaimDraft
+      responses:
+        '201':
+          description: successful operation
+          schema:
+            type: object
+            properties:
+              draftId:
+                type: string
+                description: Identifier code of draft
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+securityDefinitions:
+  mapfre_auth:
+    type: oauth2
+    authorizationUrl: http://auth.mapfre.com/oauth/
+    flow: implicit
+    scopes:
+      read: Grants read access
+      write: Grants write access
+      admin: Grants access to admin operations
+definitions: {}
+
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io

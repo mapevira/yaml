@@ -164,7 +164,7 @@ public class BlWriterImpl implements IBlWriter {
         printWriter.println("\t\t\t\t\t\t\t\t\t\t<small>");
         printWriter.println("\t\t\t\t\t\t\t\t\t\t\t<p>");
         if (mydata.getMemTagMap() != null && mydata.getMemTagMap().containsKey(mydata.getTag())) {
-            printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t" + (String) mydata.getMemTagMap().get(mydata.getTag()));
+            printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t" + mydata.getMemTagMap().get(mydata.getTag()));
         }
         printWriter.println("\t\t\t\t\t\t\t\t\t\t\t</p>");
         printWriter.println("\t\t\t\t\t\t\t\t\t\t</small>");

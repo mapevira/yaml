@@ -1,0 +1,999 @@
+swagger: '2.0'
+info:
+  description: 'Global Receipt API. Revision date: 30/01/2020.'
+  version: '1.0'
+  title: Global Receipt API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: apis-services.mapfre.com
+basePath: "/api"
+tags:
+- name: Receipt
+  description: Receipt
+schemes:
+- https
+parameters:
+  receiptId:
+    in: path
+    name: receiptId
+    type: string
+    required: true
+    description: Unique Id for the Receipt
+  companyId:
+    name: companyId
+    in: query
+    type: string
+    description: Identifier of the company owns the final contract
+  userBK:
+    name: userBK
+    in: header
+    required: false
+    type: string
+    description: Backend user
+  tokenClientId:
+    name: tokenClientId
+    in: header
+    required: false
+    type: string
+    description: Unique Client Id from token
+paths:
+  "/receipt/{receiptId}/documents":
+    get:
+      tags:
+      - Document
+      summary: Get receipt's documents
+      operationId: getReceiptDocuments
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: receiptId
+        in: path
+        required: true
+        type: string
+        description: Numerical reference that MAPFRE assigns to each insurance contract
+          to identify it
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: documentType
+        in: query
+        type: string
+        description: 'Allows to filter the type of document, for example: PDF, XML, IMAGE'
+      - name: issueDocumentTypeCode
+        in: query
+        type: string
+        description: 'Allows to filter the type of document from the functional point of view '
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/Document
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/receipt/{receiptId}":
+    get:
+      tags:
+      - Receipt
+      summary: Get receipt
+      operationId: GetReceiptById
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: receiptId
+        in: path
+        required: true
+        type: string
+        description: Numerical reference that MAPFRE assigns to each insurance contract
+          to identify it
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Receipt
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  
+  "/receipt/{receiptId}/actions":
+    get:
+      tags:
+      - Receipt
+      summary: Get Receipt's Actions
+      operationId: getActionsByReceiptId
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: receiptId
+        in: path
+        required: true
+        type: string
+        description: Numerical reference that MAPFRE assigns to each insurance contract
+          to identify it
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/Action
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  
+  "/receipt/{receiptId}/paymentDivisions":
+    get:
+      tags:
+      - Receipt
+      summary: Get payment division options for an unpaid or pending receipt
+      operationId: receiptPaymentDivisions
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: receiptId
+        in: path
+        required: true
+        type: string
+        description: Numerical reference that MAPFRE assigns to each insurance contract
+          to identify it
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/PaymentDivisionOption
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/receipt/{receiptId}/division":
+    post:
+      tags:
+      - Receipt
+      summary: Request a receipt payment division
+      description: Receipt division
+      operationId: receiptDivision
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: receiptId
+        in: path
+        required: true
+        type: string
+        description: Numerical reference that MAPFRE assigns to each insurance contract
+          to identify it
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: paymentDivisionOptId
+        in: query
+        required: false
+        type: string
+        description: Unique identifier of the receipt split option selected by the customer
+      - name: receiptDivAmn
+        in: query
+        required: false
+        type: number
+        description: Receipt division amount        
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string      
+        description: Unique Client Id from token
+      responses:
+        '201':
+          description: successful operation
+          schema:
+            $ref: objectsAPI.yaml#/definitions/PolicyDataModificationResponse
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/receipt/{receiptId}/availablePaymentMethodTypes":
+    get:
+      tags:
+        - Receipt
+      summary: Service for obtaining available payment method types for a receipt
+      description: Service for obtaining available payment method types for a receipt
+      operationId: getReceiptAvailablePaymentMethodTypes
+      produces:
+        - application/json
+      parameters:
+        - name: Accept-Language
+          in: header
+          required: true
+          type: string
+        - name: receiptId
+          in: path
+          required: true
+          type: string
+          description: Numerical reference that MAPFRE assigns to each insurance contract to identify it
+        - name: companyId
+          in: query
+          type: string
+          description: Identifier of the company who owns the final contract
+        - name: userBK
+          in: header
+          required: false
+          type: string
+          description: Backend user
+        - name: tokenClientId
+          in: header
+          required: false
+          type: string      
+          description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/ParameterResult
+        '204':
+          description: No content              
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/receipt/{receiptId}/condonation":
+    post:
+      tags:
+      - Receipt
+      summary: Request a receipt condonation
+      description: Receipt condonation
+      operationId: receiptCondonation
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: receiptId
+        in: path
+        required: true
+        type: string
+        description: Numerical reference that MAPFRE assigns to each insurance contract to identify it
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company who owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string      
+        description: Unique Client Id from token
+      - name: body
+        in: body
+        required: true
+        schema:
+          $ref: objectsAPI.yaml#/definitions/ReceiptCondonationRequest    
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/receipt/{receiptId}/policiesCancellation":
+    post:
+      tags:
+      - Receipt
+      summary: Request a policies cancellation from receiptId
+      description: Cancel the list of policies that belong to a grouped receipt
+      operationId: policiesCancellationFromReceiptId
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: receiptId
+        in: path
+        required: true
+        type: string
+        description: Numerical reference that MAPFRE assigns to each insurance contract to identify it
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company who owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string
+        description: Unique Client Id from token
+      - name: body
+        in: body
+        required: true
+        schema:
+          $ref: objectsAPI.yaml#/definitions/ReceiptCancellationPoliciesRequest      
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/receipt/{receiptId}/paymentMethod":
+    put:
+      tags:
+      - Receipt
+      summary: Put Payment Method for an unpaid or pending receipt
+      operationId: putPaymentMethod
+      produces:
+      - application/json
+      parameters:
+        - name: Accept-Language
+          in: header
+          required: true
+          type: string
+        - name: receiptId
+          in: path
+          required: true
+          type: string
+          description: Numerical reference that MAPFRE assigns to each insurance contract to identify it
+        - name: companyId
+          in: query
+          type: string
+          description: Identifier of the company owns the final contract
+        - in: body
+          name: body
+          description: Payment Method
+          schema:
+            $ref: objectsAPI.yaml#/definitions/PaymentMethod
+        - name: userBK
+          in: header
+          required: false
+          type: string
+          description: Backend user
+        - name: tokenClientId
+          in: header
+          required: false
+          type: string      
+          description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: objectsAPI.yaml#/definitions/PolicyDataModificationResponse
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read 
+  "/receipt/{receiptId}/guaranteeSuspension":
+    post:
+      tags:
+      - Receipt
+      summary: Request a guarantee suspension from receiptId
+      description: Guarantee suspension
+      operationId: guaranteeSuspensionFromReceiptId
+      parameters:
+        - name: Accept-Language
+          in: header
+          required: true
+          type: string
+        - name: receiptId
+          in: path
+          required: true
+          type: string
+          description: Numerical reference that MAPFRE assigns to each insurance contract to identify it
+        - name: companyId
+          in: query
+          type: string
+          description: Identifier of the company owns the final contract 
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: objectsAPI.yaml#/definitions/ReceiptGuaranteeSuspensionRequest  
+        - name: userBK
+          in: header
+          required: false
+          type: string
+          description: Backend user
+        - name: tokenClientId
+          in: header
+          required: false
+          type: string      
+          description: Unique Client Id from token
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/receipt/{receiptId}/delay":
+    post:
+      tags:
+      - Receipt
+      summary: Request a receipt payment delay
+      description: Receipt delay
+      operationId: receiptDelay
+      consumes:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - $ref: "#/parameters/companyId"        
+      - name: receiptId
+        in: path
+        required: true
+        type: string
+        description: Numerical reference that MAPFRE assigns to each insurance contract
+          to identify it
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string      
+        description: Unique Client Id from token
+      - in: body
+        name: body
+        required: true
+        description: In create a receipt delay request
+        schema:
+          $ref: objectsAPI.yaml#/definitions/ReceiptDelay
+      responses:
+        '201':
+          description: successful operation
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/receipt/{receiptId}/returnCancellation":
+    post:
+      tags:
+      - Receipt
+      summary: Request a receipt return cancellation
+      description: Receipt return cancellation
+      operationId: postReceiptReturnCancellation
+      consumes:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: receiptId
+        in: path
+        required: true
+        type: string
+        description: Numerical reference that MAPFRE assigns to each insurance contract
+          to identify it
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string      
+        description: Unique Client Id from token
+      responses:
+        '201':
+          description: successful operation
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/receipts/receiptsGrouping":
+    post:
+      tags:
+      - Receipt
+      summary: Create a receipts grouping
+      description: Creates a grouping of receipts from a list of receipt identifiers.
+      operationId: receiptsGroupingFromReceiptId
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - $ref: "#/parameters/companyId"    
+      - in: body
+        name: body
+        description: List of receipts identifiers
+        schema:
+          type: array
+          items:
+           type: string
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string      
+        description: Unique Client Id from token
+      responses:
+        '201':
+          description: successful operation
+          schema:
+           $ref: objectsAPI.yaml#/definitions/Receipt
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/receipt/{receiptId}/returnRelease":
+    post:
+      tags:
+      - Receipt
+      summary: Request a receipt return release
+      description: Receipt return release
+      operationId: postReceiptReturnRelease
+      consumes:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: receiptId
+        in: path
+        required: true
+        type: string
+        description: Numerical reference that MAPFRE assigns to each insurance contract
+          to identify it
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: tokenClientId
+        in: header
+        required: false
+        type: string      
+        description: Unique Client Id from token
+      responses:
+        '201':
+          description: successful operation
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/receipt/{receiptId}/receipts":
+    get:
+      tags:
+      - Receipt
+      summary: Query receipts from a receipts grouping
+      description: It returns the list of receipts that are contained in a receipts grouping
+      operationId: getReceiptsFromReceiptId
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - $ref: "#/parameters/receiptId"
+      - $ref: "#/parameters/companyId"
+      - $ref: "#/parameters/userBK"
+      - $ref: "#/parameters/tokenClientId"
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/Receipt        
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/receipt/{receiptId}/receiptsExtraction":
+    post:
+      tags:
+      - Receipt
+      summary: Request a receipts extraction
+      description: Removes a list of receipts from a receipt grouping. Creating a new grouping
+      operationId: receiptsExtractionFromReceiptId
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - $ref: "#/parameters/receiptId"
+      - $ref: "#/parameters/companyId"
+      - $ref: "#/parameters/userBK"
+      - $ref: "#/parameters/tokenClientId"
+      - in: body
+        name: body
+        required: true
+        description: List of receipts identifiers
+        schema:
+          type: array
+          items:
+           type: string
+      responses:
+        '201':
+          description: successful operation
+          schema:
+           $ref: objectsAPI.yaml#/definitions/Receipt
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/receipt/{receiptId}/policiesExtraction":
+    post:
+      tags:
+      - Receipt
+      summary: Request a policies extraction
+      description: Remove receipts from a list of policies of a  receipts grouping. Creating a new grouping
+      operationId: policiesExtractionFromReceiptId
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - $ref: "#/parameters/receiptId"
+      - $ref: "#/parameters/companyId"
+      - $ref: "#/parameters/userBK"
+      - $ref: "#/parameters/tokenClientId"
+      - in: body
+        name: body
+        required: true
+        description: List of policy identifiers
+        schema:
+          type: array
+          items:
+           type: string
+      responses:
+        '201':
+          description: successful operation
+          schema:
+           $ref: objectsAPI.yaml#/definitions/Receipt
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+securityDefinitions:
+  name:
+    type: apiKey
+    name: api_key
+    in: query
+  mapfre_auth:
+    type: oauth2
+    authorizationUrl: http://auth.mapfre.com/oauth/
+    flow: implicit
+    scopes:
+      read: Grants read access
+      write: Grants write access
+      admin: Grants access to admin operations
+definitions: {}
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io

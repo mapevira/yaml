@@ -1,0 +1,143 @@
+swagger: '2.0'
+info:
+  description: Distributors Business API
+  version: '1.0'
+  title: Distributors Business API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: businessHost
+basePath: "/distributors"
+tags:
+- name: Distributor
+  description: Distributor related services
+- name: Policy
+  description: Policy related services
+- name: Other
+  description: Other related services
+securityDefinitions:
+  BearerAuth:
+    description: authentication system using the JWT access token
+    type: apiKey
+    in: header
+    name: JWT
+paths:
+  "/distributor/{distributorId}/claims":
+    get:
+      summary: Service to retrieve the list of Distributors Claims with paging
+      operationId: getDistributorClaims
+      security:
+      - BearerAuth: []
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - Distributor
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: distributorId
+        in: path
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract  
+      - name: pageSize
+        in: query
+        type: number
+      - name: pageIndex
+        in: query
+        type: number
+      - name: claimStatusCode
+        in: query
+        type: string
+        description: 'Status for the claim in the moment it is consulted, for example: RA, FI, VA, EX, RE, CL'
+      - name: openDateFrom
+        in: query
+        type: string
+        format: date
+        description: Date From when the claim 
+      - name: openDateTo
+        in: query
+        type: string
+        format: date
+        description: Date To when the claim 
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: object
+            title: claimsBaseWithTotal
+            properties:
+              total:
+                type: number                
+                description: total of items
+              list:
+                type: array
+                items:
+                  $ref: objectsAPI.yaml#/definitions/ClaimBase
+        '400':
+          $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          $ref: objectsAPI.yaml#/definitions/Error
+  "/distributor/{distributorId}":
+    get:
+      summary: Service to retrieve the Distributor's own basic information
+      operationId: getDistributor
+      security:
+      - BearerAuth: []
+      tags:
+      - Distributor
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        required: false
+        type: string   
+        description: Company Id   
+      - name: distributorId
+        in: path
+        required: true
+        type: string
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user 
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Distributor
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+definitions: {}

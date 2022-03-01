@@ -1,0 +1,4464 @@
+swagger: '2.0'
+info:
+  description: 'Business API. Revision date: 30/01/2020.'
+  version: '1.1'
+  title: MAPFRE Catalog API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: apisb.mapfre.com
+basePath: "/api/catalog"
+tags:
+- name: Client
+  description: Client related catalogs
+- name: Auto
+  description: Auto related catalogs
+- name: Home
+  description: Home related catalogs
+- name: Policy
+  description: Policy related catalogs
+- name: Professional
+  description: Professional related catalogs
+schemes:
+- https
+parameters:
+  receiptId:
+    in: path
+    name: receiptId
+    type: string
+    required: true
+    description: Unique Id for the Receipt
+  companyId:
+    name: companyId
+    in: query
+    type: string
+    description: Identifier of the company owns the final contract
+  userBK:
+    name: userBK
+    in: header
+    required: false
+    type: string
+    description: Backend user
+  tokenClientId:
+    name: tokenClientId
+    in: header
+    required: false
+    type: string
+    description: Unique Client Id from token
+  Accept-Language:
+    in: header
+    required: true
+    name: Accept-Language 
+    type: string
+    description: Accept Language
+paths:        
+  "/policyCancellationReasons":
+    get:
+      tags:
+      - Policy
+      summary: Service to obtain reasons for the cancellation or non-renewal of a
+        policy
+      description: Service to obtain reasons for the cancellation or non-renewal of
+        a policy
+      operationId: getPolicyCancellationReasons
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        required: false
+        description: Identifier of the company owns the final contract
+      - name: branchCode
+        in: query
+        type: string
+        description: Identifier of the Branch or line of bussines
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/policyCancellationReason/{policyCancellationReasonCode}":
+    get:
+      tags:
+      - Policy
+      summary: Service to obtain a reason for the cancellation or non-renewal of a
+        policy
+      description: Service to obtain a reason for the cancellation or non-renewal
+        of a policy
+      operationId: getPolicyCancellationReasonId
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: policyCancellationReasonCode
+        in: path
+        required: true
+        type: string
+        description: Unique Id for the policy cancellation reason
+      - name: companyId
+        in: query
+        type: string
+        required: false
+        description: Identifier of the company owns the final contract
+      - name: branchCode
+        in: query
+        type: string
+        description: Identifier of the Branch or line of bussines
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read    
+  "/identityDocumentTypes":
+    get:
+      tags:
+      - Document
+      summary: Service for obtaining identification documents
+      description: Service for obtaining identification documents
+      operationId: getIdentityDocumentTypes
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/identityDocumentType/{identityDocumentTypeCode}":
+    get:
+      tags:
+      - Document
+      summary: Service to obtain an identification document
+      description: Service to obtain an identification document
+      operationId: getIdentityDocumentType
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: identityDocumentTypeCode
+        in: path
+        required: true
+        type: string
+        description: Unique Id for the identity Document Type
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/paymentModalities":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining payment Modalities
+      description: Service for obtaining payment Modalities
+      operationId: getPaymentModalities
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        required: false
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/paymentModality/{paymentModalityId}":
+    get:
+      tags:
+      - Client
+      summary: Service to obtain a Payment Modality
+      description: Service to obtain a Payment Modality
+      operationId: getPaymentModalityId
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: paymentModalityId
+        in: path
+        required: true
+        type: string
+        description: Unique Id for the payment Modality
+      - name: companyId
+        in: query
+        type: string
+        required: false
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/genders":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining gender types
+      description: Service for obtaining gender types
+      operationId: getGenderTypes
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/gender/{genderCode}":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining gender type
+      description: Service for obtaining gender type
+      operationId: getGenderTypeById
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: genderCode
+        in: path
+        required: true
+        type: string
+        description: Unique Id for the gender
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/maritalStatus":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining marital status types
+      description: Service for obtaining marital status types
+      operationId: getMaritalStatusTypes
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/maritalStatus/{maritalStatusCode}":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining marital status type
+      description: Service for obtaining marital status type
+      operationId: getMaritalStatusTypeById
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: maritalStatusCode
+        in: path
+        required: true
+        type: string
+        description: Unique Id for the marital status
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/contactPreferences":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining contact preferences
+      description: Service for obtaining contact preferences
+      operationId: getContactPreferences
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/financialEntityNames":
+    get:
+      tags:
+      - Home
+      summary: Service for obtaining Financial Institutions' Names
+      description: Service for obtaining payment Financial Institutions' names
+      operationId: getEntityNames
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read                     
+  "/participantFiguresTypes":
+    get:
+      tags:
+      - Policy
+      summary: Service for obtaining type of participants by bussines line
+      description: Service for obtaining type of participants by bussines line
+      operationId: getParticipantFigures
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: businessLine
+        in: query
+        type: string
+        description: Line of business
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/participantFigureType/{participantFigureTypeCode}":
+    get:
+      tags:
+      - Policy
+      summary: Service for obtaining type of a participant by bussines line
+      description: Service for obtaining type of a participant by bussines line
+      operationId: participantFigureId
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: participantFigureTypeCode
+        in: path
+        required: true
+        type: string
+        description: Unique Id for the participant figure
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/roadTypes":
+    get:
+      tags:
+      - Auto
+      summary: Service for obtaining road types
+      description: Service for obtaining road types
+      operationId: getRoadTypes
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/roadType/{roadTypeCode}":
+    get:
+      tags:
+      - Auto
+      summary: Service to obtain a reason for the cancellation or non-renewal of a
+        policy
+      description: Service to obtain a reason for the cancellation or non-renewal
+        of a policy
+      operationId: getRoadTypeById
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: roadTypeCode
+        in: path
+        required: true
+        type: string
+        description: Unique Id for the road type
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/timeSlots":
+    get:
+      tags:
+      - Professional
+      summary: Service for obtaining payment methods
+      description: Service for obtaining payment methods
+      operationId: getTimeSlots
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        required: false
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/timeSlot/{timeSlotCode}":
+    get:
+      tags:
+      - Professional
+      summary: Service to obtain a reason for the cancellation or non-renewal of a
+        policy
+      description: Service to obtain a reason for the cancellation or non-renewal
+        of a policy
+      operationId: getTimeSlotById
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: timeSlotCode
+        in: path
+        required: true
+        type: string
+        description: Unique Id for the timeslot
+      - name: companyId
+        in: query
+        type: string
+        required: false
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/towns":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining towns
+      description: Service for obtaining towns
+      operationId: getTowns
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: countryCode
+        in: query
+        required: true
+        type: string
+        description: Identifier code of country
+      - name: provinceCode
+        in: query
+        required: true
+        type: string
+        description: Identifier code of province
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/town/{townCode}":
+    get:
+      tags:
+      - Client
+      summary: Service to obtain a town
+      description: Service to obtain a town
+      operationId: getTownCode
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: townCode
+        in: path
+        required: true
+        type: string
+        description: Identifier code of town
+      - name: countryCode
+        in: query
+        required: true
+        type: string
+        description: Identifier code of country
+      - name: provinceCode
+        in: query
+        required: true
+        type: string
+        description: Identifier code of province
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/provinces":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining provinces
+      description: Service for obtaining provinces
+      operationId: getProvinces
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: stateCode
+        in: query
+        required: true
+        type: string
+        description: Identifier code of state
+      - name: countryCode
+        in: query
+        required: true
+        type: string
+        description: Identifier code of country
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/province/{provinceCode}":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining province
+      description: Service for obtaining province
+      operationId: getProvince
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: provinceCode
+        in: path
+        required: true
+        type: string
+        description: Identifier code of province
+      - name: stateCode
+        in: query
+        required: true
+        type: string
+        description: Identifier code of state
+      - name: countryCode
+        in: query
+        required: true
+        type: string
+        description: Identifier code of country
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/states":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining states / autonomous communities
+      description: Service for obtaining states / autonomous communities
+      operationId: getStates
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: countryCode
+        in: query
+        required: false
+        type: string
+        description: Identifier code of country
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/state/{stateCode}":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining states / autonomous communities
+      description: Service for obtaining states / autonomous communities
+      operationId: getState
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: stateCode
+        in: path
+        required: true
+        type: string
+        description: Identifier code of state
+      - name: countryCode
+        in: query
+        required: true
+        type: string
+        description: Identifier code of country
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/countries":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining countries
+      description: Service for obtaining countries
+      operationId: getCountries
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/country/{countryCode}":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining country
+      description: Service for obtaining country
+      operationId: getCountry
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: countryCode
+        in: path
+        required: true
+        type: string
+        description: Identifier code of country
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/vehicleTypes":
+    get:
+      tags:
+      - Auto
+      summary: Service for obtaining vehicle types
+      description: Service for obtaining vehicle types
+      operationId: getVehicleTypes
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        required: false
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/vehicleType/{vehicleTypeCode}":
+    get:
+      tags:
+      - Auto
+      summary: Service for obtaining vehicle type
+      description: Service for obtaining vehicle type
+      operationId: getVehicleType
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: vehicleTypeCode
+        in: path
+        required: true
+        type: string
+        description: Identifier code of vehicle type
+      - name: companyId
+        in: query
+        type: string
+        required: false
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/vehicleBrands":
+    get:
+      tags:
+      - Auto
+      summary: Service for obtaining vehicle brands
+      description: Service for obtaining vehicle brands
+      operationId: getVehicleBrands
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        required: false
+        description: Identifier of the company owns the final 
+      - name: vehicleTypeCode
+        in: query
+        type: string
+        required: false
+        description:  Vehicle type identifier
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/vehicleBrand/{vehicleBrandCode}":
+    get:
+      tags:
+      - Auto
+      summary: Service for obtaining vehicle brand
+      description: Service for obtaining vehicle brand
+      operationId: getVehicleBrand
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: vehicleBrandCode
+        in: path
+        required: true
+        type: string
+        description: Identifier code of vehicle brand
+      - name: companyId
+        in: query
+        type: string
+        required: false
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/commercialProduct/{commercialProductCode}/coverages":
+    get:
+      tags:
+      - Policy
+      summary: Service for obtaining coverages by commercial product type
+      description: Service for obtaining coverages by commercial product type
+      operationId: getCoveragesByCommecialProduct
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: commercialProductCode
+        in: path
+        required: true
+        type: string
+        description: 'Identifier code of commercial Product Type '
+      - name: businessLine
+        in: query
+        type: string
+        description: Line of business
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/Coverage
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/commercialProducts":
+    get:
+      tags:
+      - Policy
+      summary: Service for obtaining commercial product types
+      description: Service for obtaining commercial product types
+      operationId: policyTypes
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: businessLine
+        in: query
+        type: string
+        description: Line of business
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: objectsAPI.yaml#/definitions/CommercialProduct
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/vehicleModels":
+    get:
+      tags:
+      - Auto
+      summary: Service for obtaining vehicle models
+      description: Service for obtaining vehicle models
+      operationId: getVehicleModels
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: vehicleBrandCode
+        in: query
+        required: true
+        type: string
+        description: Identifier code of vehicle brand
+      - name: companyId
+        in: query
+        type: string
+        required: false
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/vehicleModel/{vehicleModelCode}":
+    get:
+      tags:
+      - Auto
+      summary: Service for obtaining vehicle model
+      description: Service for obtaining vehicle model
+      operationId: getVehicleModel
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: vehicleBrandCode
+        in: query
+        required: true
+        type: string
+        description: Identifier code of vehicle brand
+      - name: vehicleModelCode
+        in: path
+        required: true
+        type: string
+        description: Identifier code of vehicle model
+      - name: companyId
+        in: query
+        type: string
+        required: false
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/colors":
+    get:
+      tags:
+      - Auto
+      summary: Service for obtaining payment methods
+      description: Service for obtaining payment methods
+      operationId: colors
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/color/{colorCode}":
+    get:
+      tags:
+      - Auto
+      summary: Service to obtain a reason for the cancellation or non-renewal of a
+        policy
+      description: Service to obtain a reason for the cancellation or non-renewal
+        of a policy
+      operationId: colorId
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: colorCode
+        in: path
+        required: true
+        type: string
+        description: Identifier code of color
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/theftTypes":
+    get:
+      tags:
+      - Claim
+      summary: Service for obtaining theft types
+      description: Service for obtaining theft types
+      operationId: getTheftTypes
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/injuredTypes":
+    get:
+      tags:
+      - Claim
+      summary: Service for obtaining injured types
+      description: Service for obtaining injured types
+      operationId: getInjuredTypes
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/insuranceCompanies":
+    get:
+      tags:
+      - Policy
+      summary: Service for obtaining insurance companies
+      description: Service for obtaining insurance companies
+      operationId: getInsuranceCompanies
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        required: false
+        description: Identifier of the company owns the final contract  
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/claimType/{claimTypeCode}/circumstances":
+    get:
+      tags:
+      - Claim
+      summary: Get circumstances related to a claim type
+      description: Get circumstances related to a claim type
+      operationId: getCircumstances
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: claimTypeCode
+        in: path
+        required: true
+        type: string
+        description: Identifier code of claim type
+      - name: claimSubtypeCode
+        in: query
+        type: string
+        description: Indicates the subtype of Claim
+      - name: theftTypeCode
+        in: query
+        type: string
+        description: Unique identifier of type of theft
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract  \
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/RecursiveParameterResult"
+        '204':
+          description: No content
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '400':
+          description: Request error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '401':
+          description: Not authorized
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '403':
+          description: Forbidden
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '404':
+          description: Not Found
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+        '500':
+          description: Uncontrolled error
+          schema:
+            $ref: objectsAPI.yaml#/definitions/Error
+      security:
+      - mapfre_auth:
+        - write
+        - read    
+  "/professionals":
+          get:
+            tags:
+            - Professional
+            summary: Get professionals service
+            description: Get professionals service
+            operationId: getProfessionals
+            produces:
+            - application/json
+            parameters:
+            - name: Accept-Language
+              in: header
+              required: true
+              type: string
+            - name: zipCode
+              in: query
+              type: string
+              pattern: "\\b\\d{5}\\b"
+              description: Filter by zip code
+            - name: companyId
+              in: query
+              type: string
+              required: false
+              description: Identifier of the company owns the final contract
+            - name: userBK
+              in: header
+              required: false
+              type: string
+              description: Backend user
+            - name: countryCode
+              in: query
+              type: string
+              description: Filter country code
+            - name: stateCode
+              in: query
+              type: string
+              description: Filter state code
+            - name: provinceCode
+              in: query
+              type: string
+              description: Filter province code
+            - name: townCode
+              in: query
+              type: string
+              description: Filter town code
+            responses:
+              '200':
+                description: Successful operation
+                schema:
+                  type: array
+                  items:
+                    $ref: objectsAPI.yaml#/definitions/Professional
+              '400':
+                description: Request error
+                schema:
+                  $ref: objectsAPI.yaml#/definitions/Error    
+  "/companies":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining companies
+      description: Service for obtaining companies
+      operationId: getCompanies
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user 
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/company/{companyId}":
+    get:
+      tags:
+      - Claim
+      summary: Service for obtaining company
+      description: Service for obtaining company
+      operationId: getCompanyByCode
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: path
+        required: true
+        type: string
+        description: Unique Id for the company
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user 
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/sectors":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining sectors
+      description: Service for obtaining sectors
+      operationId: getSectors
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string      
+      - name: companyId
+        in: query
+        required: false
+        type: string   
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user 
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/branch/{branchCode}":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining branch
+      description: Service for obtaining branch
+      operationId: getBranchByCode
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string           
+      - name: branchCode
+        in: path
+        required: true
+        type: string 
+      - name: companyId
+        in: query
+        required: false
+        type: string
+        description: Unique Id for the company
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/branches":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining branches
+      description: Service for obtaining branches
+      operationId: getBranches
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string      
+      - name: companyId
+        in: query
+        required: false
+        type: string 
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user   
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/currencies":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining currencies
+      description: Service for obtaining currencies
+      operationId: getCurrencies
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string      
+      - name: companyId
+        in: query
+        required: false
+        type: string  
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user  
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/currency/{currencyIsoCode}":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining currency
+      description: Service for obtaining currency
+      operationId: getCurrencyByCode
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string           
+      - name: currencyIsoCode
+        in: path
+        required: true
+        type: string 
+      - name: companyId
+        in: query
+        required: false
+        type: string
+        description: Unique Id for the company
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/languages":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining languages
+      description: Service for obtaining languages
+      operationId: getLanguages
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/language/{languageCode}":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining language
+      description: Service for obtaining language
+      operationId: getLanguageByCode
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: languageCode
+        in: path
+        required: true
+        type: string 
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/receiptsUnPaidReasons":
+    get:
+      tags:
+        - Receipts
+      summary: Service for obtaining reasons for the unpaid receipts
+      description: Service for obtaining reasons for unpaid receipts
+      operationId: getReceiptUnPaidReasons
+      produces:
+      - application/json
+      parameters:      
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string   
+      - name: companyId
+        in: query
+        required: false
+        type: string 
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user  
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/receiptsUnPaidReason/{receiptsUnPaidReasonCode}":
+    get:
+      tags:
+        - Receipts
+      summary: Service for obtaining  a reasons for the unpaid receipt
+      description: Service for obtaining  a reasons for the unpaid receipt
+      operationId: getReceiptUnPaidReasonCode
+      produces:
+      - application/json
+      parameters:      
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string    
+      - name: companyId
+        in: query
+        required: false
+        type: string   
+      - name: receiptsUnPaidReasonCode
+        in: path
+        required: true
+        type: string
+        description: Code for the  receipt unpaid reason 
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user     
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/receiptStatus":
+    get:
+      tags:
+        - Receipts
+      summary: Service for obtaining the receipt status types
+      description: Service for obtaining the receipt status types
+      operationId: getReceiptStatus
+      produces:
+      - application/json
+      parameters:      
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/receiptStatus/{receiptStatusCode}":
+    get:
+      tags:
+        - Receipts
+      summary: Service for obtaining the status of a receipt by code
+      description: Service for obtaining the status of a receipt by code
+      operationId: getReceiptStatusByCode
+      produces:
+      - application/json
+      parameters:      
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: receiptStatusCode
+        in: path
+        required: true
+        type: string
+        description: Code for the  receipt status
+      - name: userBK
+        in: header
+        required: false
+        type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/condonationReasons":
+    get:
+      tags:
+      - Receipts
+      summary: Service to obtain reasons of condonation 
+      description: Service to obtain reasons of condonation
+      operationId: getCondonationReasons
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: branchCode
+        in: query
+        type: string
+        description: Identifier of the Branch or line of bussines
+      - name: userBK
+        in: header
+        required: false
+        type: string    
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/condonationReason/{condonationReasonCode}":
+    get:
+      tags:
+      - Receipts
+      summary: Service to obtain a reason of condonation
+      description: Service to obtain a reason of condonation
+      operationId: getCondonationReasonById
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: condonationReasonCode
+        in: path
+        required: true
+        type: string
+        description: Unique Id for the policy cancellation reason
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: branchCode
+        in: query
+        type: string
+        description: Identifier of the Branch or line of bussines
+      - name: userBK
+        in: header
+        required: false
+        type: string            
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read       
+  "/sector/{sectorCode}/subSectors":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining subSectors
+      description: Service for obtaining subSectors
+      operationId: getSubSectors
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string   
+      - name: sectorCode
+        in: path
+        required: true
+        type: string    
+      - name: companyId
+        in: query
+        required: false
+        type: string
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user    
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/sector/{sectorCode}":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining sector
+      description: Service for obtaining sector
+      operationId: getSectorByCode
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string           
+      - name: sectorCode
+        in: path
+        required: true
+        type: string 
+      - name: companyId
+        in: query
+        required: false
+        type: string
+        description: Unique Id for the company
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user    
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/distributionChannels":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining distribution channels
+      description: Service for obtaining distribution channels
+      operationId: getDistributionChannels
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/distributionChannel/{distributionChannelId}":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining distribution channels
+      description: Service for obtaining distribution channels
+      operationId: getDistributionChannel
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: distributionChannelId
+        in: path
+        required: true
+        type: string
+        description: Identifier code of distribution channel
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/paymentMethodTypes":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining payment method types
+      description: Service for obtaining payment method types
+      operationId: getPaymentMethodTypes
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string      
+      - name: companyId
+        in: query
+        required: false
+        type: string    
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user   
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/paymentMethodType/{paymentMethodTypeCode}":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining currency
+      description: Service for obtaining currency
+      operationId: getPaymentMethodTypesByCode
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string           
+      - name: paymentMethodTypeCode
+        in: path
+        required: true
+        type: string 
+      - name: companyId
+        in: query
+        type: string
+        description: Unique Id for the company
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user 
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/sector/{sectorCode}/subsector/{subSectorCode}":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining subSector
+      description: Service for obtaining subSector
+      operationId: getSubSectorByCode
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string           
+      - name: sectorCode
+        in: path
+        required: true
+        type: string                
+      - name: subSectorCode
+        in: path
+        required: true
+        type: string 
+      - name: companyId
+        in: query
+        required: false
+        type: string
+        description: Unique Id for the company
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user 
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/distributorType/{distributorTypeCode}":
+    get:
+      tags:
+      - Distributor
+      summary: Service for obtaining the type of distributor
+      description:  Service for obtaining the type of distributor
+      operationId: getDistributorTypeByCode
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string           
+      - name: companyId
+        in: query
+        required: false
+        type: string   
+        description: Company Id     
+      - name: distributorTypeCode
+        in: path
+        required: true
+        type: string
+        description: Code for distributor type  
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user 
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/distributorTypes":
+    get:
+      tags:
+      - Distributor
+      summary: Service for obtaining the types of distributor
+      description: Service for obtaining the types of distributor
+      operationId: getDistributorTypes
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string           
+      - name: companyId
+        in: query
+        required: false
+        type: string 
+        description: Company Id
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user 
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/contactMethod/{contactMethodId}":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining contact method
+      description: Service for obtaining contact method
+      operationId: getContactMethod
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: contactMethodId
+        in: path
+        required: true
+        type: string
+        description: Identifier code of contact method
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract  
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user 
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/contactMethods":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining contact methods
+      description: Service for obtaining contact methods
+      operationId: getContactMethods
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user 
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/clientSegmentationTypes":
+    get:
+      tags:
+        - Client
+      summary: Service for obtaining reasons for the client segmentation types
+      description: Service for obtaining client segmentation types
+      operationId: getClientSegmentationTypes
+      produces:
+      - application/json
+      parameters:      
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string   
+      - name: companyId
+        in: query
+        required: false
+        type: string
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user    
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+  "/clientSegmentationType/{clientSegmentationTypeCode}":
+    get:
+      tags:
+        - Client
+      summary: Service for obtaining  a client segmentation type
+      description: Service for obtaining  a client segmentation type
+      operationId: getClientSegmentationTypeCodeByCode
+      produces:
+      - application/json
+      parameters:      
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string   
+      - name: companyId
+        in: query
+        required: false
+        type: string   
+      - name: clientSegmentationTypeCode
+        in: path
+        required: true
+        type: string
+        description: Code for the client segmentation type  
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user  
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+  "/commercialOffices":
+    get:
+      tags:
+      - Policy
+      summary: Service for obtaining commercial Offices 
+      description: Service for obtaining commercial Offices
+      operationId: getCommercialOffices
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract   
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user 
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/paymentMethodTypesExtended":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining payment method types definition
+      description: Service for obtaining payment method types definition
+      operationId: getPaymentMethodTypesExtended
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string      
+      - name: companyId
+        in: query
+        required: false
+        type: string    
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user 
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "objectsAPI.yaml#/definitions/PaymentMethodType"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/paymentMethodTypeExtended/{paymentMethodTypeCode}":
+    get:
+      tags:
+      - Client
+      summary: Service for obtaining payment method type definition
+      description: Service for obtaining payment method type definition
+      operationId: getPaymentMethodTypesExtendedByCode
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string           
+      - name: paymentMethodTypeCode
+        in: path
+        required: true
+        type: string 
+      - name: companyId
+        in: query
+        type: string
+        description: Unique Id for the company
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user 
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: "objectsAPI.yaml#/definitions/PaymentMethodType"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read   
+  "/financialEntityBranches":
+    get:
+      tags:
+      - Home
+      summary: Service for obtaining Financial Institutions' Branches
+      description: Service for obtaining payment Financial Institutions' Branches
+      operationId: getEntityBranches
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: financialEntityName
+        in: query
+        required: false
+        type: string   
+        description: "Name of the bank entity to be filtered"    
+      - name: zipCode
+        in: query
+        required: false
+        type: string   
+        description: "Town zipCode of the desired branches"          
+      - name: townCode
+        in: query
+        required: false
+        type: string   
+        description: "Town code of the desired branch" 
+      - name: financialEntityCode
+        in: query
+        required: false
+        type: string   
+        description: "Code of the financial entity"   
+      - name: financialEntityBranchCode
+        in: query
+        required: false
+        type: string   
+        description: "Code of the financial entity branch"    
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user                         
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/treasuryDocuments/searchTreasuryDocuments":
+    post:
+      tags:
+      - Documentation
+      summary: Service for obtaining the available documents of treasury for an operation
+      description: Service for obtaining the available documents of treasury for an operation
+      operationId: getTreasuryDocuments
+      produces:
+      - application/json
+      parameters:      
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: operationCode
+        in: query
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: Commercial Structure
+        schema:
+          type: array
+          items:
+            $ref: "objectsAPI.yaml#/definitions/CommercialStructure"
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read 
+  "/backendOperations":
+    get:
+      tags:
+      - Documentation
+      summary: Service for obtaining the available operations in the backend
+      description: Service for obtaining the available operations in the backend
+      operationId: getBackendOperations
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract  
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user      
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/accountingDocuments":
+    get:
+      tags:
+      - Documentation
+      summary: Service for obtaining the available documents of accounting for an operation
+      description: Service for obtaining the available documents of accounting for an operation
+      operationId: getAccountingDocuments
+      produces:
+      - application/json
+      parameters:      
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract 
+      - name: operationCode
+        in: query
+        required: true
+        type: string
+      - name: entryClass 
+        in: query
+        required: true
+        type: string
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user   
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+  "/claimDocuments/searchClaimDocuments":
+    post:
+      tags:
+      - Documentation
+      summary: Service for obtaining the available documents of claims for an operation
+      description: Service for obtaining the available documents of claims for an operation
+      operationId: getClaimDocuments
+      produces:
+      - application/json
+      parameters:      
+      - $ref: '#/parameters/Accept-Language'      
+      - $ref: '#/parameters/companyId'
+      - $ref: "#/parameters/userBK"
+      - name: operationCode
+        in: query
+        required: true
+        type: string
+      - in: body
+        name: body
+        required: true
+        schema:
+          $ref: objectsAPI.yaml#/definitions/ClaimDocumentsRequest    
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+  "/policyDocuments/searchPolicyDocuments":
+    post:
+      tags:
+      - Documentation
+      summary: Service for obtaining the available documents of policies for an operation
+      description: Service for obtaining the available documents of policies for an operation
+      operationId: getPolicyDocuments
+      produces:
+      - application/json
+      parameters:      
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract 
+      - name: operationCode
+        in: query
+        required: true
+        type: string
+      - in: body
+        name: body
+        required: true
+        schema:
+          $ref: objectsAPI.yaml#/definitions/PolicyDocumentsRequest    
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user   
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read   
+  "/thirdPartyDocuments":
+    get:
+      tags:
+      - Documentation
+      summary: Service for obtaining the available documents of third parties for an operation
+      description: Service for obtaining the available documents of third parties for an operation
+      operationId: getThirdPartyDocuments
+      produces:
+      - application/json
+      parameters:      
+      - $ref: '#/parameters/Accept-Language'      
+      - $ref: '#/parameters/companyId'
+      - name: operationCode
+        in: query
+        required: true
+        type: string
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user   
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read               
+  "/notificationDistributionTypes":
+    get:
+      tags:
+      - Notification
+      summary: Service for obtaining notification distribution types
+      description: Service for obtaining notification distribution types
+      operationId: getNotificationDistributionTypes
+      produces:
+      - application/json
+      parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        type: string
+      - name: companyId
+        in: query
+        type: string
+        description: Identifier of the company owns the final contract
+      - name: userBK
+        in: header
+        required: false
+        type: string
+        description: Backend user  
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/ParameterResult"
+        '204':
+          description: No content
+        '400':
+          $ref: objectsAPI.yaml#/responses/RequestError
+        '401':
+          $ref: objectsAPI.yaml#/responses/Unauthorized
+        '403':
+          $ref: objectsAPI.yaml#/responses/Forbidden
+        '404':
+          $ref: objectsAPI.yaml#/responses/NotFound
+        '500':
+          $ref: objectsAPI.yaml#/responses/UncontrolledError
+      security:
+      - mapfre_auth:
+        - write
+        - read
+securityDefinitions:
+  mapfre_auth:
+    type: oauth2
+    authorizationUrl: http://auth.mapfre.com/oauth/
+    flow: implicit
+    scopes:
+      read: Grants read access
+      write: Grants write access
+      admin: Grants access to admin operations
+definitions:
+  ParameterResult:
+    type: object
+    properties:
+      parameterId:
+        type: string
+        description: Parameter internal id
+      parameterName:
+        type: string
+        description: Parameter name
+      parameterDesc:
+        type: string
+        description: Parameter description
+  RecursiveParameterResult:
+    type: object
+    properties:
+      parameterId:
+        type: string
+        description: Parameter internal id
+      parameterName:
+        type: string
+        description: Parameter name
+      parameterDesc:
+        type: string
+        description: Parameter description
+      subLevel:
+        $ref: "#/definitions/RecursiveParameterResult"
+  BusinessActivity:
+        $ref: "objectsAPI.yaml#/definitions/BusinessActivity"
+
+
+
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io

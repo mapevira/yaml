@@ -37,7 +37,7 @@ public class BlExtractImpl implements IBlExtract {
         ObjectMapper om = new ObjectMapper(new YAMLFactory());
 
         try {
-            // Mapping the employee from the YAML file to the Employee class
+            // Mapping the API from the YAML file
             LinkedHashMap yamlMap = om.readValue(file, LinkedHashMap.class);
 
             SwaggerData data;

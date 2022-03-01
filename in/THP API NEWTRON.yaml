@@ -1,0 +1,4575 @@
+swagger: '2.0'
+info:
+  description: Mapfre THP API NEWTRON
+  version: '${project.version}'
+  title: Mapfre THP API NEWTRON
+basePath: /newtron/api/thirdparty
+host: api.mapfre.com
+securityDefinitions:
+  basicAuth:
+    type: basic
+security:
+  - basicAuth: []
+schemes:
+  - http
+  - https
+paths:
+  '/about/query':
+    get:
+      tags:
+        - Settings
+      summary: Query about application
+      description: >-
+        Query Query about application. It will return the information about the deployed application.
+      operationId: getAboutQuery
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: false
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: false
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: false
+          type: string
+      responses:
+        '200':
+          description: The information about the deployed application
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/About'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  '/agent/{thpVal}':
+    get:
+      tags:
+        - Agent
+      summary: Query agent by production code
+      description: >-
+        Query agent by production code. It will return the information about the
+        agent sent as parameter. It will be mandatory send the parameters
+        defined in the service and the service will response with the output
+        object defined.
+      operationId: getAgent
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpVal
+          in: path
+          description: Production code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Agent information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OThpAgnS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /agent:
+    get:
+      tags:
+        - Agent
+      summary: Query agent by user
+      description: >-
+        Query agent by user. It will return the information about the agent when
+        the agent is an user and the user was sent as parameter. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getAgentUsr
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: IdUserAgent
+          in: query
+          description: Agent user code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Agent information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OThpAgnS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  '/employeeAgent/{agnEmpVal}':
+    get:
+      tags:
+        - Employee Agent
+      summary: Query employee agent by production code
+      description: >-
+        Query employee agent by production code. It will return the information
+        about the employee agent sent as parameter. It will be mandatory send the
+        parameters defined in the service and the service will response with the
+        output object defined.
+      operationId: getEmployeeAgent
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: agnEmpVal
+          in: path
+          description: Employee agent value
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Employee Agent information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OThpEmaS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  '/employeeAgent':
+    get:
+      tags:
+        - Employee Agent
+      summary: Query employee agent by user
+      description: >-
+        Query employee agent by user. It will return the information about 
+        the employee agent when the employee agent is an user and the employee
+        user was sent as parameter. It will be mandatory send the parameters 
+        defined in the service and the service will response with the output 
+        object defined.
+      operationId: getEmployeeaagentUsr
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: emaUsrVal
+          in: query
+          description: Employee agent user
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Employee Agent information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OThpEmaS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /insuredparty:
+    get:
+      tags:
+        - Insured Party
+      summary: Query Insured Party
+      description: >-
+        Query Insured Party. It will return the information about the insured
+        party. It will be mandatory send the parameters defined in the service
+        and the service will response with the output object defined.
+      operationId: getInsuredparty
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: ThpDcmTypVal
+          in: query
+          description: Third Person Document type
+          required: true
+          type: string
+        - name: ThpDcmVal
+          in: query
+          description: Third Person Document
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Insured Party information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OThpIpcPC'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /insuredparty/person:
+    post:
+      tags:
+        - Insured Party
+      summary: update insured party person information
+      description: >-
+        update insured party person information. It will return the information
+        about the insured party person. It will be mandatory send the parameters
+        defined in the service and the service will response with the output
+        object defined.
+      operationId: postInsuredpartyPerson
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: InUpdatePersonInfo
+          in: body
+          description: Input data to update insured party person information
+          required: true
+          schema:
+            $ref: '#/definitions/InUpdatePersonInfo'
+      responses:
+        '200':
+          description: insured party person information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OThpPrsS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /insuredparty/activity:
+    post:
+      tags:
+        - Insured Party
+      summary: update insured party activity information
+      description: >-
+        update insured party activity information. It will return the
+        information about the insured party activity. It will be mandatory send
+        the parameters defined in the service and the service will response with
+        the output object defined.
+      operationId: postInsuredpartyActivity
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: InUpdateActivityInfo
+          in: body
+          description: Input data to update insured party activity information
+          required: true
+          schema:
+            $ref: '#/definitions/InUpdateActivityInfo'
+      responses:
+        '200':
+          description: insured party activity information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OThpAcvS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /insuredparty/address:
+    post:
+      tags:
+        - Insured Party
+      summary: update insured party address information
+      description: >-
+        update insured party address information. It will return the information
+        about the insured party address. It will be mandatory send the
+        parameters defined in the service and the service will response with the
+        output object defined.
+      operationId: postInsuredpartyAddress
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: InUpdateAddressInfo
+          in: body
+          description: Input data to update insured party address information
+          required: true
+          schema:
+            $ref: '#/definitions/InUpdateAddressInfo'
+      responses:
+        '200':
+          description: insured party address information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OThpAdrS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /insuredparty/contact:
+    post:
+      tags:
+        - Insured Party
+      summary: update insured party contact information
+      description: >-
+        update insured party contact information. It will return the information
+        about the insured party contact. It will be mandatory send the
+        parameters defined in the service and the service will response with the
+        output object defined.
+      operationId: postInsuredpartyContact
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: InUpdateContactInfo
+          in: body
+          description: Input data to update insured party contact information
+          required: true
+          schema:
+            $ref: '#/definitions/InUpdateContactInfo'
+      responses:
+        '200':
+          description: insured party contact information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OThpCntS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /insuredparty/paymentcollectionmethod:
+    post:
+      tags:
+        - Insured Party
+      summary: update insured party payment collection method information
+      description: >-
+        update insured party payment collection method information. It will
+        return the information about the insured party payment collection
+        method. It will be mandatory send the parameters defined in the service
+        and the service will response with the output object defined.
+      operationId: postInsuredpartyPaymentcollectionmethod
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: InUpdatePaymentCollectionMethodInfo
+          in: body
+          description: >-
+            Input data to update insured party payment collection method
+            information
+          required: true
+          schema:
+            $ref: '#/definitions/InUpdatePaymentCollectionMethodInfo'
+      responses:
+        '200':
+          description: insured party payment collection method information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OThpPcmS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /insuredparty/license:
+    post:
+      tags:
+        - Insured Party
+      summary: update insured party license information
+      description: >-
+        update insured party license information. It will return the information
+        about the insured party license. It will be mandatory send the
+        parameters defined in the service and the service will response with the
+        output object defined.
+      operationId: postInsuredpartyLicense
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: InUpdateLicenseInfo
+          in: body
+          description: Input data to update insured party license information
+          required: true
+          schema:
+            $ref: '#/definitions/InUpdateLicenseInfo'
+      responses:
+        '200':
+          description: insured party license
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OThpLcnS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /insuredparty/insuredparty:
+    post:
+      tags:
+        - Insured Party
+      summary: update insured party information
+      description: >-
+        update insured party information. It will return the information about
+        the insured party. It will be mandatory send the parameters defined in
+        the service and the service will response with the output object
+        defined.
+      operationId: postInsuredpartyInsuredparty
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: InUpdateInsuredPartyInfo
+          in: body
+          description: Input data to update insured party information
+          required: true
+          schema:
+            $ref: '#/definitions/InUpdateInsuredPartyInfo'
+      responses:
+        '200':
+          description: insured party
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OThpInyS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /activity:
+    get:
+      tags:
+        - Activity
+      summary: Query Activity
+      description: >-
+        Query Activity. It will return the information about the activity. It
+        will be mandatory send the parameters defined in the service and the
+        service will response with the output object defined.
+      operationId: getActivity
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpDcmTypVal
+          in: query
+          description: Document type
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Document
+          type: string
+        - name: thpAcvVal
+          in: query
+          type: integer
+          description: Third Party Activity Value
+        - name: thpVal
+          in: query
+          description: Third Party Value
+          type: integer
+        - name: thpNam
+          in: query
+          description: Name
+          type: string
+        - name: thpScnNam
+          in: query
+          description: Second Name
+          type: string
+        - name: thpFrsSrn
+          in: query
+          description: First Surname
+          type: string
+        - name: thpScnSrn
+          in: query
+          description: Second Surname
+          type: string
+      responses:
+        '200':
+          description: Activity information List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpAcvP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /documentTypes:
+    get:
+      tags:
+        - Document type
+      summary: Query Document Types
+      description: >-
+        Query Document types. It will return the types of document. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getDocumentTypes
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Document Type List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OTpdDcyP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /documentType:
+    get:
+      tags:
+        - Document type
+      summary: Query Document Type
+      description: >-
+        Query Document types. It will return the information of a document. It
+        will be mandatory send the parameters defined in the service and the
+        service will response with the output object defined.
+      operationId: getDocumentType
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpDcmTypVal
+          in: header
+          description: Third Person Document Type Value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Document Type
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OTpdDcyS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /timeZones:
+    get:
+      tags:
+        - Time Zone
+      summary: Query Time Zones
+      description: >-
+        Query Time zones. It will return the time zones. It will be mandatory
+        send the parameters defined in the service and the service will response
+        with the output object defined.
+      operationId: getTimeZones
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Time Zone List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OTpdTmzP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /timeZone:
+    get:
+      tags:
+        - Time Zone
+      summary: Query Time Zone
+      description: >-
+        Query Time zone. It will return the time zone information. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getTimeZone
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: tmzTypVal
+          in: header
+          description: Time Zone
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Time Zone
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OTpdTmzS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /channels:
+    get:
+      tags:
+        - Channel
+      summary: Query Channels
+      description: >-
+        Query Channels. It will return the channels. It will be mandatory send
+        the parameters defined in the service and the service will response with
+        the output object defined.
+      operationId: getChannels
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Channel List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OTpdHnlP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /channel:
+    get:
+      tags:
+        - Channel
+      summary: Query Channel
+      description: >-
+        Query Channel. It will return the information of a channel. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getChannel
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: hnlTypVal
+          in: header
+          description: Channel
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Channel
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OTpdHnlS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /insuredparty/paymentcollectionmethod/query:
+    get:
+      tags:
+        - Payment Collection Method
+      summary: Query Payment Collection Method
+      description: >-
+        Query Payment Collection Method. It will return the information about
+        the Payment Collection Method. It will be mandatory send the parameters
+        defined in the service and the service will response with the output
+        object defined.
+      operationId: getInsuredpartyPaymentCollectionMethod
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpDcmTypVal
+          in: query
+          description: Third Person Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Third Person Document
+          required: true
+          type: string
+        - name: thpAcvVal
+          in: query
+          description: Third Person Activity
+          required: true
+          type: string
+        - name: thpVal
+          in: query
+          description: Third Person Value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Payment collection method information list
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpPcmP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /insuredparty/consent/query:
+    get:
+      tags:
+        - Consent
+      summary: Query Consents
+      description: >-
+        Query Consents. It will return the information about the consents
+        accepte by the customer to MAPFRE. It will be mandatory send the
+        parameters defined in the service and the service will response with the
+        output object defined.
+      operationId: getInsuredpartyConsents
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpDcmTypVal
+          in: query
+          description: Third Person Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Third Person Document
+          required: true
+          type: string
+        - name: coeTypVal
+          in: query
+          description: Type of consent
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Consent list
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpCoeP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /insuredparty/contact/query:
+    get:
+      tags:
+        - Contact
+      summary: Query Contact
+      description: >-
+        Query Contact. It will return the information about the contact of an
+        insured. It will be mandatory send the parameters defined in the service
+        and the service will response with the output object defined.
+      operationId: getInsuredpartyContact
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpDcmTypVal
+          in: query
+          description: Third Person Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Third Person Document
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Contact list
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpCntP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /insuredparty/channel/query:
+    get:
+      tags:
+        - Channel
+      summary: Query Insured Channel
+      description: >-
+        Query insured channel. It will return the information about the favorite
+        contact channel of an insured. It will be mandatory send the parameters
+        defined in the service and the service will response with the output
+        object defined.
+      operationId: getInsuredpartyChannel
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpDcmTypVal
+          in: query
+          description: Third Person Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Third Person Document
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Channel
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OTpdHnlS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /contact/querybyply:
+    post:
+      tags:
+        - Contact
+      summary: Query Contact by Policy
+      description: >-
+        Query Contact by policy. It will return the information about the
+        contact of a third party of a policy. It will be mandatory send the
+        parameters defined in the service  and the service will response with
+        the output object defined.
+      operationId: getContactByply
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpDcmTypVal
+          in: query
+          description: Third Person Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Third Person Document
+          required: true
+          type: string
+        - name: inSearchContactByPolicy
+          in: body
+          description: Input data to search a contact by policy details
+          required: true
+          schema:
+            $ref: '#/definitions/InSearchContactByPly'
+      responses:
+        '200':
+          description: Contact list
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpCntP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /paymentcollectionmethod/querybyply:
+    post:
+      tags:
+        - Payment Collection Method
+      summary: Query Payment Collection Method by Policy
+      description: >-
+        Query Payment Collection Method by policy. It will return the
+        information about the contact of a third party of a policy. It will be
+        mandatory send the parameters defined in the service  and the service
+        will response with the output object defined.
+      operationId: getPaymentcollectionmethodByply
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+          format: int32
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpDcmTypVal
+          in: header
+          description: Third Person Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: header
+          description: Third Person Document
+          required: true
+          type: string
+        - name: inSearchPaymentCollectionMethodByPolicy
+          in: body
+          description: Input data to search a Payment Collection Method by policy details
+          required: true
+          schema:
+            $ref: '#/definitions/InSearchByPolicy'
+      responses:
+        '200':
+          description: Payment Collection Method
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpPcmP'
+        '201':
+          description: Created
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /bankOffices:
+    get:
+      tags:
+        - Bank Office
+      summary: Query Bank Offices
+      description: >-
+        Query Bank Offices. It will return the information of bank offices. It
+        will be mandatory send the parameters defined in the service and the
+        service will response with the output object defined.
+      operationId: getBankOffices
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: bneVal
+          in: header
+          description: Banking Entity Value
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: Bank Office List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpBnoP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /bankEntities:
+    get:
+      tags:
+        - Bank Entity
+      summary: Query Bank Entities
+      description: >-
+        Query Bank Entities. It will return the information of bank entitites.
+        It will be mandatory send the parameters defined in the service and the
+        service will response with the output object defined.
+      operationId: getBankEntities
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: Bank Entity List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpBneP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /professions:
+    get:
+      tags:
+        - Profession
+      summary: Query Professions
+      description: >-
+        Query Professions. It will return the information of Professions. It
+        will be mandatory send the parameters defined in the service and the
+        service will response with the output object defined.
+      operationId: getProfessions
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: Profession List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OTpdPrfP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /insuredparty/insuredpartyPreviusReal:
+    post:
+      tags:
+        - Insured Party
+      summary: update insured party information in previus real table
+      description: >-
+        update insured party information in previus real table. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: postInsuredpartyInsuredpartyPreviusReal
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: InUpdateInsuredpartyPreviusReal
+          in: body
+          description: Insured party complete
+          required: true
+          schema:
+            $ref: '#/definitions/InUpdateInsuredpartyPreviusReal'
+      responses:
+        '200':
+          description: Insured Party information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OThpIpcPC'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /insuredparty/queryByKey:
+    get:
+      tags:
+        - Insured Party
+      summary: Query insured party by key
+      description: >-
+        Query insured party. It will return the information of an insured (only
+        email, phone and complete name) filering by the key that identifies the 
+        insuerd party. It will be mandatory send the parameters defined in the
+        service and the service will response with the output object defined.
+      operationId: getInsurePartyByKey
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company
+          required: true
+          type: integer
+        - name: keyVal
+          in: query
+          description: Key value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: insured party information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OThpIpcPC'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /activity/queryByName:
+    get:
+      tags:
+        - Activity
+      summary: Query Activity by name
+      description: >-
+        Query Activity by name. It will return the information about the
+        activity in any company. It will be mandatory send the parameters
+        defined in the service and the service will response with the output
+        object defined.
+      operationId: getActivityByName
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpNam
+          in: query
+          description: Third Party Name
+          type: string
+        - name: thpFrsSrn
+          in: query
+          description: Third Party First Surname
+          type: string
+        - name: thpScnSrn
+          in: query
+          description: Third Party Second Surname
+          type: string
+        - name: cmpVal
+          in: query
+          description: User code
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: Activity information List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpAcvP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /activity/queryByDocument:
+    get:
+      tags:
+        - Activity
+      summary: Query Activity by document
+      description: >-
+        Query Activity by document. It will return the information about the
+        activity in any company. It will be mandatory send the parameters
+        defined in the service and the service will response with the output
+        object defined.
+      operationId: getActivityByDocument
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpDcmTypVal
+          in: query
+          description: Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Document
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: User code
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: Activity information List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpAcvP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /person/queryByDocument:
+    get:
+      tags:
+        - Person
+      summary: Query Person by document
+      description: >-
+        Query Person by document. It will be mandatory send the parameters
+        defined  in the service and the service will response with the output
+        object defined.
+      operationId: getPersonByDocument
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpDcmTypVal
+          in: query
+          description: Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Document
+          required: true
+          type: string
+        - name: thpAcvVal
+          in: query
+          description: Activity Value
+          type: integer
+      responses:
+        '200':
+          description: Person
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OThpPrsS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /address/queryByDocument:
+    get:
+      tags:
+        - Address
+      summary: Query Address by document
+      description: >-
+        Query Address by document. It will be mandatory send the parameters
+        defined  in the service and the service will response with the output
+        object defined.
+      operationId: getAddressByDocument
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpDcmTypVal
+          in: query
+          description: Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Document
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: User code
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: Address List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpAdrP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /address/queryByDocumentv1:
+    get:
+      tags:
+        - Address
+      summary: Query Address by document v1
+      description: >-
+        Query Address by document. It will be mandatory send the parameters
+        defined  in the service and the service will response with the output
+        object defined.
+      operationId: getAddressByDocumentv1
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: User code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpAcvVal
+          in: query
+          description: Activity Value
+          type: integer
+          required: true
+        - name: thpDcmTypVal
+          in: query
+          description: Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Document
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Address List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpAdrS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /contact/queryByDocument:
+    get:
+      tags:
+        - Contact
+      summary: Query Contact by document
+      description: >-
+        Query Contact by document. It will be mandatory send the parameters
+        defined  in the service and the service will response with the output
+        object defined.
+      operationId: getContactByDocument
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpDcmTypVal
+          in: query
+          description: Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Document
+          required: true
+          type: string
+        - name: thpAcvVal
+          in: query
+          description: Activity Value
+          type: integer
+        - name: thpVal
+          in: query
+          description: Third Person Value
+          type: integer
+      responses:
+        '200':
+          description: Contact List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpCntP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /agentThirdLevel:
+    get:
+      tags:
+        - Agent Third Level
+      summary: Query agent third level
+      description: >-
+        Query agent third level. It will retrieve the third levels
+        where an agent can produce. It will be mandatory send the parameters
+        defined  in the service and the service will response with the output
+        object defined.
+      operationId: getAgentThirdLevel
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thrLvlVal
+          in: query
+          description: Third Level 
+          type: integer
+        - name: agnVal
+          in: query
+          description: Agent Value
+          type: integer
+        - name: vldDat
+          in: query
+          description: Valid Date
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Agent Third Level List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OTpdGtlS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /agent/{agnVal}/person:
+    get:
+      tags:
+        - Person
+      summary: Query person from agent
+      description: >-
+        Query person from agent. It will retrieve the person information 
+        about an agent. It will be mandatory send the parameters
+        defined  in the service and the service will response with the output
+        object defined.
+      operationId: getPersonFromAgent
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: agnVal
+          in: path
+          description: Agent Value
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Person
+          schema:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpPrsS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /agent/{agnVal}/contact:
+    get:
+      tags:
+        - Contact
+      summary: Query contact from agent
+      description: >-
+        Query contact from agent. It will retrieve the contact information 
+        about an agent. It will be mandatory send the parameters
+        defined  in the service and the service will response with the output
+        object defined.
+      operationId: getContactFromAgent
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: agnVal
+          in: path
+          description: Agent Value
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Agent Third Level List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpCntS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /insuranceCompanies:
+    get:
+      tags:
+        - Insurance Company
+      summary: Query Insurance Companies
+      description: >-
+        Query Insurance companies. It will return the insurance companies. It
+        will be mandatory send the parameters defined in the service and the
+        service will response with the output object defined.
+      operationId: getInsuranceCompanies
+      produces:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Insurance Company List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpIncS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /user/queryByDocument:
+    get:
+      tags:
+        - User Information
+      summary: Query User by document
+      description: >-
+        Query User by document. It will be mandatory send the parameters
+        defined  in the service and the service will response with the output
+        object defined.
+      operationId: getUserByDocument
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpDcmTypVal
+          in: query
+          description: Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Document
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: User
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OThpUsrS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /relation:
+    get:
+      tags:
+        - Third Party
+      summary: Query third party relation information
+      description: >-
+        Query third party relation information. It will be mandatory send the parameters
+        defined  in the service and the service will response with the output
+        object defined.
+      operationId: getThirdPartyRelation
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: thpAcvVal
+          in: query
+          description: Activity Value
+          type: integer
+        - name: thpDcmTypVal
+          in: query
+          description: Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Document
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Relation List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OTpdRitS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+    post:
+      tags:
+       - Third Party
+      summary: Update third party relation information
+      description: >-
+        Update third party relation information. If the relation exists, it updates 
+        the information. If the relation does not exist, if creates. It will be mandatory 
+        send the parameters defined  in the service and the service will response with the output
+        object defined.
+      operationId: postThirdPartyRelation
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: InUpdateRelationInfo
+          in: body
+          description: Input data to update third party relation information
+          required: true
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OTpdRitS'
+      responses:
+        '200':
+          description: "Operation succesfully done"
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /insuredparty/analyticalProfile:
+    get:
+      tags:
+        - Insured Party
+      summary: Query insured party analytical profile
+      description: >-
+        Query insured party analytical profile. It will be mandatory send the parameters
+        defined in the service and the service will response with the output
+        object defined.
+      operationId: getInsuredPartyAnalyticalProfile
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: thpDcmTypVal
+          in: query
+          description: Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Document
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Analytical profile
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OTpdAlpS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+    post:
+      tags:
+       - Insured Party
+      summary: Update Insured party analytical profile
+      description: >-
+        Update insured party analytical profile. If the analytical profile exists, it updates 
+        the information. If not, it creates. It will be mandatory 
+        send the parameters defined  in the service and the service will response with the output
+        object defined.
+      operationId: postInsuredPartyAnalyticalProfile
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: InUpdateAnalyticalProfile
+          in: body
+          description: Input data to update insured party analytical profile
+          required: true
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OTpdAlpS'
+      responses:
+        '200':
+          description: "Operation succesfully done"
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /alternativeDocument:
+    get:
+      tags:
+        - Third Party
+      summary: Query third party alternative document
+      description: >-
+        Query third party alternative document. It will be mandatory send the parameters
+        defined  in the service and the service will response with the output
+        object defined.
+      operationId: getThirdPartyAlternativeDocument
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: thpAcvVal
+          in: query
+          description: Activity Value
+          type: integer
+        - name: thpDcmTypVal
+          in: query
+          description: Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Document
+          required: true
+          type: string        
+        - name: vldDat
+          in: query
+          description: Valid Date
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Alternative Document List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/oThpArmS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+    post:
+      tags:
+       - Third Party
+      summary: Update third party alternative document
+      description: >-
+        Update third party alternative document information. If the alternative document exists, it updates 
+        the information. If the altenative document does not exist, if creates. It will be mandatory 
+        send the parameters defined  in the service and the service will response with the output
+        object defined.
+      operationId: postThirdPartyAlternativeDocument
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: InUpdateAlternativeDocumentInfo
+          in: body
+          description: Input data to update third party alternative document
+          required: true
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/oThpArmS'
+      responses:
+        '200':
+          description: "Operation succesfully done"
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /insuredparty/policyLocalModification:
+    get:
+      tags:
+        - Insured Party
+      summary: Query Insured Party Policy Local Modification 
+      description: >-
+        Query Insured Party Local Modification. It will return the local modifications about
+        person, contact and address in a policy . It will be mandatory send the parameters 
+        defined in the service and the service will response with the output object defined.
+      operationId: getThirdPartyPolicyLocalModification
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: ThpDcmTypVal
+          in: query
+          description: Third Person Document type
+          required: true
+          type: string
+        - name: ThpDcmVal
+          in: query
+          description: Third Person Document
+          required: true
+          type: string
+        - name: plyVal
+          in: query
+          description: Policy Value
+          required: true
+          type: string
+        - name: rskVal
+          in: query
+          description: Risk Value
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Insured Party information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OThpIpcC'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /consents:
+    get:
+      tags:
+        - Third Party
+      summary: Query Consents from third party 
+      description: >-
+        Query Consents from third party. It will return the consents of a 
+        third party. It will be mandatory send the parameters 
+        defined in the service and the service will response with the output object defined.
+      operationId: getThirdPartyConsents
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpDcmTypVal
+          in: query
+          description: Third Person Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Third Person Document
+          required: true
+          type: string
+        - name: thpAcvVal
+          in: query
+          description: Activity Value
+          required: true
+          type: integer
+        - name: coeTypVal
+          in: query
+          description: Consent Type Value
+          type: string
+        - name: coeVldDat
+          in: query
+          description: Consent Valid Date
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Consent List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpTmnS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+    put:
+      tags:
+        - Third Party
+      summary: Update third party consent
+      description: >-
+        Update third party consent. If the consent exists, it updates 
+        the information. If not, it creates. It will be mandatory 
+        send the parameters defined  in the service and the service will response with the output
+        object defined.
+      operationId: putThirdPartyConsent
+      consumes:
+        - application/json
+      parameters:
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: query
+          description: Language code
+          required: true
+          type: string
+        - name: InConsent
+          in: body
+          description: Input data to update consent
+          required: true
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OThpTmnS'
+      responses:
+        '201':
+          description: "Operation succesfully done"
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /agent/1.0/{agnVal}/contact:
+    get:
+      tags:
+        - Contact
+      summary: Query contact from agent v1
+      description: >-
+        Query contact from agent v1. It will retrieve the contact information 
+        about an agent. It will be mandatory send the parameters
+        defined  in the service and the service will response with the output
+        object defined.
+      operationId: getContactFromAgentv1
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: agnVal
+          in: path
+          description: Agent Value
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Agent Third Level List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpCntS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /contact/1.0/queryByDocument:
+    get:
+      tags:
+        - Contact
+      summary: Query Contact by document v1
+      description: >-
+        Query Contact by document. It will be mandatory send the parameters
+        defined  in the service and the service will response with the output
+        object defined.
+      operationId: getContactByDocumentv1
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpDcmTypVal
+          in: query
+          description: Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Document
+          required: true
+          type: string
+        - name: thpAcvVal
+          in: query
+          description: Activity Value
+          type: integer
+          required: true
+        - name: thpVal
+          in: query
+          description: Third Person Value
+          type: integer
+      responses:
+        '200':
+          description: Contact List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpCntP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /relationTypes:
+    get:
+      tags:
+        - Contact
+      summary: Query relation types
+      description: >-
+        Query relation types. It will retrieve the relation types 
+        definitions. It will be mandatory send the parameters
+        defined in the service and the service will response with the output
+        object defined.
+      operationId: getRelationTypes
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Relation Types List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OTpdRitS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error' 
+  '/agent/{thpVal}/disableEnable':
+    put:
+      tags:
+        - Agent
+      summary: Disable or enable agent by production code
+      description: >-
+        Disable or enable agent by production code. It will enable or disable the
+        agent sent as parameter. It will be mandatory send the parameters
+        defined in the service and the service will response with the output
+        object defined.
+      operationId: putDisableEnableAgent
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpVal
+          in: path
+          description: Production code
+          required: true
+          type: string
+        - name: dsbRow
+          in: query
+          description: Disable row
+          required: true
+          type: string
+        - name: vldDat
+          in: query
+          description: Valid Date
+          type: integer
+          required: true
+          format: int64
+      responses:
+        '201':
+          description: Operation succesfully done!
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /paymentcollectionmethod:
+    delete:
+      tags:
+        - Payment Collection Method
+      summary: delete insured party payment collection method information
+      description: >-
+        delete insured party payment collection method information. It will
+        delete the information about the insured party payment collection
+        method. It will be mandatory send the parameters defined in the service
+        and the service will response with the output object defined.
+      operationId: deleteInsuredpartyPaymentcollectionmethod
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: thpAcvVal
+          in: query
+          description: Activity Value
+          type: integer
+          required: true
+        - name: thpDcmTypVal
+          in: query
+          description: Third Person Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Third Person Document
+          required: true
+          type: string
+        - name: sqnAcoCrdVal
+          in: query
+          description: Sequence Account Card
+          type: integer
+          required: true
+      responses:
+        '200':
+          description: "Operation succesfully done"
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+    post:
+      tags:
+        - Payment Collection Method
+      summary: add third party payment collection method information
+      description: >-
+        add third party payment collection method information. It will
+        add the information about the third party payment collection
+        method. It will be mandatory send the parameters defined in the service
+        and the service will response with the output object defined.
+      operationId: postThirdPartyPaymentcollectionmethod
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: thpAcvVal
+          in: query
+          description: Activity Value
+          type: integer
+          required: true
+        - name: thpDcmTypVal
+          in: query
+          description: Third Person Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Third Person Document
+          required: true
+          type: string
+        - name: oThpPcmS
+          in: body
+          description: Input data to add payment collection method
+          required: true
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OThpPcmS'
+      responses:
+        '201':
+          description: "Operation succesfully done!"
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /agentTypes:
+    get:
+      tags:
+        - Common
+      summary: Query Agent types
+      description: >-
+        Query agent types. It will return the types of agents. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getAgentTypes
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Agent Type List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OTpdAgtS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  '/genericThirdParty':
+    get:
+      tags:
+        - Generic Third Party
+      summary: Query Generic Third Party List
+      description: >-
+        Query generic Third Party. It will return the information of generic Thrid Parties.
+        It will be mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getGenericThirdPartyList
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpAcvVal
+          in: query
+          description: Activity Value
+          type: array
+          items:
+            type: integer
+          required: true
+        - name: thpDcmTypVal
+          in: query
+          description: Third Person Document type
+          required: false
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Third Person Document
+          required: false
+          type: string
+        - name: thpGrgVal
+          in: query
+          description: Third Party Grouping Value
+          required: false
+          type: array
+          items:
+            type: string
+        - name: bnfCssVal
+          in: query
+          description: Beneficiary Class Value
+          required: false
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: Generic Third Party List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpGtpS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /agentType/{agnTypVal}:
+    get:
+      tags:
+        - Common
+      summary: Query Agent type
+      description: >-
+        Query agent type. It will return the type of agent. It will be
+        mandatory send the parameters defined in the service and the service
+        will response with the output object defined.
+      operationId: getAgentType
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: agnTypVal
+          in: path
+          description: Agent Type Value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Agent Type 
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OTpdAgtS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /customerSegmentationType/{csgTypVal}:
+    get:
+      tags:
+        - Customer Segmentation Type
+      summary: Query Customer segmentation Type
+      description: >-
+        Query Customer Segmentation Type. It will return the Customer  Segmentation Type. It will be mandatory
+        send the parameters defined in the service and the service will response
+        with the output object defined.
+      operationId: getCustomerSegmentationType
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: csgTypVal
+          in: path
+          description: Customer Segmentation
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Custormer Segmentation Type
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OTpdCsgS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /customerSegmentationTypes:
+    get:
+      tags:
+        - Customer Segmentation Types
+      summary: Query Customer segmentation Types
+      description: >-
+        Query Customer Segmentation Types. It will return the Customer  Segmentation Types. It will be mandatory
+        send the parameters defined in the service and the service will response
+        with the output object defined.
+      operationId: getCustomerSegmentationTypes
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Custormer Segmentation Type List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OTpdCsgS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /thirdParty/paymentCollectionMethod:
+    get:
+      tags:
+        - Payment Collection Method
+      summary: Query Payment Collection Method
+      description: >-
+        Query Payment Collection Method. It will return the information about
+        the Payment Collection Method. It will be mandatory send the parameters
+        defined in the service and the service will response with the output
+        object defined.
+      operationId: getThirdPartyPaymentCollectionMethod
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpDcmTypVal
+          in: query
+          description: Third Person Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Third Person Document
+          required: true
+          type: string
+        - name: thpAcvVal
+          in: query
+          description: Third Person Activity
+          required: true
+          type: string
+        - name: sqnAcoCrdVal
+          in: query
+          description: Sequence Account Card
+          type: integer
+        - name: vldDat
+          in: query
+          description: Valid Date
+          type: integer
+          format: int64
+        - name: mlcVal
+          in: query
+          description: Multi account
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Payment collection method information 
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OThpPcmS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /agentsByThirdLevel:
+    get:
+      tags:
+        - Agent Third Level
+      summary: Query agents by third level
+      description: >-
+        Query agents by third level. It will retrieve the agents filtering
+        by commercial structure. It will be mandatory send the parameters
+        defined  in the service and the service will response with the output
+        object defined.
+      operationId: getAgentsByThirdLevel
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thrLvlVal
+          in: query
+          description: Third Level 
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Agent List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpAgnS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /notification/queryThirPartyDocuments:
+    get:
+      tags:
+        - Third Party Notification
+      summary: Query third party documents by operation Id
+      description: >-
+         Query third party by operation Id. It will be mandatory 
+         send the parameters defined in the service and the service
+         will response with the output object defined.
+      operationId: getThirdPartyDocumentsByOprId
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: oprIdnVal
+          in: query
+          description: operation id
+          required: true
+          type: string
+        - name: vldDat
+          description: valid date
+          required: false
+          type: integer
+          format: int64
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Third party Notifications List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OTrnNtfS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /contact/1.0/querybyply:
+    post:
+      tags:
+        - Contact
+      summary: Query Contact by Policy v1
+      description: >-
+        Query Contact by policy v1. It will return the information about the
+        contact of a third party of a policy. The output of the service is according the
+        new Third Party model of TRON. It will be mandatory send the
+        parameters defined in the service  and the service will response with
+        the output object defined.
+      operationId: getContactByplyV1
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpDcmTypVal
+          in: query
+          description: Third Person Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Third Person Document
+          required: true
+          type: string
+        - name: inSearchContactByPolicy
+          in: body
+          description: Input data to search a contact by policy details
+          required: true
+          schema:
+            $ref: '#/definitions/InSearchContactByPly'
+      responses:
+        '200':
+          description: Contact list
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpCntP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /insuredparty/1.0/paymentcollectionmethod:
+    get:
+      tags:
+        - Payment Collection Method
+      summary: Query Payment Collection Method v1
+      description: >-
+        Query Payment Collection Method. It will return the information about
+        the Payment Collection Method. The output of the service is according the
+        new Third Party model of TRON. It will be mandatory send the parameters
+        defined in the service and the service will response with the output
+        object defined.
+      operationId: getInsuredpartyPaymentCollectionMethodv1
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpDcmTypVal
+          in: query
+          description: Third Person Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Third Person Document
+          required: true
+          type: string
+        - name: thpAcvVal
+          in: query
+          description: Third Person Activity
+          required: true
+          type: string
+        - name: thpVal
+          in: query
+          description: Third Person Value
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Payment collection method information list
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpPcmP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /insuredparty/contact/1.0/query:
+    get:
+      tags:
+        - Contact
+      summary: Query Contact v1
+      description: >-
+        Query Contact v1. It will return the information about the contact of an
+        insured. The output of the service is according the
+        new Third Party model of TRON. It will be mandatory send the parameters defined in the service
+        and the service will response with the output object defined.
+      operationId: getInsuredpartyContactV1
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpDcmTypVal
+          in: query
+          description: Third Person Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Third Person Document
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Contact list
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpCntP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /contact/2.0/queryByDocument:
+    get:
+      tags:
+        - Contact
+      summary: Query Contact by document v2
+      description: >-
+        Query Contact by document. The output of the service is according the
+        new Third Party model of TRON. It will be mandatory send the parameters
+        defined  in the service and the service will response with the output
+        object defined.
+      operationId: getContactByDocumentv2
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpDcmTypVal
+          in: query
+          description: Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Document
+          required: true
+          type: string
+        - name: thpAcvVal
+          in: query
+          description: Activity Value
+          type: integer
+          required: true
+        - name: thpVal
+          in: query
+          description: Third Person Value
+          type: integer
+      responses:
+        '200':
+          description: Contact List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpCntP'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /address/queryByDocumentv2:
+    get:
+      tags:
+        - Address
+      summary: Query Address by document v2
+      description: >-
+        Query Address by document. The output of the service is according the
+        new Third Party model of TRON. It will be mandatory send the parameters
+        defined  in the service and the service will response with the output
+        object defined.
+      operationId: getAddressByDocumentv2
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: User code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpAcvVal
+          in: query
+          description: Activity Value
+          type: integer
+          required: true
+        - name: thpDcmTypVal
+          in: query
+          description: Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Document
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Address List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpAdrS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /paymentcollectionmethod/querybyplyV1:
+    post:
+      tags:
+        - Payment Collection Method
+      summary: Query Payment Collection Method by Policy v1
+      description: >-
+        Query Payment Collection Method by policy v1. It will return the
+        information about the contact of a third party of a policy. The output of the service is according the
+        new Third Party model of TRON. It will be
+        mandatory send the parameters defined in the service  and the service
+        will response with the output object defined.
+      operationId: getPaymentcollectionmethodByplyV1
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+          format: int32
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpDcmTypVal
+          in: header
+          description: Third Person Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: header
+          description: Third Person Document
+          required: true
+          type: string
+        - name: inSearchPaymentCollectionMethodByPolicy
+          in: body
+          description: Input data to search a Payment Collection Method by policy details
+          required: true
+          schema:
+            $ref: '#/definitions/InSearchByPolicy'
+      responses:
+        '200':
+          description: Payment Collection Method
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpPcmP'
+        '201':
+          description: Created
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /agent/2.0/{agnVal}/contact:
+    get:
+      tags:
+        - Contact
+      summary: Query contact from agent v2
+      description: >-
+        Query contact from agent v2. The output of the service is according the
+        new Third Party model of TRON. It will retrieve the contact information 
+        about an agent. It will be mandatory send the parameters
+        defined  in the service and the service will response with the output
+        object defined.
+      operationId: getContactFromAgentv2
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: agnVal
+          in: path
+          description: Agent Value
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Agent Third Level List
+          schema:
+            type: array
+            items:
+              $ref: 'API_OBJECTS.yaml#/definitions/OThpCntS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /insuredpartyV1:
+    get:
+      tags:
+        - Insured Party
+      summary: Query Insured Party v1
+      description: >-
+        Query Insured Party. The output of the service is according the
+        new Third Party model of TRON. It will return the information about the insured
+        party. It will be mandatory send the parameters defined in the service
+        and the service will response with the output object defined.
+      operationId: getInsuredpartyv1
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: header
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: header
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: ThpDcmTypVal
+          in: query
+          description: Third Person Document type
+          required: true
+          type: string
+        - name: ThpDcmVal
+          in: query
+          description: Third Person Document
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Insured Party information
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OThpIpcPC'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+  /thirdParty/1.0/paymentCollectionMethod:
+    get:
+      tags:
+        - Payment Collection Method
+      summary: Query Payment Collection Method v1
+      description: >-
+        Query Payment Collection Method. It will return the information about
+        the Payment Collection Method. The output of the service is according the
+        new Third Party model of TRON. It will be mandatory send the parameters
+        defined in the service and the service will response with the output
+        object defined.
+      operationId: getThirdPartyPaymentCollectionMethodV1
+      produces:
+        - application/json
+      parameters:
+        - name: cmpVal
+          in: query
+          description: Company code
+          required: true
+          type: integer
+        - name: usrVal
+          in: query
+          description: User code
+          required: true
+          type: string
+        - name: lngVal
+          in: header
+          description: Language code
+          required: true
+          type: string
+        - name: thpDcmTypVal
+          in: query
+          description: Third Person Document type
+          required: true
+          type: string
+        - name: thpDcmVal
+          in: query
+          description: Third Person Document
+          required: true
+          type: string
+        - name: thpAcvVal
+          in: query
+          description: Third Person Activity
+          required: true
+          type: string
+        - name: sqnAcoCrdVal
+          in: query
+          description: Sequence Account Card
+          type: integer
+        - name: vldDat
+          in: query
+          description: Valid Date
+          type: integer
+          format: int64
+        - name: mlcVal
+          in: query
+          description: Multi account
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Payment collection method information 
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/OThpPcmS'
+        '400':
+          description: Bad request
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '404':
+          description: Not found
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+        '500':
+          description: Internal error
+          schema:
+            $ref: 'API_OBJECTS.yaml#/definitions/Error'
+definitions:      
+  InUpdatePersonInfo:
+    description: Update person information input
+    required:
+      - thpDcmTypVal
+      - thpDcmVal
+      - acnTypVal
+      - oThpPrsS
+    properties:
+      thpDcmTypVal:
+        type: string
+        description: Third Person Document type
+        example: DNI
+      thpDcmVal:
+        type: string
+        description: Third Person Document
+        example: '12345678'
+      acnTypVal:
+        type: string
+        description: Action
+        example: 1
+      oThpPrsS:
+        $ref: 'API_OBJECTS.yaml#/definitions/OThpPrsS'
+      thpAcvVal:
+        type: integer
+        description: Third Partie Activity Value
+        example: 1
+      phyPrs:
+        type: string
+        description: Physical or legal mark
+        example: S
+      lobVal:
+        type: integer
+        description: Line of Business
+        example: 300
+      bnfTypVal:
+        type: string
+        description: Beneficiary Type
+        example: '3'
+      thpRqrFrsSrn:
+        type: string
+        description: Mandatory first name
+        example: 'N'
+      thpRqrScnSrn:
+        type: string
+        description: Mandatory second name
+        example: 'N'
+  InUpdateActivityInfo:
+    description: Update Activity information input
+    required:
+      - thpDcmTypVal
+      - thpDcmVal
+      - acnTypVal
+      - oThpAcvS
+    properties:
+      thpDcmTypVal:
+        type: string
+        description: Third Person Document type
+        example: DNI
+      thpDcmVal:
+        type: string
+        description: Third Person Document
+        example: '12345678'
+      acnTypVal:
+        type: string
+        description: Action
+        example: 1
+      oThpAcvS:
+        $ref: 'API_OBJECTS.yaml#/definitions/OThpAcvS'
+  InUpdateAddressInfo:
+    description: Update address information input
+    required:
+      - thpDcmTypVal
+      - thpDcmVal
+      - acnTypVal
+      - oThpAdrS
+    properties:
+      thpDcmTypVal:
+        type: string
+        description: Third Person Document type
+        example: DNI
+      thpDcmVal:
+        type: string
+        description: Third Person Document
+        example: '12345678'
+      acnTypVal:
+        type: string
+        description: Action
+        example: 1
+      oThpAdrS:
+        $ref: 'API_OBJECTS.yaml#/definitions/OThpAdrS'
+      thpAcvVal:
+        type: integer
+        description: Third Partie Activity Value
+        example: 1
+      lobVal:
+        type: integer
+        description: Line of Business
+        example: 300
+      bnfTypVal:
+        type: string
+        description: Beneficiary Type
+        example: '3'
+      phyPrs:
+        type: string
+        description: Physical or legal mark
+        example: S
+  InUpdateContactInfo:
+    description: Update contact information input
+    required:
+      - thpDcmTypVal
+      - thpDcmVal
+      - acnTypVal
+      - oThpCntS
+    properties:
+      thpDcmTypVal:
+        type: string
+        description: Third Person Document type
+        example: DNI
+      thpDcmVal:
+        type: string
+        description: Third Person Document
+        example: '12345678'
+      acnTypVal:
+        type: string
+        description: Action
+        example: 1
+      oThpCntS:
+        $ref: 'API_OBJECTS.yaml#/definitions/OThpCntS'
+      thpAcvVal:
+        type: integer
+        description: Third Partie Activity Value
+        example: 1
+      lobVal:
+        type: integer
+        description: Line of Business
+        example: 300
+      bnfTypVal:
+        type: string
+        description: Beneficiary Type
+        example: '3'
+      phyPrs:
+        type: string
+        description: Physical or legal mark
+        example: S
+  InUpdatePaymentCollectionMethodInfo:
+    description: Update payment collection method information input
+    required:
+      - thpDcmTypVal
+      - thpDcmVal
+      - acnTypVal
+      - oThpPcmS
+    properties:
+      thpDcmTypVal:
+        type: string
+        description: Third Person Document type
+        example: DNI
+      thpDcmVal:
+        type: string
+        description: Third Person Document
+        example: '12345678'
+      acnTypVal:
+        type: string
+        description: Action
+        example: 1
+      oThpPcmS:
+        $ref: 'API_OBJECTS.yaml#/definitions/OThpPcmS'
+      crrAcoFrmTypVal:
+        type: string
+        description: Account Format Type Value
+        example: 3
+      mlcVal:
+        type: string
+        description: Multi account
+        example: S
+      mlrVal:
+        type: string
+        description: Multi card
+        example: S
+      thpAcvVal:
+        type: integer
+        description: Third Partie Activity Value
+        example: 1
+      lobVal:
+        type: integer
+        description: Line of Business
+        example: 300
+      bnfTypVal:
+        type: string
+        description: Beneficiary Type
+        example: '3'
+      phyPrs:
+        type: string
+        description: Physical or legal mark
+        example: S
+  InUpdateLicenseInfo:
+    description: Update license information input
+    required:
+      - thpDcmTypVal
+      - thpDcmVal
+      - acnTypVal
+      - oThpLcnS
+    properties:
+      thpDcmTypVal:
+        type: string
+        description: Third Person Document type
+        example: DNI
+      thpDcmVal:
+        type: string
+        description: Third Person Document
+        example: '12345678'
+      acnTypVal:
+        type: string
+        description: Action
+        example: 1
+      oThpLcnS:
+        $ref: 'API_OBJECTS.yaml#/definitions/OThpLcnS'
+      thpAcvVal:
+        type: integer
+        description: Third Partie Activity Value
+        example: 1
+      lobVal:
+        type: integer
+        description: Line of Business
+        example: 300
+      bnfTypVal:
+        type: string
+        description: Beneficiary Type
+        example: '3'
+      phyPrs:
+        type: string
+        description: Physical or legal mark
+        example: S
+      cnyVal:
+        type: string
+        description: Country
+        example: 2
+  InUpdateInsuredPartyInfo:
+    description: Update insured party information input
+    required:
+      - thpDcmTypVal
+      - thpDcmVal
+      - acnTypVal
+      - oThpInyS
+    properties:
+      thpDcmTypVal:
+        type: string
+        description: Third Person Document type
+        example: DNI
+      thpDcmVal:
+        type: string
+        description: Third Person Document
+        example: '12345678'
+      acnTypVal:
+        type: string
+        description: Action
+        example: 1
+      oThpInyS:
+        $ref: 'API_OBJECTS.yaml#/definitions/OThpInyS'
+      bnaVal:
+        type: string
+        description: Bank Account Value
+        example: '35454654654654654'
+      lobVal:
+        type: integer
+        description: Line of Business
+        example: 300
+      bnfTypVal:
+        type: string
+        description: Beneficiary Type
+        example: '3'
+      phyPrs:
+        type: string
+        description: Physical or legal mark
+        example: S
+  InSearchCriteria:
+    description: Parameters to search an activity
+    properties:
+      thpDcmTypVal:
+        description: Document type
+        type: string
+        example: DNI
+      thpDcmVal:
+        description: Document
+        type: string
+        example: 2323
+      thpVal:
+        description: Third Person Value
+        type: string
+        example: 6575
+      thpNam:
+        description: Name
+        type: string
+        example: Peter
+      thpScnNam:
+        description: Second Name
+        type: string
+        example: Michael
+      thpFrsSrn:
+        description: First Surname
+        type: string
+        example: Klein
+      thpScnSrn:
+        description: Second Surname
+        type: string
+        example: Adams
+  InSearchByPolicy:
+    type: object
+    description: Parameters to search by policy details
+    properties:
+      plyVal:
+        type: string
+        description: Policy value
+        example: 3021610110185
+      enrSqn:
+        type: integer
+        description: Endorsement Sequence
+        example: 1
+      rskVal:
+        type: integer
+        description: Risk value
+        example: 1
+  InUpdateInsuredpartyPreviusReal:
+    description: Insured party previus real input
+    properties:
+      oThpAcvS:
+        $ref: 'API_OBJECTS.yaml#/definitions/OThpAcvS'
+      oThpPrsS:
+        $ref: 'API_OBJECTS.yaml#/definitions/OThpPrsS'
+      ThpAdrPT:
+        type: array
+        description: Address List
+        items:
+          $ref: 'API_OBJECTS.yaml#/definitions/OThpAdrS'
+      ThpCntPT:
+        type: array
+        description: Contact List
+        items:
+          $ref: 'API_OBJECTS.yaml#/definitions/OThpCntS'
+      ThpPcmPT:
+        type: array
+        description: Payment Collection Method List
+        items:
+          $ref: 'API_OBJECTS.yaml#/definitions/OThpPcmS'
+      ThpLcnPT:
+        type: array
+        description: Licenses List
+        items:
+          $ref: 'API_OBJECTS.yaml#/definitions/OThpLcnS'
+      oThpInyS:
+        $ref: 'API_OBJECTS.yaml#/definitions/OThpInyS'
+  InSearchContactByPly:
+    type: object
+    description: Parameters to search a contact by policy details
+    properties:
+      plyVal:
+        type: string
+        description: Policy value
+        example: 3021610110185
+      enrSqn:
+        type: integer
+        description: Endorsement Sequence
+        example: 1
+      rskVal:
+        type: integer
+        description: Risk value
+        example: 1
