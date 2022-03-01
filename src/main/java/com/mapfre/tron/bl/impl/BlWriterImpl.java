@@ -74,6 +74,48 @@ public class BlWriterImpl implements IBlWriter {
                         initTagSection(myData, printWriter);
                     }
 
+                    // processing protocol, path and summary
+                    switch (myData.getProtocol().toUpperCase()) {
+                    case "PUT":
+                        printWriter.println("\t\t\t\t\t\t\t\t\t\t<div class=\"opblock opblock-put\">");
+                        printWriter.println("\t\t\t\t\t\t\t\t\t\t\t<div class=\"opblock-summary opblock-summary-put\">");
+                        printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"opblock-summary-method\">PUT</span>");
+                        break;
+                        
+                    case "POST":
+                        printWriter.println("\t\t\t\t\t\t\t\t\t\t<div class=\"opblock opblock-post\">");
+                        printWriter.println("\t\t\t\t\t\t\t\t\t\t\t<div class=\"opblock-summary opblock-summary-post\">");
+                        printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"opblock-summary-method\">POST</span>");
+                        break;
+
+                    case "DELETE":
+                        printWriter.println("\t\t\t\t\t\t\t\t\t\t<div class=\"opblock opblock-delete\">");
+                        printWriter.println("\t\t\t\t\t\t\t\t\t\t\t<div class=\"opblock-summary opblock-summary-delete\">");
+                        printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"opblock-summary-method\">DELETE</span>");
+                        break;
+
+                    case "GET":
+                        printWriter.println("\t\t\t\t\t\t\t\t\t\t<div class=\"opblock opblock-get\">");
+                        printWriter.println("\t\t\t\t\t\t\t\t\t\t\t<div class=\"opblock-summary opblock-summary-get\">");
+                        printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"opblock-summary-method\">GET</span>");
+                        break;
+
+                    default:
+                        break;
+                    }
+
+                    printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t<span class=\"opblock-summary-path\">");
+                    printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t\t<span>");
+                    printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\t" + myData.getBasePath().concat(myData.getPath()));
+                    printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t\t</span>");
+                    printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t</span>");
+                    printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"opblock-summary-description\">");
+                    printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t\t" + myData.getSummary());
+                    printWriter.println("\t\t\t\t\t\t\t\t\t\t\t\t</div>");
+
+                    printWriter.println("\t\t\t\t\t\t\t\t\t\t\t</div>");
+                    printWriter.println("\t\t\t\t\t\t\t\t\t\t</div>");
+
                     if (k == data.size() -1) {
                         // endTag
                         endTagSection(printWriter);

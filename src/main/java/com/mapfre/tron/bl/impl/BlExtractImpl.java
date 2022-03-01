@@ -85,10 +85,13 @@ public class BlExtractImpl implements IBlExtract {
                     cmp = o1.getBasePath().toLowerCase().compareToIgnoreCase(o2.getBasePath().toLowerCase());
                 }
                 if (cmp == 0) {
-                    cmp = o1.getProtocol().toLowerCase().compareToIgnoreCase(o2.getProtocol().toLowerCase());
+                    cmp = o1.getPath().toLowerCase().compareToIgnoreCase(o2.getPath().toLowerCase());
                 }
                 if (cmp == 0) {
                     cmp = o1.getSummary().toLowerCase().compareTo(o2.getSummary().toLowerCase());
+                }
+                if (cmp == 0) {
+                    cmp = o1.getProtocol().toLowerCase().compareToIgnoreCase(o2.getProtocol().toLowerCase());
                 }
 
                 return cmp;
